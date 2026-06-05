@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>CifraVibe Pro - Sistema de Cifras</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CifraVibe Pro">
+    <meta name="theme-color" content="#0a0a0f">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -139,6 +151,7 @@
             transition: all 0.2s;
         }
         button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
         .btn-outline:hover { background: var(--bg-card-hover); border-color: var(--accent); }
         .btn-danger { background: rgba(255,74,90,0.15); color: var(--danger); border: 1px solid rgba(255,74,90,0.3); }
@@ -409,7 +422,7 @@
 
 <script>
     const SENHA_ADMIN = "ADMINPRO2026";
-    const CATALOGO_URL = "catalogo.json"; // URL do catálogo público
+    const CATALOGO_URL = "catalogo.json";
 
     const CATALOGO_PADRAO = [
         { titulo: "🎵 Exemplo - Música 1", cifra: "C                G\nEsta é uma música de exemplo.\nAm               F\nPersonalize com suas próprias cifras!\n\nC                G\nUse o painel admin para adicionar mais músicas.", pastas: ["Pop/Rock nacional"], totalAcordes: 4, noRepertorio: false, ritmoPadrao: "Rock_1", compassoPadrao: "4/4", subdivisaoPadrao: "1", velocidadePadrao: 1.0, bpmPadrao: 100 },
@@ -725,6 +738,15 @@
     window.proximaMusica=proximaMusica; window.alternarRepertorio=alternarRepertorio;
     window.ajustarTamanhoFonte=ajustarTamanhoFonte; window.abrirJanelaAcorde=abrirJanelaAcorde;
     window.fecharModal=fecharModal;
+</script>
+
+<!-- Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('✅ Service Worker registrado!'))
+        .catch(err => console.log('Erro no SW:', err));
+}
 </script>
 </body>
 </html>

@@ -170,6 +170,7 @@
         .tag-repertorio { background: var(--warning); color: #000; }
         
         #cifra-view { background: var(--bg-card); padding: 32px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; white-space: pre-wrap; border-radius: 28px; border: 1px solid var(--border); max-height: 50vh; overflow-y: auto; }
+        #cifra-view.fullscreen { position: fixed; inset: 0; z-index: 1000; max-height: 100vh; border-radius: 0; background: var(--bg-dark); padding: 40px; font-size: 22px; }
         .nota-clicavel { color: var(--accent); font-weight: 700; cursor: pointer; border-bottom: 2px dashed var(--accent); display: inline-block; }
         .row-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
         .control-group { flex: 1; min-width: 120px; }
@@ -204,6 +205,18 @@
         .modal-moderno { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); justify-content: center; align-items: center; z-index: 1000; }
         .modal-conteudo { background: var(--bg-card); border-radius: 32px; padding: 28px; width: 90%; max-width: 340px; text-align: center; }
         .info-box { background: rgba(255,183,3,0.1); border: 1px solid var(--warning); border-radius: 16px; padding: 12px; margin: 12px 0; font-size: 13px; }
+        .btn-fullscreen { 
+            background: transparent; 
+            border: 1px solid var(--border); 
+            color: var(--text-secondary); 
+            padding: 8px 12px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        .btn-fullscreen:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+        .btn-fullscreen.active { background: var(--accent); color: #000; border-color: var(--accent); }
     </style>
 </head>
 <body>
@@ -351,48 +364,45 @@
         </div>
 
         <div class="main-content" id="mainContent">
-            <div class="card cliente-area" id="clienteArea">
-                <div class="card-header"><h3>🔑 Ativar Meu Repertório</h3></div>
-                <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                    Digite a senha que você recebeu para baixar todas as músicas.<br>
-                    <strong style="color: var(--danger);">⚠️ Cada senha funciona apenas 1 vez a cada 90 dias!</strong>
-                </p>
-                <div class="form-row">
-                    <input type="text" id="senha-cliente" placeholder="Digite sua senha aqui" style="flex:2; text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 4px;">
-                    <button onclick="usarSenhaUnica()" style="flex:1; background: var(--accent);">📥 Baixar Músicas</button>
-                </div>
-                <div id="msg-cliente" style="margin-top: 16px; font-size: 14px; text-align: center; display: none;"></div>
-            </div>
-
+            <!-- 1º MÚSICAS -->
             <div class="card">
                 <div class="card-header">
-                    <h3>📚 Minhas Músicas</h3>
-                    <select id="filtro-estilo" style="width: auto; padding: 8px 16px;">
-                        <option value="Todos">Todas</option>
+                    <h3>📚 Minhas Músicas <span id="contador-musicas" style="font-size:14px;color:var(--text-secondary)"></span></h3>
+                    <select id="filtro-estilo" style="width: auto; padding: 8px 16px;" onchange="atualizarListaMusicas()">
+                        <option value="Todos">Todas as Músicas</option>
                         <option value="Repertorio">⭐ Meu Repertório</option>
-                        <option value="Pop/Rock nacional">🎸 Pop/Rock</option>
-                        <option value="Sertanejo">🤠 Sertanejo</option>
-                        <option value="Reggae">🍁 Reggae</option>
-                        <option value="Gospel">⛪ Gospel</option>
-                        <option value="Internacional">🌎 Internacional</option>
-                        <option value="Outros">✨ Outros</option>
-                        <option value="3 acordes">🎼 3 acordes</option>
-                        <option value="4 acordes">🎵 4 acordes</option>
+                        <optgroup label="🎸 ESTILOS">
+                            <option value="Pop/Rock nacional">🎸 Pop/Rock Nacional</option>
+                            <option value="Sertanejo">🤠 Sertanejo</option>
+                            <option value="Reggae">🍁 Reggae</option>
+                            <option value="Gospel">⛪ Gospel</option>
+                            <option value="Internacional">🌎 Internacional</option>
+                            <option value="Outros">✨ Outros</option>
+                        </optgroup>
+                        <optgroup label="🎼 ACORDES">
+                            <option value="3 acordes">🎼 3 Acordes</option>
+                            <option value="4 acordes">🎵 4 Acordes</option>
+                            <option value="5 acordes">🎶 5 Acordes</option>
+                        </optgroup>
                     </select>
                 </div>
                 <div id="lista-musicas" class="musica-grid"></div>
                 <div id="semMusicasMsg" style="text-align: center; color: var(--text-muted); padding: 40px; display: none;">
-                    🎵 Nenhuma música baixada ainda.<br>Digite sua senha acima para começar!
+                    🎵 Nenhuma música baixada ainda.<br>Use a seção "Ativar Repertório" abaixo com sua senha!
                 </div>
             </div>
 
-            <div class="card">
+            <!-- 2º PLAYER -->
+            <div class="card" id="player-card">
                 <div class="card-header">
                     <h3>🎤 Player</h3>
-                    <div class="row-botoes" style="margin:0; gap:8px;">
-                        <button id="btn-scroll" onclick="alternarRolagem()" style="padding: 8px 16px;">▶️ Play</button>
-                        <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️ Próxima</button>
-                        <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px;">☆ Favoritar</button>
+                    <div style="display:flex;gap:8px;align-items:center">
+                        <div class="row-botoes" style="margin:0; gap:8px;">
+                            <button id="btn-scroll" onclick="alternarRolagem()" style="padding: 8px 16px;">▶️ Play</button>
+                            <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️ Próxima</button>
+                            <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px;">☆ Favoritar</button>
+                        </div>
+                        <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Tela Cheia" id="btn-fullscreen">⛶</button>
                     </div>
                 </div>
                 <div id="cifra-view">Selecione uma música para ver a cifra</div>
@@ -408,6 +418,20 @@
                     <div class="control-group"><label>Volume</label><input type="range" id="volume-bateria" min="0" max="1" step="0.1" value="0.5"></div>
                 </div>
                 <label style="display: flex; align-items: center; gap: 12px; margin-top: 16px;"><input type="checkbox" id="chk-esconder-acordes"> 🎤 Modo Letra Pura</label>
+            </div>
+
+            <!-- 3º ATIVAR REPERTÓRIO (ÚLTIMO) -->
+            <div class="card cliente-area" id="clienteArea">
+                <div class="card-header"><h3>🔑 Ativar Meu Repertório</h3></div>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                    Digite a senha que você recebeu para baixar todas as músicas.<br>
+                    <strong style="color: var(--danger);">⚠️ Cada senha funciona apenas 1 vez a cada 90 dias!</strong>
+                </p>
+                <div class="form-row">
+                    <input type="text" id="senha-cliente" placeholder="Digite sua senha aqui" style="flex:2; text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 4px;">
+                    <button onclick="usarSenhaUnica()" style="flex:1; background: var(--accent);">📥 Baixar Músicas</button>
+                </div>
+                <div id="msg-cliente" style="margin-top: 16px; font-size: 14px; text-align: center; display: none;"></div>
             </div>
         </div>
     </div>
@@ -483,7 +507,6 @@
         "Eletronica": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] }
     };
 
-    // Senhas pré-definidas que funcionam em qualquer dispositivo
     const SENHAS_PREDEFINIDAS = [
         "MUSICA2026", "CIFRAVIPE", "REPERTORIO", "BAIXAR123", "ACESSO789",
         "CLIENTE01", "CLIENTE02", "CLIENTE03", "CLIENTE04", "CLIENTE05",
@@ -497,8 +520,8 @@
     let indiceAtual = 0, intervaloRolagem = null, rodando = false;
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
     let tamanhoFonteAtual = 18;
+    let isFullscreen = false;
 
-    // Inicializa senhas predefinidas
     SENHAS_PREDEFINIDAS.forEach(senha => {
         if (!senhasUnicas[senha]) {
             senhasUnicas[senha] = { usada: false, dataCriacao: new Date().toISOString(), dataUso: null, usos: 0 };
@@ -519,7 +542,6 @@
     };
     const regexNotas = /\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g;
 
-    // Funções de senha com expiração
     function senhaExpirada(senha) {
         if (!senhasUnicas[senha] || !senhasUnicas[senha].usada || !senhasUnicas[senha].dataUso) return false;
         const dataUso = new Date(senhasUnicas[senha].dataUso);
@@ -541,6 +563,26 @@
     }
 
     verificarExpiracaoSenhas();
+
+    function toggleFullscreen() {
+        const cifraView = document.getElementById('cifra-view');
+        const btn = document.getElementById('btn-fullscreen');
+        const playerCard = document.getElementById('player-card');
+        
+        isFullscreen = !isFullscreen;
+        
+        if (isFullscreen) {
+            cifraView.classList.add('fullscreen');
+            btn.classList.add('active');
+            btn.innerHTML = '⛶';
+            document.body.style.overflow = 'hidden';
+        } else {
+            cifraView.classList.remove('fullscreen');
+            btn.classList.remove('active');
+            btn.innerHTML = '⛶';
+            document.body.style.overflow = '';
+        }
+    }
 
     function mostrarTelaLogin(){ document.getElementById('tela-login').style.display = 'flex'; }
     function fecharTelaLogin(){ document.getElementById('tela-login').style.display = 'none'; document.getElementById('erro-senha').style.display = 'none'; document.getElementById('campo-senha').value = ''; }
@@ -666,7 +708,7 @@
         if(!t||!c){ alert('Preencha título e cifra!'); return; }
         let pastas=[]; document.querySelectorAll('input[name="pasta-opcao"]:checked').forEach(cb=>pastas.push(cb.value));
         let qtd=parseInt(document.getElementById('musica-qtd-acordes').value)||0;
-        if(qtd===3) pastas.push('3 acordes'); else if(qtd===4) pastas.push('4 acordes');
+        if(qtd===3) pastas.push('3 acordes'); else if(qtd===4) pastas.push('4 acordes'); else if(qtd===5) pastas.push('5 acordes');
         musicasPadrao.push({
             titulo:t, cifra:c, pastas, totalAcordes:qtd, noRepertorio:false,
             ritmoPadrao:document.getElementById('musica-ritmo-padrao').value,
@@ -685,17 +727,35 @@
     function atualizarListaMusicas(){
         let lista=document.getElementById('lista-musicas'), filtro=document.getElementById('filtro-estilo').value, sem=document.getElementById('semMusicasMsg');
         lista.innerHTML='';
-        if(!musicasCliente.length){ sem.style.display='block'; return; }
+        if(!musicasCliente.length){ sem.style.display='block'; document.getElementById('contador-musicas').innerText=''; return; }
         sem.style.display='none';
+        
+        let filtradas = 0;
         musicasCliente.forEach((m,idx)=>{
-            if(filtro!=='Todos'&&filtro!=='Repertorio'&&(!m.pastas||!m.pastas.includes(filtro))) return;
-            if(filtro==='Repertorio'&&!m.noRepertorio) return;
+            // Filtro por estilo
+            if(filtro!=='Todos' && filtro!=='Repertorio' && !['3 acordes','4 acordes','5 acordes'].includes(filtro)){
+                if(!m.pastas || !m.pastas.includes(filtro)) return;
+            }
+            // Filtro por repertório
+            if(filtro==='Repertorio' && !m.noRepertorio) return;
+            // Filtro por número de acordes
+            if(['3 acordes','4 acordes','5 acordes'].includes(filtro)){
+                if(!m.pastas || !m.pastas.includes(filtro)) return;
+            }
+            
+            filtradas++;
             let tags=''; if(m.noRepertorio) tags+='<span class="tag tag-repertorio">★ Repertório</span>';
-            if(m.pastas) m.pastas.forEach(p=>tags+=`<span class="tag">${p}</span>`);
+            if(m.pastas) m.pastas.forEach(p => {
+                if(!['3 acordes','4 acordes','5 acordes'].includes(p)) {
+                    tags+=`<span class="tag">${p}</span>`;
+                }
+            });
             let div=document.createElement('div'); div.className='musica-item'+(idx===indiceAtual?' active-song':'');
             div.innerHTML=`<div class="musica-titulo">${m.titulo}</div><div class="tags-container">${tags}</div>`;
             div.onclick=()=>carregarMusica(idx); lista.appendChild(div);
         });
+        
+        document.getElementById('contador-musicas').innerText = filtradas > 0 ? `(${filtradas} músicas)` : '';
     }
 
     function alternarRepertorio(){
@@ -729,7 +789,21 @@
         atualizarListaMusicas();
     }
 
-    function proximaMusica(){ if(!musicasCliente.length) return; carregarMusica((indiceAtual+1)%musicasCliente.length); }
+    function proximaMusica(){ 
+        if(!musicasCliente.length) return;
+        let filtro = document.getElementById('filtro-estilo').value;
+        let ativas = [];
+        musicasCliente.forEach((m, i) => {
+            if(filtro === 'Todos') ativas.push(i);
+            else if(filtro === 'Repertorio' && m.noRepertorio) ativas.push(i);
+            else if(['3 acordes','4 acordes','5 acordes'].includes(filtro) && m.pastas && m.pastas.includes(filtro)) ativas.push(i);
+            else if(m.pastas && m.pastas.includes(filtro)) ativas.push(i);
+        });
+        if(ativas.length === 0) return;
+        let pos = ativas.indexOf(indiceAtual);
+        let next = ativas[(pos + 1) % ativas.length];
+        carregarMusica(next);
+    }
 
     function abrirJanelaAcorde(nome){
         if(document.getElementById('chk-esconder-acordes')?.checked) return;
@@ -800,6 +874,13 @@
         if(btn.getAttribute('data-view')==='biblioteca') document.getElementById('mainContent').classList.remove('hide-on-mobile');
     }));
 
+    // Fechar fullscreen com ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isFullscreen) {
+            toggleFullscreen();
+        }
+    });
+
     preencherSeletorRitmos(); atualizarListaMusicas();
     if(musicasCliente.length>0) carregarMusica(0);
 
@@ -813,15 +894,14 @@
     window.copiarSenha=copiarSenha; window.alternarRolagem=alternarRolagem;
     window.proximaMusica=proximaMusica; window.alternarRepertorio=alternarRepertorio;
     window.ajustarTamanhoFonte=ajustarTamanhoFonte; window.abrirJanelaAcorde=abrirJanelaAcorde;
-    window.fecharModal=fecharModal;
+    window.fecharModal=fecharModal; window.toggleFullscreen=toggleFullscreen;
 </script>
 
-<!-- Service Worker -->
 <script>
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('✅ Service Worker registrado!'))
-        .catch(err => console.log('Erro no SW:', err));
+        .then(() => console.log('✅ SW registrado!'))
+        .catch(err => console.log('Erro SW:', err));
 }
 </script>
 </body>

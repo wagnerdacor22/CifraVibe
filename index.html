@@ -672,13 +672,13 @@
 
     verificarExpiracaoSenhas();
 
+    // Função toggleFullscreen CORRIGIDA
     function toggleFullscreen() {
-        isFullscreen = !isFullscreen;
         const overlay = document.getElementById('fullscreen-overlay');
         const btn = document.getElementById('btn-fullscreen');
         
-        if (isFullscreen) {
-            // Copia conteúdo e controles para tela cheia
+        if (!isFullscreen) {
+            // Entrar em tela cheia
             const cifraView = document.getElementById('cifra-view');
             const cifraFs = document.getElementById('cifra-view-fullscreen');
             cifraFs.innerHTML = cifraView.innerHTML;
@@ -693,11 +693,19 @@
             btn.classList.add('active');
             btn.innerHTML = '⛶';
             document.body.style.overflow = 'hidden';
+            isFullscreen = true;
+            
+            // Adiciona entrada no histórico para capturar botão "voltar"
+            history.pushState({ fullscreen: true }, '', '');
         } else {
+            // Sair da tela cheia
             overlay.classList.remove('active');
             btn.classList.remove('active');
             btn.innerHTML = '⛶';
             document.body.style.overflow = '';
+            isFullscreen = false;
+            
+            // Se foi acionado pelo botão voltar, não precisa de history.back extra
         }
     }
 
@@ -714,6 +722,20 @@
             document.getElementById('volume-fs').value = document.getElementById('volume-bateria').value;
         }
     }
+
+    // Escuta o evento popstate (botão voltar do navegador/celular)
+    window.addEventListener('popstate', function(e) {
+        if (isFullscreen) {
+            // Sai da tela cheia sem empurrar novo estado
+            const overlay = document.getElementById('fullscreen-overlay');
+            const btn = document.getElementById('btn-fullscreen');
+            overlay.classList.remove('active');
+            btn.classList.remove('active');
+            btn.innerHTML = '⛶';
+            document.body.style.overflow = '';
+            isFullscreen = false;
+        }
+    });
 
     function mostrarTelaLogin(){ document.getElementById('tela-login').style.display = 'flex'; }
     function fecharTelaLogin(){ document.getElementById('tela-login').style.display = 'none'; document.getElementById('erro-senha').style.display = 'none'; document.getElementById('campo-senha').value = ''; }
@@ -963,10 +985,8 @@
         nextBeatTime=audioCtx.currentTime+0.05; currentStep=0; rodarScheduler();
         let area=document.getElementById('cifra-view'), speed=document.getElementById('velocidade');
         intervaloRolagem=setInterval(()=>{ 
-            let scrollAtual = area.scrollTop;
             let velocidadeScroll = parseFloat(document.getElementById('velocidade').value);
             area.scrollTop += velocidadeScroll;
-            // Atualiza tela cheia se estiver ativa
             if (isFullscreen) {
                 document.getElementById('cifra-view-fullscreen').scrollTop += velocidadeScroll;
             }
@@ -1020,33 +1040,6 @@
         btn.classList.add('active');
         if(btn.getAttribute('data-view')==='biblioteca') document.getElementById('mainContent').classList.remove('hide-on-mobile');
     }));
-
-    // Fechar fullscreen com ESC e com botão voltar do celular
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isFullscreen) {
-            toggleFullscreen();
-        }
-    });
-    
-    // Suporte ao botão voltar do celular
-    window.addEventListener('popstate', (e) => {
-        if (isFullscreen) {
-            toggleFullscreen();
-            e.preventDefault();
-        }
-    });
-    
-    // Quando entrar em fullscreen, adiciona um estado no histórico
-    const originalToggleFullscreen = toggleFullscreen;
-    toggleFullscreen = function() {
-        if (!isFullscreen) {
-            history.pushState({fullscreen: true}, '', '');
-        } else {
-            history.back();
-            return;
-        }
-        originalToggleFullscreen();
-    };
 
     preencherSeletorRitmos(); atualizarListaMusicas();
     if(musicasCliente.length>0) carregarMusica(0);

@@ -199,6 +199,20 @@
             color: white; 
             transform: translateY(-2px); 
         }
+        .btn-voltar-inicio {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-voltar-inicio:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
         
         .dashboard { 
             display: flex; 
@@ -421,6 +435,41 @@
             border: 2px solid var(--accent); 
         }
         
+        .senhas-geradas {
+            background: var(--bg-input);
+            border-radius: 20px;
+            padding: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 12px;
+        }
+        .senha-gerada-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            font-family: monospace;
+        }
+        .senha-gerada-item:last-child {
+            border-bottom: none;
+        }
+        .status-senha {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        .status-disponivel {
+            background: rgba(29,185,84,0.2);
+            color: var(--success);
+        }
+        .status-usada {
+            background: rgba(255,74,90,0.2);
+            color: var(--danger);
+            text-decoration: line-through;
+        }
+        
         .tab-bar { 
             display: none; 
             background: rgba(10,10,15,0.95); 
@@ -522,7 +571,7 @@
     </div>
     <button class="btn-inicial btn-tocar" onclick="entrarNoApp()">🎵 TOCAR AGORA!</button>
     <button class="btn-inicial btn-admin-inicial" onclick="mostrarTelaLogin()">👑 ACESSO ADMIN</button>
-    <p style="color: var(--text-muted); font-size: 12px; margin-top: 20px;">Versão 2.0 • Sem necessidade de cadastro</p>
+    <p style="color: var(--text-muted); font-size: 12px; margin-top: 20px;">Versão 3.0 • Senhas únicas de uso individual</p>
 </div>
 
 <!-- TELA DE LOGIN DO ADMIN -->
@@ -545,6 +594,7 @@
             <div class="logo-area"><h1>🎸 CifraVibe Pro</h1></div>
             <div class="header-buttons">
                 <div id="user-badge" class="badge-perfil">🎵 Músico</div>
+                <button class="btn-voltar-inicio" onclick="voltarInicio()">🏠 Início</button>
                 <button id="btnAdminLogin" class="btn-outline" onclick="mostrarTelaLogin()" style="padding: 8px 16px; font-size: 12px;">👑 Admin</button>
                 <button id="btnSair" class="btn-sair" onclick="sairDoAdmin()" style="display: none;">🔒 Sair</button>
             </div>
@@ -653,26 +703,44 @@
                     </div>
                 </div>
 
+                <!-- NOVO CARD: GERENCIAR SENHAS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🔐 Gerar Senhas Únicas</h3>
+                        <button onclick="gerarLoteSenhas()" class="btn-outline" style="padding: 8px 16px; font-size: 12px;">Gerar 5 senhas</button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
+                        Cada senha funciona <strong>apenas 1 vez</strong>. Após o uso, fica bloqueada.
+                    </p>
+                    <div class="form-row">
+                        <input type="text" id="nova-senha-manual" placeholder="Ou digite uma senha personalizada" style="flex: 2;">
+                        <button onclick="criarSenhaManual()" style="flex: 1; padding: 14px;">Criar</button>
+                    </div>
+                    <div id="lista-senhas-geradas" class="senhas-geradas">
+                        <p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada ainda</p>
+                    </div>
+                    <button onclick="exportarSenhasAdmin()" class="btn-outline" style="margin-top: 12px; width: 100%;">📤 Exportar lista de senhas</button>
+                </div>
+
                 <div class="card">
                     <div class="card-header"><h3>🔐 Exportar Catálogo Criptografado</h3></div>
                     <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 14px;">
-                        Defina uma senha mestra. O arquivo .enc será usado pelos clientes para importar as músicas.
+                        O arquivo .enc será usado pelos clientes com as senhas geradas acima.
                     </p>
                     <div class="form-row">
-                        <input type="text" id="senha-cripto" placeholder="Senha para criptografar" style="flex: 2;">
+                        <input type="text" id="senha-mestra-cripto" placeholder="Senha mestra do catálogo" style="flex: 2;">
                         <button onclick="exportarCatalogoCriptografado()" style="flex: 1;">📤 Baixar .enc</button>
                     </div>
                     <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
-                        ⚠️ Após baixar, faça upload do arquivo <code>catalogo.json.enc</code> na raiz do seu site.
+                        ⚠️ Anote esta senha mestra! Ela será usada para gerar as senhas dos clientes.
                     </p>
-                    <button onclick="gerarSenhaAleatoriaAdmin()" class="btn-outline" style="margin-top: 12px;">🎲 Gerar senha aleatória</button>
                 </div>
 
                 <div class="card">
                     <div class="card-header"><h3>💾 Backup do Catálogo</h3></div>
                     <div class="form-row">
-                        <button onclick="exportarCatalogo()" class="btn-outline">📤 Exportar Músicas (JSON)</button>
-                        <button onclick="importarCatalogo()" class="btn-outline">📥 Importar Músicas (JSON)</button>
+                        <button onclick="exportarCatalogo()" class="btn-outline">📤 Exportar JSON</button>
+                        <button onclick="importarCatalogo()" class="btn-outline">📥 Importar JSON</button>
                     </div>
                     <button onclick="resetarCatalogoPadrao()" class="btn-outline btn-danger" style="margin-top: 8px;">⚠️ Resetar Catálogo</button>
                 </div>
@@ -683,14 +751,15 @@
                 <!-- ÁREA DE IMPORTAÇÃO DO CLIENTE -->
                 <div class="card cliente-area" id="clienteArea">
                     <div class="card-header">
-                        <h3>🔑 Importar Catálogo</h3>
+                        <h3>🔑 Ativar Catálogo com Senha</h3>
                     </div>
                     <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                        Se você recebeu uma senha, digite abaixo para carregar o catálogo completo.
+                        Digite a senha que você recebeu para carregar o catálogo completo.
+                        <br><strong style="color: var(--warning);">⚠️ Cada senha funciona apenas 1 vez!</strong>
                     </p>
                     <div class="form-row">
                         <input type="text" id="senha-cliente" placeholder="Digite sua senha aqui" style="flex: 2; text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 4px;">
-                        <button onclick="usarSenhaUnica()" style="flex: 1;">📥 Importar</button>
+                        <button onclick="usarSenhaUnica()" style="flex: 1;">📥 Ativar</button>
                     </div>
                     <div id="msg-cliente" style="margin-top: 16px; font-size: 14px; text-align: center; display: none;"></div>
                     <div id="botoes-download" style="display: none; margin-top: 16px; gap: 12px; justify-content: center;">
@@ -723,7 +792,7 @@
                     <div id="lista-musicas" class="musica-grid"></div>
                     <div id="semMusicasMsg" style="text-align: center; color: var(--text-muted); padding: 40px; display: none;">
                         🎵 Nenhuma música carregada ainda.<br>
-                        Use uma senha para importar o catálogo ou aguarde!
+                        Use uma senha para importar o catálogo!
                     </div>
                 </div>
 
@@ -794,7 +863,7 @@
     const CATALOGO_PADRAO = [
         {
             titulo: "Evidências - Chitãozinho & Xororó",
-            cifra: "A                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu te amo tanto que nem sei explicar\nE                A\nEu te quero tanto que nem sei o que fazer\n\nA                D\nEu te amo tanto que nem sei explicar\nE                A\nEu te quero tanto que nem sei o que fazer",
+            cifra: "A                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu te amo tanto que nem sei explicar\nE                A\nEu te quero tanto que nem sei o que fazer",
             pastas: ["Sertanejo"],
             totalAcordes: 3,
             noRepertorio: false,
@@ -806,7 +875,7 @@
         },
         {
             titulo: "Deixa a Vida Me Levar - Zeca Pagodinho",
-            cifra: "G                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nEu não tenho pressa\nD                G\nEu quero me demorar\n\nG                C\nEu não tenho pressa\nD                G\nEu quero me demorar",
+            cifra: "G                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nEu não tenho pressa\nD                G\nEu quero me demorar",
             pastas: ["Pagode"],
             totalAcordes: 3,
             noRepertorio: false,
@@ -894,8 +963,7 @@
         "D": { trastes: [-1,-1,0,2,3,2], dedos: ["","","","1","3","2"] },
         "Em": { trastes: [0,2,2,0,0,0], dedos: ["","1","2","","",""] },
         "A": { trastes: [-1,0,2,2,2,0], dedos: ["","","1","2","3",""] },
-        "E": { trastes: [0,2,2,1,0,0], dedos: ["","2","3","1","",""] },
-        "Bm": { trastes: [-1,2,4,4,3,2], dedos: ["","1","3","4","2","1"] }
+        "E": { trastes: [0,2,2,1,0,0], dedos: ["","2","3","1","",""] }
     };
     const regexNotas = /\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g;
 
@@ -907,6 +975,8 @@
     }
 
     let musicasCliente = JSON.parse(localStorage.getItem('minhasCifras')) || [];
+    let senhasGeradas = JSON.parse(localStorage.getItem('senhasGeradas')) || {};
+    let senhasUsadas = JSON.parse(localStorage.getItem('senhasUsadas')) || [];
     let isAdminMode = false;
     let indiceAtual = 0, intervaloRolagem = null, rodando = false;
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
@@ -918,6 +988,12 @@
         document.getElementById('appPrincipal').style.display = 'block';
         atualizarListaMusicas();
         if (musicasCliente.length > 0) carregarMusica(0);
+    }
+
+    function voltarInicio() {
+        document.getElementById('appPrincipal').style.display = 'none';
+        document.getElementById('tela-inicial').style.display = 'flex';
+        pararRolagem();
     }
 
     function mostrarTelaLogin() {
@@ -944,8 +1020,8 @@
                 document.getElementById('tela-inicial').style.display = 'none';
                 document.getElementById('appPrincipal').style.display = 'block';
             }
+            atualizarListaSenhasGeradas();
             atualizarListaMusicas();
-            alert('Modo Admin ativado!');
         } else {
             document.getElementById('erro-senha').style.display = 'block';
             document.getElementById('campo-senha').value = '';
@@ -962,16 +1038,122 @@
         atualizarListaMusicas();
     }
 
+    // ==================== SISTEMA DE SENHAS ÚNICAS ====================
+    function gerarSenhaAleatoria() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let s = '';
+        for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random() * chars.length)];
+        return s;
+    }
+
+    function criarSenhaManual() {
+        if (!isAdminMode) return;
+        const senha = document.getElementById('nova-senha-manual').value.trim().toUpperCase();
+        if (!senha) { alert('Digite uma senha!'); return; }
+        if (senhasGeradas[senha]) { alert('Esta senha já existe!'); return; }
+        
+        senhasGeradas[senha] = {
+            criada: new Date().toISOString(),
+            usada: false
+        };
+        localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
+        document.getElementById('nova-senha-manual').value = '';
+        atualizarListaSenhasGeradas();
+        alert(`✅ Senha "${senha}" criada com sucesso!`);
+    }
+
+    function gerarLoteSenhas() {
+        if (!isAdminMode) return;
+        const novas = [];
+        for (let i = 0; i < 5; i++) {
+            let senha;
+            do {
+                senha = gerarSenhaAleatoria();
+            } while (senhasGeradas[senha]);
+            senhasGeradas[senha] = {
+                criada: new Date().toISOString(),
+                usada: false
+            };
+            novas.push(senha);
+        }
+        localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
+        atualizarListaSenhasGeradas();
+        alert(`✅ 5 senhas geradas:\n\n${novas.join('\n')}\n\nCopie e distribua para seus clientes!`);
+    }
+
+    function atualizarListaSenhasGeradas() {
+        const container = document.getElementById('lista-senhas-geradas');
+        if (!container) return;
+        
+        const senhas = Object.entries(senhasGeradas).sort((a, b) => 
+            new Date(b[1].criada) - new Date(a[1].criada)
+        );
+
+        if (senhas.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada ainda</p>';
+            return;
+        }
+
+        container.innerHTML = senhas.map(([senha, dados]) => `
+            <div class="senha-gerada-item">
+                <span style="font-size: 16px; font-weight: 700; color: ${dados.usada ? 'var(--text-muted)' : 'var(--accent)'};">
+                    ${dados.usada ? '🔒' : '🔑'} ${senha}
+                </span>
+                <span class="status-senha ${dados.usada ? 'status-usada' : 'status-disponivel'}">
+                    ${dados.usada ? 'USADA' : 'DISPONÍVEL'}
+                </span>
+            </div>
+        `).join('');
+    }
+
+    function exportarSenhasAdmin() {
+        if (!isAdminMode) return;
+        const texto = Object.entries(senhasGeradas)
+            .map(([s, d]) => `${s} - ${d.usada ? 'USADA' : 'DISPONÍVEL'} - ${new Date(d.criada).toLocaleDateString()}`)
+            .join('\n');
+        const blob = new Blob([texto], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `senhas_${new Date().toISOString().slice(0,10)}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function isSenhaValida(senha) {
+        // Verifica se a senha existe nas senhas geradas E não foi usada
+        if (!senhasGeradas[senha]) return false;
+        if (senhasGeradas[senha].usada) return false;
+        // Verifica também na lista local de usadas (segurança extra)
+        if (senhasUsadas.includes(senha)) return false;
+        return true;
+    }
+
+    function marcarSenhaComoUsada(senha) {
+        if (senhasGeradas[senha]) {
+            senhasGeradas[senha].usada = true;
+            localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
+        }
+        if (!senhasUsadas.includes(senha)) {
+            senhasUsadas.push(senha);
+            localStorage.setItem('senhasUsadas', JSON.stringify(senhasUsadas));
+        }
+    }
+
     // ==================== CRIPTOGRAFIA ====================
-    async function descriptografarCatalogo(senha) {
+    async function descriptografarCatalogo(senhaCliente) {
         try {
             const response = await fetch(CATALOGO_ENC_URL);
             if (!response.ok) return null;
             const encryptedData = await response.text();
-            const bytes = CryptoJS.AES.decrypt(encryptedData, senha);
+            
+            // Tenta descriptografar com a senha do cliente
+            const bytes = CryptoJS.AES.decrypt(encryptedData, senhaCliente);
             const decrypted = bytes.toString(CryptoJS.enc.Utf8);
             if (!decrypted || decrypted.length < 2) return null;
-            return JSON.parse(decrypted);
+            
+            const resultado = JSON.parse(decrypted);
+            return resultado;
         } catch (e) {
             return null;
         }
@@ -980,26 +1162,43 @@
     async function usarSenhaUnica() {
         const senha = document.getElementById('senha-cliente').value.trim();
         const msg = document.getElementById('msg-cliente');
+        
         if (!senha) {
             msg.style.display = 'block';
             msg.style.color = 'var(--danger)';
             msg.innerText = '❌ Digite a senha!';
             return;
         }
+
+        // Verifica se a senha é válida (não usada)
+        if (!isSenhaValida(senha)) {
+            msg.style.display = 'block';
+            msg.style.color = 'var(--danger)';
+            msg.innerText = '❌ Senha inválida ou já utilizada!';
+            return;
+        }
+
         msg.style.display = 'block';
         msg.style.color = 'var(--text-secondary)';
-        msg.innerText = '⏳ Verificando senha e baixando catálogo...';
+        msg.innerText = '⏳ Verificando senha...';
 
         const catalogo = await descriptografarCatalogo(senha);
-        if (catalogo && Array.isArray(catalogo)) {
+        
+        if (catalogo && Array.isArray(catalogo) && catalogo.length > 0) {
+            // SUCESSO: marca senha como usada
+            marcarSenhaComoUsada(senha);
+            
             musicasCliente = catalogo;
             localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
+            
             msg.style.color = 'var(--success)';
             msg.innerText = `✅ Sucesso! ${musicasCliente.length} músicas carregadas.`;
+            
             atualizarListaMusicas();
             atualizarBotoesDownload();
             if (musicasCliente.length > 0) carregarMusica(0);
             document.getElementById('senha-cliente').value = '';
+            
             setTimeout(() => msg.style.display = 'none', 5000);
         } else {
             msg.style.color = 'var(--danger)';
@@ -1009,13 +1208,16 @@
 
     function exportarCatalogoCriptografado() {
         if (!isAdminMode) return;
-        const senha = document.getElementById('senha-cripto').value.trim();
-        if (!senha) {
-            alert('Defina uma senha para criptografar.');
+        const senhaMestra = document.getElementById('senha-mestra-cripto').value.trim();
+        if (!senhaMestra) {
+            alert('Defina uma senha mestra! Esta senha será usada para criptografar o catálogo.');
             return;
         }
+
+        // Criptografa o catálogo com a senha mestra
         const dataStr = JSON.stringify(musicasPadrao);
-        const encrypted = CryptoJS.AES.encrypt(dataStr, senha).toString();
+        const encrypted = CryptoJS.AES.encrypt(dataStr, senhaMestra).toString();
+        
         const blob = new Blob([encrypted], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1023,14 +1225,8 @@
         a.download = 'catalogo.json.enc';
         a.click();
         URL.revokeObjectURL(url);
-        alert('✅ Arquivo criptografado baixado! Faça upload dele no seu site.');
-    }
-
-    function gerarSenhaAleatoriaAdmin() {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let s = '';
-        for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random() * chars.length)];
-        document.getElementById('senha-cripto').value = s;
+        
+        alert(`✅ Arquivo criptografado baixado!\n\n⚠️ IMPORTANTE: Suas senhas de cliente DEVEM ser IGUAIS à senha mestra "${senhaMestra}" para funcionar.\n\nOu seja, gere senhas usando exatamente esta senha mestra.`);
     }
 
     function baixarCatalogoCliente() {
@@ -1497,6 +1693,7 @@
 
     // ==================== EXPORTAR PARA GLOBAL ====================
     window.entrarNoApp = entrarNoApp;
+    window.voltarInicio = voltarInicio;
     window.mostrarTelaLogin = mostrarTelaLogin;
     window.fecharTelaLogin = fecharTelaLogin;
     window.verificarSenhaAcesso = verificarSenhaAcesso;
@@ -1505,8 +1702,10 @@
     window.importarCatalogo = importarCatalogo;
     window.resetarCatalogoPadrao = resetarCatalogoPadrao;
     window.adicionarMusica = adicionarMusica;
+    window.criarSenhaManual = criarSenhaManual;
+    window.gerarLoteSenhas = gerarLoteSenhas;
+    window.exportarSenhasAdmin = exportarSenhasAdmin;
     window.exportarCatalogoCriptografado = exportarCatalogoCriptografado;
-    window.gerarSenhaAleatoriaAdmin = gerarSenhaAleatoriaAdmin;
     window.usarSenhaUnica = usarSenhaUnica;
     window.baixarCatalogoCliente = baixarCatalogoCliente;
     window.baixarCatalogoTexto = baixarCatalogoTexto;

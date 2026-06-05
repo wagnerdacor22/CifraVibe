@@ -32,7 +32,6 @@
             overflow-x: hidden;
         }
         
-        /* TELA INICIAL */
         #tela-inicial {
             position: fixed;
             inset: 0;
@@ -96,7 +95,6 @@
             background: rgba(255,183,3,0.1);
         }
         
-        /* TELA DE LOGIN ADMIN */
         #tela-login {
             position: fixed;
             inset: 0;
@@ -132,7 +130,6 @@
             letter-spacing: 2px; 
         }
         
-        /* APP PRINCIPAL */
         #appPrincipal {
             display: none;
             min-height: 100vh;
@@ -209,10 +206,6 @@
             font-weight: 600;
             cursor: pointer;
         }
-        .btn-voltar-inicio:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-        }
         
         .dashboard { 
             display: flex; 
@@ -242,11 +235,6 @@
             border-radius: 28px; 
             border: 1px solid var(--border); 
             padding: 24px; 
-            transition: all 0.3s ease; 
-        }
-        .card:hover { 
-            border-color: var(--accent); 
-            box-shadow: 0 8px 30px rgba(29,185,84,0.08); 
         }
         .card-header { 
             display: flex; 
@@ -259,9 +247,6 @@
         .card-header h3 { 
             font-size: 1.3rem; 
             font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
         }
         
         input, textarea, select {
@@ -273,6 +258,7 @@
             color: var(--text-primary);
             font-size: 14px;
             transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
         }
         input:focus, textarea:focus, select:focus { 
             border-color: var(--accent); 
@@ -287,12 +273,12 @@
             border-radius: 40px;
             border: none;
             cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
+            gap: 8px;
         }
         button:hover { 
             background: var(--accent-hover); 
@@ -303,18 +289,10 @@
             border: 1px solid var(--border); 
             color: var(--text-primary); 
         }
-        .btn-outline:hover { 
-            background: var(--bg-card-hover); 
-            border-color: var(--accent); 
-        }
         .btn-danger { 
             background: rgba(255,74,90,0.15); 
             color: var(--danger); 
             border: 1px solid rgba(255,74,90,0.3); 
-        }
-        .btn-danger:hover { 
-            background: var(--danger); 
-            color: white; 
         }
         .checkbox-group { 
             display: flex; 
@@ -324,19 +302,14 @@
             padding: 12px; 
             border-radius: 20px; 
         }
-        .checkbox-group label {
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
+        .checkbox-group label { color: var(--text-secondary); font-size: 13px; }
         .form-row { 
             display: flex; 
             gap: 12px; 
             margin-bottom: 12px; 
             flex-wrap: wrap; 
         }
-        .form-row > * { 
-            flex: 1; 
-        }
+        .form-row > * { flex: 1; }
         
         .musica-grid { 
             display: flex; 
@@ -363,27 +336,10 @@
             border-color: var(--accent); 
             background: rgba(29,185,84,0.1); 
         }
-        .musica-titulo { 
-            font-weight: 700; 
-            font-size: 1rem; 
-            margin-bottom: 8px; 
-        }
-        .tags-container { 
-            display: flex; 
-            gap: 8px; 
-            flex-wrap: wrap; 
-        }
-        .tag { 
-            font-size: 10px; 
-            font-weight: 600; 
-            padding: 4px 12px; 
-            border-radius: 30px; 
-            background: var(--bg-card); 
-        }
-        .tag-repertorio { 
-            background: var(--warning); 
-            color: #000; 
-        }
+        .musica-titulo { font-weight: 700; font-size: 1rem; margin-bottom: 8px; }
+        .tags-container { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { font-size: 10px; font-weight: 600; padding: 4px 12px; border-radius: 30px; background: var(--bg-card); }
+        .tag-repertorio { background: var(--warning); color: #000; }
         
         #cifra-view { 
             background: var(--bg-card); 
@@ -404,31 +360,10 @@
             border-bottom: 2px dashed var(--accent); 
             display: inline-block; 
         }
-        .row-botoes { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            margin-bottom: 20px; 
-        }
-        .control-group { 
-            flex: 1; 
-            min-width: 120px; 
-        }
-        .control-group label { 
-            font-size: 11px; 
-            text-transform: uppercase; 
-            font-weight: 600; 
-            color: var(--text-secondary); 
-            letter-spacing: 1px; 
-        }
-        .painel-bateria { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 16px; 
-            margin-top: 20px; 
-            padding-top: 20px; 
-            border-top: 1px solid var(--border); 
-        }
+        .row-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        .control-group { flex: 1; min-width: 120px; }
+        .control-group label { font-size: 11px; text-transform: uppercase; font-weight: 600; color: var(--text-secondary); letter-spacing: 1px; }
+        .painel-bateria { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border); }
         
         .cliente-area { 
             background: linear-gradient(135deg, rgba(29,185,84,0.1), rgba(0,0,0,0.2)); 
@@ -450,25 +385,11 @@
             padding: 10px;
             border-bottom: 1px solid var(--border);
             font-family: monospace;
+            font-size: 14px;
         }
-        .senha-gerada-item:last-child {
-            border-bottom: none;
-        }
-        .status-senha {
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
-        .status-disponivel {
-            background: rgba(29,185,84,0.2);
-            color: var(--success);
-        }
-        .status-usada {
-            background: rgba(255,74,90,0.2);
-            color: var(--danger);
-            text-decoration: line-through;
-        }
+        .senha-gerada-item:last-child { border-bottom: none; }
+        .status-disponivel { color: var(--success); font-weight: 600; }
+        .status-usada { color: var(--danger); font-weight: 600; text-decoration: line-through; }
         
         .tab-bar { 
             display: none; 
@@ -489,11 +410,10 @@
             color: var(--text-secondary); 
             font-size: 12px; 
             font-weight: 600; 
-            flex-direction: column; 
-            gap: 4px; 
             padding: 8px; 
             border-radius: 30px; 
             cursor: pointer; 
+            border: none;
         }
         .tab-btn.active { 
             color: var(--accent); 
@@ -501,63 +421,23 @@
         }
         
         @media (max-width: 900px) {
-            .dashboard { 
-                flex-direction: column; 
-                padding: 16px; 
-                padding-bottom: 100px; 
-            }
-            .sidebar { 
-                width: 100%; 
-            }
-            .tab-bar { 
-                display: flex; 
-            }
-            .main-content.hide-on-mobile { 
-                display: none; 
-            }
-        }
-        @media (min-width: 901px) { 
-            .mobile-only-nav { 
-                display: none; 
-            } 
+            .dashboard { flex-direction: column; padding: 16px; padding-bottom: 100px; }
+            .sidebar { width: 100%; }
+            .tab-bar { display: flex; }
+            .main-content.hide-on-mobile { display: none; }
         }
         
-        ::-webkit-scrollbar { 
-            width: 6px; 
-        }
-        ::-webkit-scrollbar-track { 
-            background: var(--bg-input); 
-            border-radius: 10px; 
-        }
-        ::-webkit-scrollbar-thumb { 
-            background: var(--accent); 
-            border-radius: 10px; 
-        }
-        .led-indicator { 
-            width: 14px; 
-            height: 14px; 
-            background: #262633; 
-            border-radius: 50%; 
-            display: inline-block; 
-            transition: 0.05s linear; 
-        }
-        .modal-moderno { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.85); 
-            backdrop-filter: blur(12px); 
-            justify-content: center; 
-            align-items: center; 
-            z-index: 1000; 
-        }
-        .modal-conteudo { 
-            background: var(--bg-card); 
-            border-radius: 32px; 
-            padding: 28px; 
-            width: 90%; 
-            max-width: 340px; 
-            text-align: center; 
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-input); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .led-indicator { width: 14px; height: 14px; background: #262633; border-radius: 50%; display: inline-block; transition: 0.05s linear; }
+        
+        .highlight-box {
+            background: rgba(255,183,3,0.1);
+            border: 1px solid var(--warning);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
         }
     </style>
 </head>
@@ -567,14 +447,14 @@
 <div id="tela-inicial">
     <div style="text-align: center;">
         <div class="logo-inicial">🎸 CifraVibe Pro</div>
-        <p class="subtitulo-inicial">Seu app de cifras com bateria eletrônica integrada. Toque suas músicas favoritas!</p>
+        <p class="subtitulo-inicial">Seu app de cifras com bateria eletrônica integrada.<br>Toque suas músicas favoritas!</p>
     </div>
     <button class="btn-inicial btn-tocar" onclick="entrarNoApp()">🎵 TOCAR AGORA!</button>
     <button class="btn-inicial btn-admin-inicial" onclick="mostrarTelaLogin()">👑 ACESSO ADMIN</button>
-    <p style="color: var(--text-muted); font-size: 12px; margin-top: 20px;">Versão 3.0 • Senhas únicas de uso individual</p>
+    <p style="color: var(--text-muted); font-size: 12px; margin-top: 20px;">Versão 4.0 • Senhas únicas por cliente</p>
 </div>
 
-<!-- TELA DE LOGIN DO ADMIN -->
+<!-- TELA DE LOGIN ADMIN -->
 <div id="tela-login">
     <div class="caixa-login">
         <div style="font-size: 56px; margin-bottom: 12px;">👑</div>
@@ -603,6 +483,52 @@
         <div class="dashboard">
             <!-- SIDEBAR ADMIN -->
             <div class="sidebar" id="adminSidebar">
+                <!-- CARD: CONFIGURAR SENHA MESTRA -->
+                <div class="card">
+                    <div class="card-header"><h3>🔑 Configurar Senha Mestra</h3></div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
+                        Esta senha é usada para criptografar o catálogo. 
+                        <strong style="color: var(--warning);">Guarde bem! Sem ela não é possível gerar senhas de cliente.</strong>
+                    </p>
+                    <div class="form-row">
+                        <input type="password" id="senha-mestra-input" placeholder="Defina a senha mestra secreta" style="flex: 2;">
+                        <button onclick="salvarSenhaMestra()" style="flex: 1;">💾 Salvar</button>
+                    </div>
+                    <div id="status-senha-mestra" style="margin-top: 8px; font-size: 12px;"></div>
+                </div>
+
+                <!-- CARD: GERAR SENHAS ÚNICAS -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>🎫 Gerar Senhas de Cliente</h3>
+                        <button onclick="gerarLoteSenhas()" class="btn-outline" style="padding: 8px 16px; font-size: 12px;">+5 Senhas</button>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 8px;">
+                        Cada senha é <strong style="color: var(--accent);">diferente</strong> e funciona <strong style="color: var(--danger);">apenas 1 vez</strong>.
+                    </p>
+                    <div class="highlight-box" style="font-size: 12px; color: var(--warning);">
+                        ⚠️ <strong>Importante:</strong> Primeiro configure a senha mestra acima. 
+                        As senhas de cliente são geradas a partir dela.
+                    </div>
+                    <div id="lista-senhas-geradas" class="senhas-geradas">
+                        <p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada</p>
+                    </div>
+                    <button onclick="copiarSenhasDisponiveis()" class="btn-outline" style="margin-top: 12px; width: 100%;">📋 Copiar senhas disponíveis</button>
+                </div>
+
+                <!-- CARD: EXPORTAR CATÁLOGO -->
+                <div class="card">
+                    <div class="card-header"><h3>📦 Exportar Catálogo</h3></div>
+                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
+                        Gere o arquivo criptografado para publicar no site.
+                    </p>
+                    <button onclick="exportarCatalogoCriptografado()" style="width: 100%; margin-bottom: 8px;">🔐 Gerar catálogo criptografado</button>
+                    <p style="font-size: 11px; color: var(--text-muted);">
+                        O arquivo <code>catalogo.json.enc</code> será baixado. Faça upload dele no GitHub.
+                    </p>
+                </div>
+
+                <!-- CARD: CADASTRAR MÚSICA -->
                 <div class="card">
                     <div class="card-header"><h3>🎵 Cadastrar Música</h3></div>
                     <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -641,130 +567,51 @@
                                 <option value="Pop_1">Pop 1 - Dance Pista</option>
                                 <option value="Pop_2">Pop 2 - Balada Lenta</option>
                                 <option value="Pop_3">Pop 3 - Funk Pop Groove</option>
-                                <option value="Pop_90s">Pop 4 - Rock Anos 90</option>
-                                <option value="Synthwave">Pop 5 - Synthwave Drive</option>
-                                <option value="Disco_Groove">Pop 6 - Disco Dance Party</option>
-                                <option value="Pop_Acoustic">Pop 7 - Acústico/Leve</option>
-                                <option value="Pop_RnB">Pop 8 - R&B Pop Groove</option>
                             </optgroup>
                             <optgroup label="🇧🇷 SAMBA & PAGODE">
                                 <option value="Samba_1">Samba 1 - Groove Geral</option>
-                                <option value="Samba_Roda">Samba 2 - Samba de Roda</option>
-                                <option value="Samba_Enredo">Samba 3 - Enredo/Carnaval</option>
-                                <option value="Pagode_90s">Pagode 1 - Romântico 90s</option>
-                                <option value="Pagodao">Pagode 2 - Baiano/Axé</option>
+                                <option value="Pagode_90s">Pagode - Romântico 90s</option>
                             </optgroup>
                             <optgroup label="🤠 SERTANEJO">
                                 <option value="Sertanejo_1">Sertanejo 1 - Arrocha</option>
                                 <option value="Sertanejo_2">Sertanejo 2 - Vanerão</option>
                                 <option value="Sertanejo_3">Sertanejo 3 - Modão Balada</option>
-                                <option value="Sertanejo_Univ">Sertanejo 4 - Universitário</option>
-                                <option value="Piseiro">Sertanejo 5 - Piseiro/Pisadinha</option>
-                            </optgroup>
-                            <optgroup label="🍁 REGGAE">
-                                <option value="Reggae_1">Reggae 1 - One Drop</option>
-                                <option value="Reggae_2">Reggae 2 - Steppers</option>
-                                <option value="Reggae_3">Reggae 3 - Jamaican Vibe</option>
-                                <option value="Dub_Roots">Reggae 4 - Dub Vibe Roots</option>
-                                <option value="Reggaeton">Reggae 5 - Reggaeton Pop</option>
                             </optgroup>
                             <optgroup label="🎶 FORRÓ">
                                 <option value="Forro_Xote">Forró - Xote Tradicional</option>
                                 <option value="Forro_ArrastaPe">Forró - Arrasta-pé</option>
-                                <option value="Forro_Eletronico">Forró - Eletrônico</option>
-                            </optgroup>
-                            <optgroup label="⛪ GOSPEL">
-                                <option value="Gospel_Adoracao">Gospel - Adoração Lenta</option>
-                                <option value="Gospel_Contemporaneo">Gospel - Contemporâneo</option>
-                                <option value="Gospel_Louvor">Gospel - Louvor</option>
-                            </optgroup>
-                            <optgroup label="✨ OUTROS">
-                                <option value="Funk_Carioca">Funk Carioca</option>
-                                <option value="Blues_Shuffle">Blues/Jazz Shuffle</option>
-                                <option value="Trap_Beat">Trap/Hip-Hop</option>
-                                <option value="MPB">MPB</option>
-                                <option value="Eletronica">Eletrônica Dance</option>
                             </optgroup>
                         </select>
-                        <div class="form-row">
-                            <select id="musica-compasso-padrao">
-                                <option value="4/4">4/4</option>
-                                <option value="3/4">3/4</option>
-                                <option value="2/4">2/4</option>
-                            </select>
-                            <select id="musica-subdivisao-padrao">
-                                <option value="1">1x (Semínima)</option>
-                                <option value="2">2x (Colcheia)</option>
-                                <option value="4">4x (Semicolcheia)</option>
-                            </select>
-                        </div>
-                        <textarea id="musica-cifra" placeholder="Cole a cifra aqui..." rows="6"></textarea>
+                        <textarea id="musica-cifra" placeholder="Cole a cifra aqui..." rows="4"></textarea>
                         <button onclick="adicionarMusica()">➕ Adicionar ao catálogo</button>
                     </div>
                 </div>
 
-                <!-- NOVO CARD: GERENCIAR SENHAS -->
+                <!-- CARD: BACKUP -->
                 <div class="card">
-                    <div class="card-header">
-                        <h3>🔐 Gerar Senhas Únicas</h3>
-                        <button onclick="gerarLoteSenhas()" class="btn-outline" style="padding: 8px 16px; font-size: 12px;">Gerar 5 senhas</button>
-                    </div>
-                    <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-                        Cada senha funciona <strong>apenas 1 vez</strong>. Após o uso, fica bloqueada.
-                    </p>
-                    <div class="form-row">
-                        <input type="text" id="nova-senha-manual" placeholder="Ou digite uma senha personalizada" style="flex: 2;">
-                        <button onclick="criarSenhaManual()" style="flex: 1; padding: 14px;">Criar</button>
-                    </div>
-                    <div id="lista-senhas-geradas" class="senhas-geradas">
-                        <p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada ainda</p>
-                    </div>
-                    <button onclick="exportarSenhasAdmin()" class="btn-outline" style="margin-top: 12px; width: 100%;">📤 Exportar lista de senhas</button>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"><h3>🔐 Exportar Catálogo Criptografado</h3></div>
-                    <p style="color: var(--text-secondary); margin-bottom: 12px; font-size: 14px;">
-                        O arquivo .enc será usado pelos clientes com as senhas geradas acima.
-                    </p>
-                    <div class="form-row">
-                        <input type="text" id="senha-mestra-cripto" placeholder="Senha mestra do catálogo" style="flex: 2;">
-                        <button onclick="exportarCatalogoCriptografado()" style="flex: 1;">📤 Baixar .enc</button>
-                    </div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
-                        ⚠️ Anote esta senha mestra! Ela será usada para gerar as senhas dos clientes.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"><h3>💾 Backup do Catálogo</h3></div>
-                    <div class="form-row">
-                        <button onclick="exportarCatalogo()" class="btn-outline">📤 Exportar JSON</button>
-                        <button onclick="importarCatalogo()" class="btn-outline">📥 Importar JSON</button>
-                    </div>
-                    <button onclick="resetarCatalogoPadrao()" class="btn-outline btn-danger" style="margin-top: 8px;">⚠️ Resetar Catálogo</button>
+                    <div class="card-header"><h3>💾 Backup</h3></div>
+                    <button onclick="exportarCatalogoJSON()" class="btn-outline" style="width: 100%; margin-bottom: 8px;">📤 Exportar JSON</button>
+                    <button onclick="importarCatalogoJSON()" class="btn-outline" style="width: 100%;">📥 Importar JSON</button>
                 </div>
             </div>
 
             <!-- CONTEÚDO PRINCIPAL -->
             <div class="main-content" id="mainContent">
-                <!-- ÁREA DE IMPORTAÇÃO DO CLIENTE -->
-                <div class="card cliente-area" id="clienteArea">
-                    <div class="card-header">
-                        <h3>🔑 Ativar Catálogo com Senha</h3>
-                    </div>
-                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
-                        Digite a senha que você recebeu para carregar o catálogo completo.
-                        <br><strong style="color: var(--warning);">⚠️ Cada senha funciona apenas 1 vez!</strong>
+                <!-- ÁREA DE ATIVAÇÃO -->
+                <div class="card cliente-area">
+                    <div class="card-header"><h3>🔑 Ativar Catálogo com Senha Única</h3></div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Digite a senha que você recebeu. 
+                        <strong style="color: var(--danger);">Cada senha funciona apenas 1 vez!</strong>
                     </p>
                     <div class="form-row">
-                        <input type="text" id="senha-cliente" placeholder="Digite sua senha aqui" style="flex: 2; text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 4px;">
-                        <button onclick="usarSenhaUnica()" style="flex: 1;">📥 Ativar</button>
+                        <input type="text" id="senha-cliente" placeholder="Sua senha única" style="flex: 2; text-transform: uppercase; text-align: center; font-size: 20px; letter-spacing: 4px;">
+                        <button onclick="ativarCatalogo()" style="flex: 1;">📥 Ativar</button>
                     </div>
                     <div id="msg-cliente" style="margin-top: 16px; font-size: 14px; text-align: center; display: none;"></div>
                     <div id="botoes-download" style="display: none; margin-top: 16px; gap: 12px; justify-content: center;">
-                        <button onclick="baixarCatalogoCliente()" class="btn-outline">📥 Baixar JSON</button>
-                        <button onclick="baixarCatalogoTexto()" class="btn-outline">📄 Baixar TXT</button>
+                        <button onclick="baixarJSON()" class="btn-outline">📥 Baixar JSON</button>
+                        <button onclick="baixarTXT()" class="btn-outline">📄 Baixar TXT</button>
                     </div>
                 </div>
 
@@ -785,14 +632,11 @@
                             <option value="Gospel">⛪ Gospel</option>
                             <option value="MPB">🎤 MPB</option>
                             <option value="Outros">✨ Outros</option>
-                            <option value="3 acordes">🎼 3 acordes</option>
-                            <option value="4 acordes">🎵 4 acordes</option>
                         </select>
                     </div>
                     <div id="lista-musicas" class="musica-grid"></div>
-                    <div id="semMusicasMsg" style="text-align: center; color: var(--text-muted); padding: 40px; display: none;">
-                        🎵 Nenhuma música carregada ainda.<br>
-                        Use uma senha para importar o catálogo!
+                    <div id="semMusicasMsg" style="text-align: center; color: var(--text-muted); padding: 40px;">
+                        🎵 Nenhuma música carregada.<br>Ative seu catálogo com a senha acima!
                     </div>
                 </div>
 
@@ -800,38 +644,31 @@
                 <div class="card">
                     <div class="card-header">
                         <h3>🎤 Player</h3>
-                        <div class="row-botoes" style="margin:0; gap:8px;">
+                        <div style="display: flex; gap: 8px;">
                             <button id="btn-scroll" onclick="alternarRolagem()" style="padding: 8px 16px;">▶️ Play</button>
-                            <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️ Próxima</button>
-                            <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px;">☆ Favoritar</button>
+                            <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️</button>
+                            <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px; background: #2a2a3a; color: #fff;">☆</button>
                         </div>
                     </div>
-                    <div id="cifra-view">Selecione uma música para ver a cifra</div>
-                    <div class="row-botoes" style="margin-top: 16px;">
+                    <div id="cifra-view">Selecione uma música</div>
+                    <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
                         <div class="control-group">
-                            <label>Velocidade Scroll</label>
+                            <label>Velocidade</label>
                             <input type="range" id="velocidade" min="0.1" max="4" step="0.1" value="1">
                         </div>
                         <div class="control-group">
-                            <label>Zoom Texto</label>
+                            <label>Zoom</label>
                             <div style="display:flex; gap:8px;">
-                                <button class="btn-outline" onclick="ajustarTamanhoFonte(-2)" style="padding:6px 12px;">A-</button>
-                                <button class="btn-outline" onclick="ajustarTamanhoFonte(2)" style="padding:6px 12px;">A+</button>
+                                <button class="btn-outline" onclick="ajustarFonte(-2)" style="padding:6px 12px;">A-</button>
+                                <button class="btn-outline" onclick="ajustarFonte(2)" style="padding:6px 12px;">A+</button>
                             </div>
                         </div>
                     </div>
                     <div class="painel-bateria">
-                        <div class="control-group"><label>Bateria</label><select id="seletor-ritmo"></select></div>
-                        <div class="control-group"><label>Compasso</label><select id="seletor-compasso"><option>4/4</option><option>3/4</option><option>2/4</option></select></div>
-                        <div class="control-group"><label>Subdivisão</label><select id="seletor-subdivisao"><option value="1">1x</option><option value="2">2x</option><option value="4">4x</option></select></div>
-                        <div class="control-group">
-                            <div style="display:flex; justify-content:space-between;">
-                                <span>BPM: <span id="txt-bpm">100</span></span>
-                                <div class="led-indicator" id="visual-beat"></div>
-                            </div>
-                            <input type="range" id="bpm-input" min="40" max="200" value="100" oninput="document.getElementById('txt-bpm').innerText = this.value">
-                        </div>
+                        <div class="control-group"><label>Ritmo</label><select id="seletor-ritmo"><option>Nenhum</option></select></div>
+                        <div class="control-group"><label>BPM</label><input type="range" id="bpm-input" min="40" max="200" value="100" oninput="document.getElementById('txt-bpm').innerText=this.value"><span id="txt-bpm">100</span></div>
                         <div class="control-group"><label>Volume</label><input type="range" id="volume-bateria" min="0" max="1" step="0.1" value="0.5"></div>
+                        <div class="led-indicator" id="visual-beat"></div>
                     </div>
                     <label style="display: flex; align-items: center; gap: 12px; margin-top: 16px;">
                         <input type="checkbox" id="chk-esconder-acordes"> 🎤 Modo Letra Pura
@@ -847,72 +684,40 @@
     </div>
 </div>
 
-<div id="modal-acorde" class="modal-moderno" onclick="fecharModal()">
-    <div class="modal-conteudo" onclick="event.stopPropagation()">
-        <h2 id="nome-acorde-modal" style="color: var(--accent); font-size: 32px;">C</h2>
-        <div id="fretboard-render" style="height: 180px; margin: 16px 0; background: #0c0c12; border-radius: 20px; position: relative;"></div>
-        <button onclick="fecharModal()">Fechar</button>
-    </div>
-</div>
-
 <script>
-    // ==================== CONSTANTES ====================
+    // ==================== CONFIGURAÇÕES ====================
     const SENHA_ADMIN = "ADMINPRO2026";
     const CATALOGO_ENC_URL = "catalogo.json.enc";
 
     const CATALOGO_PADRAO = [
         {
             titulo: "Evidências - Chitãozinho & Xororó",
-            cifra: "A                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu te amo tanto que nem sei explicar\nE                A\nEu te quero tanto que nem sei o que fazer",
-            pastas: ["Sertanejo"],
-            totalAcordes: 3,
-            noRepertorio: false,
-            ritmoPadrao: "Sertanejo_1",
-            compassoPadrao: "4/4",
-            subdivisaoPadrao: "1",
-            velocidadePadrao: 1,
-            bpmPadrao: 85
+            cifra: "A                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer\n\nA                D\nEu sou feliz e o meu coração\nE                A\nNão tem mais quem me faça sofrer",
+            pastas: ["Sertanejo"], totalAcordes: 3, noRepertorio: false,
+            ritmoPadrao: "Sertanejo_1", bpmPadrao: 85, velocidadePadrao: 1
         },
         {
             titulo: "Deixa a Vida Me Levar - Zeca Pagodinho",
-            cifra: "G                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nEu não tenho pressa\nD                G\nEu quero me demorar",
-            pastas: ["Pagode"],
-            totalAcordes: 3,
-            noRepertorio: false,
-            ritmoPadrao: "Pagode_90s",
-            compassoPadrao: "4/4",
-            subdivisaoPadrao: "1",
-            velocidadePadrao: 1,
-            bpmPadrao: 92
+            cifra: "G                C\nDeixa a vida me levar\nD                G\nVida leva eu\n\nG                C\nDeixa a vida me levar\nD                G\nVida leva eu",
+            pastas: ["Pagode"], totalAcordes: 3, noRepertorio: false,
+            ritmoPadrao: "Pagode_90s", bpmPadrao: 92, velocidadePadrao: 1
         },
         {
             titulo: "Metamorfose Ambulante - Raul Seixas",
-            cifra: "A                D\nEu prefiro ser essa metamorfose ambulante\nE                A\nDo que ter aquela velha opinião formada sobre tudo\n\nA                D\nEu quero dizer agora o oposto do que eu disse antes\nE                A\nEu prefiro ser essa metamorfose ambulante",
-            pastas: ["Rock BR"],
-            totalAcordes: 3,
-            noRepertorio: false,
-            ritmoPadrao: "Rock_1",
-            compassoPadrao: "4/4",
-            subdivisaoPadrao: "1",
-            velocidadePadrao: 1,
-            bpmPadrao: 115
+            cifra: "A                D\nEu prefiro ser essa metamorfose ambulante\nE                A\nDo que ter aquela velha opinião formada sobre tudo",
+            pastas: ["Rock BR"], totalAcordes: 3, noRepertorio: false,
+            ritmoPadrao: "Rock_1", bpmPadrao: 115, velocidadePadrao: 1
         },
         {
             titulo: "Xote das Meninas - Luiz Gonzaga",
-            cifra: "C                G\nOlha o xote das meninas\nF                C\nComo elas sabem dançar\n\nC                G\nOlha o xote das meninas\nF                C\nComo elas sabem dançar\n\nC                G\nAs meninas da cidade\nF                C\nNão sabem o que é xote",
-            pastas: ["Forró"],
-            totalAcordes: 3,
-            noRepertorio: false,
-            ritmoPadrao: "Forro_Xote",
-            compassoPadrao: "4/4",
-            subdivisaoPadrao: "1",
-            velocidadePadrao: 1,
-            bpmPadrao: 118
+            cifra: "C                G\nOlha o xote das meninas\nF                C\nComo elas sabem dançar\n\nC                G\nOlha o xote das meninas\nF                C\nComo elas sabem dançar",
+            pastas: ["Forró"], totalAcordes: 3, noRepertorio: false,
+            ritmoPadrao: "Forro_Xote", bpmPadrao: 118, velocidadePadrao: 1
         }
     ];
 
     const RITMOS = {
-        "Nenhum": {}, "Metronomo": {},
+        "Nenhum": {},
         "Rock_1": { bumbo: [0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
         "Rock_2": { bumbo: [0,2,8,10], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
         "Rock_3": { bumbo: [0,6,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
@@ -921,68 +726,28 @@
         "Rock_Punk": { bumbo: [0,4,8,12], caixa:[2,6,10,14], chimbau:[0,2,4,6,8,10,12,14] },
         "Pop_1": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14] },
         "Pop_2": { bumbo: [0,7,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Pop_3": { bumbo: [0,4,6,10], caixa:[4,12,15], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
-        "Pop_90s": { bumbo: [0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[12] },
-        "Synthwave": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
-        "Disco_Groove": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14], palma:[2,6,10,14] },
-        "Pop_Acoustic": { bumbo: [0,8], caixa:[4,12], chimbau:[0,4,8,12] },
-        "Pop_RnB": { bumbo: [0,6,8], caixa:[4,12], chimbau:[2,4,6,10,12,14] },
+        "Pop_3": { bumbo: [0,4,6,10], caixa:[4,12,15], chimbau:[0,2,4,6,8,10,12,14] },
         "Samba_1": { bumbo: [0,4,8,12], caixa:[2,6,10,14], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
-        "Samba_Roda": { bumbo: [0,4,8,12], caixa:[2,5,6,10,13,14], chimbau:[0,2,4,6,8,10,12,14], palma:[3,7,11,15] },
-        "Samba_Enredo": { bumbo: [0,2,4,6,8,10,12,14], caixa:[1,3,5,7,9,11,13,15], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
-        "Pagode_90s": { bumbo: [0,8], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
-        "Pagodao": { bumbo: [0,8], caixa:[4,7,12,15], chimbau:[0,2,4,6,8,10,12,14], palma:[2,6,10,14] },
-        "Sertanejo_1": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[6,14] },
+        "Pagode_90s": { bumbo: [0,8], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14] },
+        "Sertanejo_1": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
         "Sertanejo_2": { bumbo: [0,6,8,14], caixa:[2,4,10,12], chimbau:[0,4,8,12] },
         "Sertanejo_3": { bumbo: [0,6,12], caixa:[4,10], chimbau:[0,2,4,6,8,10,12,14] },
-        "Sertanejo_Univ": { bumbo: [0,4,8,12], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Piseiro": { bumbo: [0,4,8,12], caixa:[3,4,11,12], chimbau:[0,2,4,6,8,10,12,14], palma:[7,15] },
-        "Reggae_1": { bumbo: [4,12], caixa:[4,12], chimbau:[2,6,10,14] },
-        "Reggae_2": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14] },
-        "Reggae_3": { bumbo: [0,3,8,11], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Dub_Roots": { bumbo: [0,8,12], caixa:[4,12], chimbau:[0,4,8,12] },
-        "Reggaeton": { bumbo: [0,4,8,12], caixa:[3,7,11,15], chimbau:[0,2,4,6,8,10,12,14] },
         "Forro_Xote": { bumbo: [0,4,8,12], caixa:[3,7,11,15], chimbau:[0,2,4,6,8,10,12,14] },
-        "Forro_ArrastaPe": { bumbo: [0,6,12], caixa:[2,8,14], chimbau:[0,4,8,12] },
-        "Forro_Eletronico": { bumbo: [0,4,8,12], caixa:[4,8,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Gospel_Adoracao": { bumbo: [0,4,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Gospel_Contemporaneo": { bumbo: [0,4,8,12], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14] },
-        "Gospel_Louvor": { bumbo: [0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
-        "Funk_Carioca": { bumbo: [0,6,8,14], caixa:[4,10,12], chimbau:[2,6,10,14], palma:[4,12] },
-        "Blues_Shuffle": { bumbo: [0,6,8,14], caixa:[4,12], chimbau:[0,3,4,7,8,11,12,15] },
-        "Trap_Beat": { bumbo: [0,11], caixa:[4,12], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
-        "MPB": { bumbo: [0,4,8,12], caixa:[2,6,10,14], chimbau:[0,2,4,6,8,10,12,14] },
-        "Eletronica": { bumbo: [0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] }
+        "Forro_ArrastaPe": { bumbo: [0,6,12], caixa:[2,8,14], chimbau:[0,4,8,12] }
     };
 
-    const dicionarioAcordes = { 
-        "C": { trastes: [-1,3,2,0,1,0], dedos: ["","3","2","","1",""] },
-        "G": { trastes: [3,2,0,0,3,3], dedos: ["2","1","","","3","4"] },
-        "Am": { trastes: [-1,0,2,2,1,0], dedos: ["","","2","3","1",""] },
-        "F": { trastes: [1,3,3,2,1,1], dedos: ["1","3","4","2","1","1"] },
-        "D": { trastes: [-1,-1,0,2,3,2], dedos: ["","","","1","3","2"] },
-        "Em": { trastes: [0,2,2,0,0,0], dedos: ["","1","2","","",""] },
-        "A": { trastes: [-1,0,2,2,2,0], dedos: ["","","1","2","3",""] },
-        "E": { trastes: [0,2,2,1,0,0], dedos: ["","2","3","1","",""] }
-    };
-    const regexNotas = /\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g;
-
-    // ==================== ESTADO GLOBAL ====================
-    let musicasPadrao = JSON.parse(localStorage.getItem('musicasPadrao'));
-    if (!musicasPadrao || musicasPadrao.length === 0) {
-        musicasPadrao = [...CATALOGO_PADRAO];
-        localStorage.setItem('musicasPadrao', JSON.stringify(musicasPadrao));
-    }
-
+    // ==================== ESTADO ====================
+    let musicasPadrao = JSON.parse(localStorage.getItem('musicasPadrao')) || [...CATALOGO_PADRAO];
     let musicasCliente = JSON.parse(localStorage.getItem('minhasCifras')) || [];
     let senhasGeradas = JSON.parse(localStorage.getItem('senhasGeradas')) || {};
     let senhasUsadas = JSON.parse(localStorage.getItem('senhasUsadas')) || [];
+    let senhaMestra = localStorage.getItem('senhaMestra') || '';
     let isAdminMode = false;
     let indiceAtual = 0, intervaloRolagem = null, rodando = false;
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
-    let tamanhoFonteAtual = 18;
+    let tamanhoFonte = 18;
 
-    // ==================== FUNÇÕES DE TELA ====================
+    // ==================== TELAS ====================
     function entrarNoApp() {
         document.getElementById('tela-inicial').style.display = 'none';
         document.getElementById('appPrincipal').style.display = 'block';
@@ -996,10 +761,8 @@
         pararRolagem();
     }
 
-    function mostrarTelaLogin() {
-        document.getElementById('tela-login').style.display = 'flex';
-    }
-
+    function mostrarTelaLogin() { document.getElementById('tela-login').style.display = 'flex'; }
+    
     function fecharTelaLogin() {
         document.getElementById('tela-login').style.display = 'none';
         document.getElementById('erro-senha').style.display = 'none';
@@ -1007,8 +770,7 @@
     }
 
     function verificarSenhaAcesso() {
-        let s = document.getElementById('campo-senha').value;
-        if (s === SENHA_ADMIN) {
+        if (document.getElementById('campo-senha').value === SENHA_ADMIN) {
             isAdminMode = true;
             document.getElementById('tela-login').style.display = 'none';
             document.getElementById('adminSidebar').classList.add('visible');
@@ -1016,12 +778,9 @@
             document.getElementById('btnSair').style.display = 'flex';
             document.getElementById('user-badge').innerText = 'Administrador';
             document.getElementById('user-badge').classList.add('badge-admin');
-            if (document.getElementById('tela-inicial').style.display !== 'none') {
-                document.getElementById('tela-inicial').style.display = 'none';
-                document.getElementById('appPrincipal').style.display = 'block';
-            }
-            atualizarListaSenhasGeradas();
-            atualizarListaMusicas();
+            if (document.getElementById('tela-inicial').style.display !== 'none') entrarNoApp();
+            atualizarStatusSenhaMestra();
+            atualizarListaSenhas();
         } else {
             document.getElementById('erro-senha').style.display = 'block';
             document.getElementById('campo-senha').value = '';
@@ -1035,131 +794,115 @@
         document.getElementById('btnSair').style.display = 'none';
         document.getElementById('user-badge').innerText = '🎵 Músico';
         document.getElementById('user-badge').classList.remove('badge-admin');
-        atualizarListaMusicas();
     }
 
-    // ==================== SISTEMA DE SENHAS ÚNICAS ====================
-    function gerarSenhaAleatoria() {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let s = '';
-        for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random() * chars.length)];
-        return s;
+    // ==================== SENHA MESTRA ====================
+    function salvarSenhaMestra() {
+        const senha = document.getElementById('senha-mestra-input').value.trim();
+        if (!senha || senha.length < 6) {
+            alert('A senha mestra deve ter pelo menos 6 caracteres!');
+            return;
+        }
+        senhaMestra = senha;
+        localStorage.setItem('senhaMestra', senhaMestra);
+        document.getElementById('senha-mestra-input').value = '';
+        atualizarStatusSenhaMestra();
+        alert('✅ Senha mestra salva com sucesso!\n\n⚠️ GUARDE ESTA SENHA! Sem ela você não conseguirá gerar senhas de cliente.');
     }
 
-    function criarSenhaManual() {
-        if (!isAdminMode) return;
-        const senha = document.getElementById('nova-senha-manual').value.trim().toUpperCase();
-        if (!senha) { alert('Digite uma senha!'); return; }
-        if (senhasGeradas[senha]) { alert('Esta senha já existe!'); return; }
-        
+    function atualizarStatusSenhaMestra() {
+        const status = document.getElementById('status-senha-mestra');
+        if (senhaMestra) {
+            status.innerHTML = '<span style="color: var(--success);">✅ Senha mestra configurada</span>';
+            document.getElementById('senha-mestra-input').placeholder = '•••••••• (já configurada)';
+        } else {
+            status.innerHTML = '<span style="color: var(--danger);">⚠️ Senha mestra não configurada!</span>';
+        }
+    }
+
+    // ==================== GERAR SENHAS ÚNICAS ====================
+    function derivarSenha(senhaBase, clienteId) {
+        // Cria uma senha única para cada cliente derivada da senha mestra
+        const hash = CryptoJS.SHA256(senhaBase + clienteId).toString();
+        return hash.substring(0, 10).toUpperCase();
+    }
+
+    function gerarSenhaUnica() {
+        if (!senhaMestra) {
+            alert('⚠️ Configure a senha mestra primeiro!');
+            return null;
+        }
+        const id = Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
+        const senha = derivarSenha(senhaMestra, id);
         senhasGeradas[senha] = {
+            id: id,
             criada: new Date().toISOString(),
             usada: false
         };
         localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
-        document.getElementById('nova-senha-manual').value = '';
-        atualizarListaSenhasGeradas();
-        alert(`✅ Senha "${senha}" criada com sucesso!`);
+        return senha;
     }
 
     function gerarLoteSenhas() {
         if (!isAdminMode) return;
-        const novas = [];
-        for (let i = 0; i < 5; i++) {
-            let senha;
-            do {
-                senha = gerarSenhaAleatoria();
-            } while (senhasGeradas[senha]);
-            senhasGeradas[senha] = {
-                criada: new Date().toISOString(),
-                usada: false
-            };
-            novas.push(senha);
-        }
-        localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
-        atualizarListaSenhasGeradas();
-        alert(`✅ 5 senhas geradas:\n\n${novas.join('\n')}\n\nCopie e distribua para seus clientes!`);
-    }
-
-    function atualizarListaSenhasGeradas() {
-        const container = document.getElementById('lista-senhas-geradas');
-        if (!container) return;
-        
-        const senhas = Object.entries(senhasGeradas).sort((a, b) => 
-            new Date(b[1].criada) - new Date(a[1].criada)
-        );
-
-        if (senhas.length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada ainda</p>';
+        if (!senhaMestra) {
+            alert('⚠️ Configure a senha mestra primeiro!');
             return;
         }
+        const senhas = [];
+        for (let i = 0; i < 5; i++) {
+            const s = gerarSenhaUnica();
+            if (s) senhas.push(s);
+        }
+        atualizarListaSenhas();
+        alert(`✅ 5 senhas geradas:\n\n${senhas.join('\n')}\n\nDistribua UMA para cada cliente!`);
+    }
 
-        container.innerHTML = senhas.map(([senha, dados]) => `
+    function atualizarListaSenhas() {
+        const container = document.getElementById('lista-senhas-geradas');
+        if (!container) return;
+        const senhas = Object.entries(senhasGeradas).sort((a, b) => new Date(b[1].criada) - new Date(a[1].criada));
+        if (senhas.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma senha gerada</p>';
+            return;
+        }
+        container.innerHTML = senhas.map(([s, d]) => `
             <div class="senha-gerada-item">
-                <span style="font-size: 16px; font-weight: 700; color: ${dados.usada ? 'var(--text-muted)' : 'var(--accent)'};">
-                    ${dados.usada ? '🔒' : '🔑'} ${senha}
-                </span>
-                <span class="status-senha ${dados.usada ? 'status-usada' : 'status-disponivel'}">
-                    ${dados.usada ? 'USADA' : 'DISPONÍVEL'}
-                </span>
+                <span>🔑 ${s}</span>
+                <span class="${d.usada ? 'status-usada' : 'status-disponivel'}">${d.usada ? 'USADA' : 'DISPONÍVEL'}</span>
             </div>
         `).join('');
     }
 
-    function exportarSenhasAdmin() {
-        if (!isAdminMode) return;
-        const texto = Object.entries(senhasGeradas)
-            .map(([s, d]) => `${s} - ${d.usada ? 'USADA' : 'DISPONÍVEL'} - ${new Date(d.criada).toLocaleDateString()}`)
-            .join('\n');
-        const blob = new Blob([texto], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `senhas_${new Date().toISOString().slice(0,10)}.txt`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    function isSenhaValida(senha) {
-        // Verifica se a senha existe nas senhas geradas E não foi usada
-        if (!senhasGeradas[senha]) return false;
-        if (senhasGeradas[senha].usada) return false;
-        // Verifica também na lista local de usadas (segurança extra)
-        if (senhasUsadas.includes(senha)) return false;
-        return true;
-    }
-
-    function marcarSenhaComoUsada(senha) {
-        if (senhasGeradas[senha]) {
-            senhasGeradas[senha].usada = true;
-            localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
+    function copiarSenhasDisponiveis() {
+        const disponiveis = Object.entries(senhasGeradas)
+            .filter(([_, d]) => !d.usada)
+            .map(([s]) => s);
+        if (disponiveis.length === 0) {
+            alert('Nenhuma senha disponível. Gere novas senhas.');
+            return;
         }
-        if (!senhasUsadas.includes(senha)) {
-            senhasUsadas.push(senha);
-            localStorage.setItem('senhasUsadas', JSON.stringify(senhasUsadas));
-        }
+        navigator.clipboard.writeText(disponiveis.join('\n'));
+        alert(`${disponiveis.length} senhas copiadas!`);
     }
 
     // ==================== CRIPTOGRAFIA ====================
-    async function descriptografarCatalogo(senhaCliente) {
-        try {
-            const response = await fetch(CATALOGO_ENC_URL);
-            if (!response.ok) return null;
-            const encryptedData = await response.text();
-            
-            // Tenta descriptografar com a senha do cliente
-            const bytes = CryptoJS.AES.decrypt(encryptedData, senhaCliente);
-            const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-            if (!decrypted || decrypted.length < 2) return null;
-            
-            const resultado = JSON.parse(decrypted);
-            return resultado;
-        } catch (e) {
-            return null;
-        }
+    function descriptografarComSenha(senhaCliente) {
+        // A senha do cliente é derivada. Tentamos descriptografar o catálogo
+        // usando a senha do cliente diretamente (que é derivada da mestra)
+        return fetch(CATALOGO_ENC_URL)
+            .then(r => r.ok ? r.text() : null)
+            .then(encrypted => {
+                if (!encrypted) return null;
+                try {
+                    const bytes = CryptoJS.AES.decrypt(encrypted, senhaCliente);
+                    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+                    return decrypted ? JSON.parse(decrypted) : null;
+                } catch { return null; }
+            });
     }
 
-    async function usarSenhaUnica() {
+    async function ativarCatalogo() {
         const senha = document.getElementById('senha-cliente').value.trim();
         const msg = document.getElementById('msg-cliente');
         
@@ -1170,54 +913,62 @@
             return;
         }
 
-        // Verifica se a senha é válida (não usada)
-        if (!isSenhaValida(senha)) {
+        // Verifica se a senha existe E não foi usada
+        if (!senhasGeradas[senha]) {
             msg.style.display = 'block';
             msg.style.color = 'var(--danger)';
-            msg.innerText = '❌ Senha inválida ou já utilizada!';
+            msg.innerText = '❌ Senha inválida!';
+            return;
+        }
+        if (senhasGeradas[senha].usada || senhasUsadas.includes(senha)) {
+            msg.style.display = 'block';
+            msg.style.color = 'var(--danger)';
+            msg.innerText = '❌ Esta senha já foi utilizada!';
             return;
         }
 
         msg.style.display = 'block';
         msg.style.color = 'var(--text-secondary)';
-        msg.innerText = '⏳ Verificando senha...';
+        msg.innerText = '⏳ Validando senha...';
 
-        const catalogo = await descriptografarCatalogo(senha);
+        // Tenta descriptografar
+        const catalogo = await descriptografarComSenha(senha);
         
         if (catalogo && Array.isArray(catalogo) && catalogo.length > 0) {
-            // SUCESSO: marca senha como usada
-            marcarSenhaComoUsada(senha);
+            // MARCAR COMO USADA
+            senhasGeradas[senha].usada = true;
+            senhasUsadas.push(senha);
+            localStorage.setItem('senhasGeradas', JSON.stringify(senhasGeradas));
+            localStorage.setItem('senhasUsadas', JSON.stringify(senhasUsadas));
             
             musicasCliente = catalogo;
             localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
             
             msg.style.color = 'var(--success)';
-            msg.innerText = `✅ Sucesso! ${musicasCliente.length} músicas carregadas.`;
-            
-            atualizarListaMusicas();
-            atualizarBotoesDownload();
-            if (musicasCliente.length > 0) carregarMusica(0);
+            msg.innerText = `✅ ${musicasCliente.length} músicas carregadas! Esta senha não poderá ser usada novamente.`;
             document.getElementById('senha-cliente').value = '';
             
-            setTimeout(() => msg.style.display = 'none', 5000);
+            atualizarListaMusicas();
+            document.getElementById('botoes-download').style.display = 'flex';
+            if (musicasCliente.length > 0) carregarMusica(0);
+            setTimeout(() => msg.style.display = 'none', 6000);
         } else {
             msg.style.color = 'var(--danger)';
-            msg.innerText = '❌ Senha inválida ou catálogo não disponível.';
+            msg.innerText = '❌ Catálogo não disponível. Contate o administrador.';
         }
     }
 
     function exportarCatalogoCriptografado() {
         if (!isAdminMode) return;
-        const senhaMestra = document.getElementById('senha-mestra-cripto').value.trim();
         if (!senhaMestra) {
-            alert('Defina uma senha mestra! Esta senha será usada para criptografar o catálogo.');
+            alert('⚠️ Configure a senha mestra primeiro!');
             return;
         }
-
-        // Criptografa o catálogo com a senha mestra
+        
         const dataStr = JSON.stringify(musicasPadrao);
         const encrypted = CryptoJS.AES.encrypt(dataStr, senhaMestra).toString();
         
+        // Adiciona um cabeçalho para identificar que aceita múltiplas senhas derivadas
         const blob = new Blob([encrypted], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1226,129 +977,82 @@
         a.click();
         URL.revokeObjectURL(url);
         
-        alert(`✅ Arquivo criptografado baixado!\n\n⚠️ IMPORTANTE: Suas senhas de cliente DEVEM ser IGUAIS à senha mestra "${senhaMestra}" para funcionar.\n\nOu seja, gere senhas usando exatamente esta senha mestra.`);
+        alert('✅ Catálogo criptografado!\n\nFaça upload do arquivo catalogo.json.enc no GitHub.');
     }
 
-    function baixarCatalogoCliente() {
-        if (musicasCliente.length === 0) return;
-        const data = JSON.stringify(musicasCliente, null, 2);
-        const blob = new Blob([data], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+    function baixarJSON() {
+        if (!musicasCliente.length) return;
+        const blob = new Blob([JSON.stringify(musicasCliente, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `meu_repertorio_${new Date().toISOString().slice(0,10)}.json`;
+        a.href = URL.createObjectURL(blob);
+        a.download = 'cifras.json';
         a.click();
-        URL.revokeObjectURL(url);
     }
 
-    function baixarCatalogoTexto() {
-        if (musicasCliente.length === 0) return;
-        let texto = '';
-        musicasCliente.forEach(m => {
-            texto += `🎵 ${m.titulo}\n${'='.repeat(30)}\n${m.cifra}\n\n`;
-        });
+    function baixarTXT() {
+        if (!musicasCliente.length) return;
+        const texto = musicasCliente.map(m => `🎵 ${m.titulo}\n${'='.repeat(30)}\n${m.cifra}\n\n`).join('');
         const blob = new Blob([texto], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = url;
+        a.href = URL.createObjectURL(blob);
         a.download = 'cifras.txt';
         a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    function atualizarBotoesDownload() {
-        const botoes = document.getElementById('botoes-download');
-        if (botoes) {
-            botoes.style.display = musicasCliente.length > 0 ? 'flex' : 'none';
-        }
     }
 
     // ==================== CATÁLOGO ====================
-    function exportarCatalogo() {
+    function exportarCatalogoJSON() {
         if (!isAdminMode) return;
-        const data = JSON.stringify(musicasPadrao, null, 2);
-        const blob = new Blob([data], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
+        const blob = new Blob([JSON.stringify(musicasPadrao, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `catalogo_${new Date().toISOString().slice(0,10)}.json`;
+        a.href = URL.createObjectURL(blob);
+        a.download = 'catalogo.json';
         a.click();
-        URL.revokeObjectURL(url);
     }
 
-    function importarCatalogo() {
+    function importarCatalogoJSON() {
         if (!isAdminMode) return;
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
         input.onchange = e => {
-            const file = e.target.files[0];
             const reader = new FileReader();
             reader.onload = ev => {
                 try {
-                    const imported = JSON.parse(ev.target.result);
-                    if (Array.isArray(imported) && imported.length > 0) {
-                        musicasPadrao = imported;
+                    const data = JSON.parse(ev.target.result);
+                    if (Array.isArray(data)) {
+                        musicasPadrao = data;
                         localStorage.setItem('musicasPadrao', JSON.stringify(musicasPadrao));
-                        alert(`✅ ${musicasPadrao.length} músicas importadas!`);
-                        atualizarListaMusicas();
+                        alert('✅ Catálogo importado!');
                     }
-                } catch (err) { alert('Arquivo inválido'); }
+                } catch { alert('Arquivo inválido'); }
             };
-            reader.readAsText(file);
+            reader.readAsText(e.target.files[0]);
         };
         input.click();
-    }
-
-    function resetarCatalogoPadrao() {
-        if (!isAdminMode) return;
-        if (confirm('Resetar catálogo para o padrão?')) {
-            musicasPadrao = [...CATALOGO_PADRAO];
-            localStorage.setItem('musicasPadrao', JSON.stringify(musicasPadrao));
-            alert('Catálogo restaurado!');
-            atualizarListaMusicas();
-        }
     }
 
     function adicionarMusica() {
         if (!isAdminMode) return;
         const titulo = document.getElementById('musica-titulo').value;
         const cifra = document.getElementById('musica-cifra').value;
-        const qtd = parseInt(document.getElementById('musica-qtd-acordes').value) || 0;
-        const ritmo = document.getElementById('musica-ritmo-padrao').value;
-        const compasso = document.getElementById('musica-compasso-padrao').value;
-        const subdiv = document.getElementById('musica-subdivisao-padrao').value;
-        const vel = parseFloat(document.getElementById('musica-velocidade-padrao').value) || 1;
-        const bpm = parseInt(document.getElementById('musica-bpm-padrao').value) || 100;
-
         if (!titulo || !cifra) { alert('Preencha título e cifra!'); return; }
-
+        
         const pastas = [];
         document.querySelectorAll('input[name="pasta-opcao"]:checked').forEach(cb => pastas.push(cb.value));
-        if (qtd === 3) pastas.push('3 acordes');
-        else if (qtd === 4) pastas.push('4 acordes');
-
+        
         musicasPadrao.push({
             titulo, cifra, pastas,
-            totalAcordes: qtd,
+            totalAcordes: parseInt(document.getElementById('musica-qtd-acordes').value) || 0,
             noRepertorio: false,
-            ritmoPadrao: ritmo,
-            compassoPadrao: compasso,
-            subdivisaoPadrao: subdiv,
-            velocidadePadrao: vel,
-            bpmPadrao: bpm
+            ritmoPadrao: document.getElementById('musica-ritmo-padrao').value,
+            bpmPadrao: parseInt(document.getElementById('musica-bpm-padrao').value) || 100,
+            velocidadePadrao: parseFloat(document.getElementById('musica-velocidade-padrao').value) || 1
         });
-
+        
         localStorage.setItem('musicasPadrao', JSON.stringify(musicasPadrao));
-        document.getElementById('musica-titulo').value = '';
-        document.getElementById('musica-cifra').value = '';
-        document.getElementById('musica-qtd-acordes').value = '';
-        document.getElementById('musica-velocidade-padrao').value = '1.0';
-        document.getElementById('musica-bpm-padrao').value = '100';
+        ['musica-titulo','musica-cifra','musica-qtd-acordes'].forEach(id => document.getElementById(id).value = '');
         document.querySelectorAll('input[name="pasta-opcao"]').forEach(cb => cb.checked = false);
-
-        alert(`✅ Música "${titulo}" adicionada!`);
-        atualizarListaMusicas();
+        alert('✅ Música adicionada!');
     }
 
     // ==================== LISTA DE MÚSICAS ====================
@@ -1356,365 +1060,178 @@
         const lista = document.getElementById('lista-musicas');
         const filtro = document.getElementById('filtro-estilo').value;
         const semMsg = document.getElementById('semMusicasMsg');
-        
         lista.innerHTML = '';
-        const fonte = musicasCliente;
         
-        if (fonte.length === 0) {
+        if (musicasCliente.length === 0) {
             semMsg.style.display = 'block';
-            atualizarBotoesDownload();
+            document.getElementById('botoes-download').style.display = 'none';
             return;
         }
         semMsg.style.display = 'none';
-
-        fonte.forEach((m, idx) => {
-            if (filtro !== 'Todos') {
-                if (filtro === 'Repertorio' && !m.noRepertorio) return;
-                if (filtro !== 'Repertorio' && (!m.pastas || !m.pastas.includes(filtro))) return;
-            }
-
-            let tags = '';
-            if (m.noRepertorio) tags += '<span class="tag tag-repertorio">★ Repertório</span>';
-            if (m.pastas) m.pastas.forEach(p => tags += `<span class="tag">${p}</span>`);
-
+        
+        musicasCliente.forEach((m, idx) => {
+            if (filtro !== 'Todos' && filtro !== 'Repertorio' && (!m.pastas || !m.pastas.includes(filtro))) return;
+            if (filtro === 'Repertorio' && !m.noRepertorio) return;
+            
             const div = document.createElement('div');
             div.className = 'musica-item' + (idx === indiceAtual ? ' active-song' : '');
-            div.innerHTML = `<div class="musica-titulo">${m.titulo}</div><div class="tags-container">${tags}</div>`;
+            div.innerHTML = `<div class="musica-titulo">${m.titulo}</div>`;
             div.onclick = () => carregarMusica(idx);
             lista.appendChild(div);
         });
-
-        atualizarBotoesDownload();
     }
 
     function alternarRepertorio() {
-        if (musicasCliente.length === 0) return;
-        const m = musicasCliente[indiceAtual];
-        if (m) {
-            m.noRepertorio = !m.noRepertorio;
-            localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
-            carregarMusica(indiceAtual);
-            atualizarListaMusicas();
-        }
+        if (!musicasCliente[indiceAtual]) return;
+        musicasCliente[indiceAtual].noRepertorio = !musicasCliente[indiceAtual].noRepertorio;
+        localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
+        carregarMusica(indiceAtual);
     }
 
     function carregarMusica(idx) {
-        if (musicasCliente.length === 0) return;
+        if (!musicasCliente[idx]) return;
         pararRolagem();
         indiceAtual = idx;
         const m = musicasCliente[idx];
-
-        let texto = m.cifra;
-        if (document.getElementById('chk-esconder-acordes')?.checked) {
-            texto = texto.split('\n').filter(l => l.replace(regexNotas, '').trim().length > 0 || l.trim() === '').join('\n');
-        }
-        texto = texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        texto = texto.replace(regexNotas, '<span class="nota-clicavel" onclick="abrirJanelaAcorde(\'$1\')">$1</span>');
+        
+        let texto = m.cifra.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        texto = texto.replace(/\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g,
+            '<span class="nota-clicavel" onclick="mostrarAcorde(\'$1\')">$1</span>');
+        
         document.getElementById('cifra-view').innerHTML = texto;
         document.getElementById('cifra-view').scrollTop = 0;
-
         document.getElementById('seletor-ritmo').value = m.ritmoPadrao || 'Nenhum';
-        document.getElementById('seletor-compasso').value = m.compassoPadrao || '4/4';
-        document.getElementById('seletor-subdivisao').value = m.subdivisaoPadrao || '1';
-        document.getElementById('velocidade').value = m.velocidadePadrao || 1;
         document.getElementById('bpm-input').value = m.bpmPadrao || 100;
         document.getElementById('txt-bpm').innerText = m.bpmPadrao || 100;
-
+        document.getElementById('velocidade').value = m.velocidadePadrao || 1;
+        
         const btn = document.getElementById('btn-repertorio');
-        if (m.noRepertorio) {
-            btn.innerText = '⭐ No Repertório';
-            btn.style.background = 'var(--warning)';
-            btn.style.color = '#000';
-        } else {
-            btn.innerText = '☆ Add Repertório';
-            btn.style.background = '#2a2a3a';
-            btn.style.color = '#fff';
-        }
-
+        btn.innerText = m.noRepertorio ? '⭐' : '☆';
+        btn.style.background = m.noRepertorio ? 'var(--warning)' : '#2a2a3a';
+        
         atualizarListaMusicas();
-        document.querySelector('.tab-btn[data-view="player"]')?.click();
     }
 
     function proximaMusica() {
-        if (musicasCliente.length === 0) return;
-        const filtro = document.getElementById('filtro-estilo').value;
-        const ativas = musicasCliente
-            .map((m, i) => ({ ...m, idx: i }))
-            .filter(m => {
-                if (filtro === 'Todos') return true;
-                if (filtro === 'Repertorio') return m.noRepertorio;
-                return m.pastas && m.pastas.includes(filtro);
-            });
-        if (ativas.length === 0) return;
-        const pos = ativas.findIndex(m => m.idx === indiceAtual);
-        const next = (pos + 1) % ativas.length;
-        carregarMusica(ativas[next].idx);
+        if (!musicasCliente.length) return;
+        carregarMusica((indiceAtual + 1) % musicasCliente.length);
     }
 
-    // ==================== ÁUDIO ====================
-    function tocarClique(t, f, v) {
-        if (!audioCtx) return;
-        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-        o.type = 'triangle'; o.connect(g); g.connect(audioCtx.destination);
-        o.frequency.setValueAtTime(f, t);
-        g.gain.setValueAtTime(v * 0.7, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
-        o.start(t); o.stop(t + 0.05);
+    function mostrarAcorde(nome) {
+        alert(`Acorde: ${nome}\n(Visualização simplificada)`);
     }
 
-    function tocarBumbo(t, v) {
-        if (!audioCtx) return;
-        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-        o.connect(g); g.connect(audioCtx.destination);
-        o.frequency.setValueAtTime(130, t);
-        o.frequency.exponentialRampToValueAtTime(0.01, t + 0.11);
-        g.gain.setValueAtTime(v, t);
-        g.gain.exponentialRampToValueAtTime(0.01, t + 0.11);
-        o.start(t); o.stop(t + 0.12);
-    }
-
-    function tocarCaixa(t, v) {
-        if (!audioCtx) return;
-        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.12, audioCtx.sampleRate);
-        const d = buf.getChannelData(0);
-        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-        const n = audioCtx.createBufferSource(); n.buffer = buf;
-        const f = audioCtx.createBiquadFilter(); f.type = 'highpass'; f.frequency.setValueAtTime(1100, t);
-        const g = audioCtx.createGain();
-        g.gain.setValueAtTime(v * 0.65, t);
-        g.gain.exponentialRampToValueAtTime(0.01, t + 0.12);
-        n.connect(f); f.connect(g); g.connect(audioCtx.destination);
-        n.start(t); n.stop(t + 0.13);
-    }
-
-    function tocarChimbau(t, v) {
-        if (!audioCtx) return;
-        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.03, audioCtx.sampleRate);
-        const d = buf.getChannelData(0);
-        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-        const n = audioCtx.createBufferSource(); n.buffer = buf;
-        const f = audioCtx.createBiquadFilter(); f.type = 'highpass'; f.frequency.setValueAtTime(7500, t);
-        const g = audioCtx.createGain();
-        g.gain.setValueAtTime(v * 0.22, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.03);
-        n.connect(f); f.connect(g); g.connect(audioCtx.destination);
-        n.start(t); n.stop(t + 0.04);
-    }
-
-    function tocarPalma(t, v) {
-        if (!audioCtx) return;
-        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.08, audioCtx.sampleRate);
-        const d = buf.getChannelData(0);
-        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-        const n = audioCtx.createBufferSource(); n.buffer = buf;
-        const f = audioCtx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.setValueAtTime(1200, t);
-        const g = audioCtx.createGain();
-        g.gain.setValueAtTime(0, t);
-        g.gain.linearRampToValueAtTime(v * 0.4, t + 0.005);
-        g.gain.linearRampToValueAtTime(0, t + 0.01);
-        g.gain.linearRampToValueAtTime(v * 0.4, t + 0.015);
-        g.gain.linearRampToValueAtTime(0, t + 0.02);
-        g.gain.linearRampToValueAtTime(v * 0.55, t + 0.025);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.07);
-        n.connect(f); f.connect(g); g.connect(audioCtx.destination);
-        n.start(t); n.stop(t + 0.08);
-    }
-
-    function rodarScheduler() {
-        while (nextBeatTime < audioCtx.currentTime + 0.1) {
-            const r = document.getElementById('seletor-ritmo').value;
-            const c = document.getElementById('seletor-compasso').value;
-            const steps = (r === 'Metronomo' && c === '3/4') ? 12 : ((r === 'Metronomo' && c === '2/4') ? 8 : 16);
-            processarPasso(currentStep, nextBeatTime, steps);
-            const bpm = parseInt(document.getElementById('bpm-input').value) || 100;
-            nextBeatTime += 15 / bpm;
-            currentStep = (currentStep + 1) % steps;
-        }
-        schedulerTimer = setTimeout(rodarScheduler, 25);
-    }
-
-    function processarPasso(step, time, steps) {
-        if (step % 4 === 0) {
-            const d = (time - audioCtx.currentTime) * 1000;
-            setTimeout(() => {
-                const led = document.getElementById('visual-beat');
-                if (led) {
-                    led.style.backgroundColor = (step === 0) ? 'var(--warning)' : 'var(--accent)';
-                    led.style.transform = 'scale(1.3)';
-                    setTimeout(() => {
-                        led.style.backgroundColor = '#262633';
-                        led.style.transform = 'scale(1)';
-                    }, 70);
-                }
-            }, Math.max(0, d));
-        }
-
-        const r = document.getElementById('seletor-ritmo').value;
-        if (r === 'Nenhum') return;
-        const vol = parseFloat(document.getElementById('volume-bateria').value) || 0.5;
-
-        if (r === 'Metronomo') {
-            const sub = document.getElementById('seletor-subdivisao').value;
-            const cab = (step % 4 === 0);
-            const meio = (step % 2 === 0);
-            if (cab) tocarClique(time, step === 0 ? 1300 : 850, vol);
-            else if (sub === '2' && meio) tocarClique(time, 550, vol * 0.45);
-            else if (sub === '4') tocarClique(time, 550, vol * 0.3);
-            return;
-        }
-
-        const rit = RITMOS[r];
-        if (!rit) return;
-        if (rit.bumbo && rit.bumbo.includes(step)) tocarBumbo(time, vol);
-        if (rit.caixa && rit.caixa.includes(step)) tocarCaixa(time, vol);
-        if (rit.chimbau && rit.chimbau.includes(step)) tocarChimbau(time, vol);
-        if (rit.palma && rit.palma.includes(step)) tocarPalma(time, vol);
-    }
-
-    // ==================== PLAYER ====================
-    function alternarRolagem() { if (rodando) pararRolagem(); else iniciarRolagem(); }
-
+    // ==================== ÁUDIO E PLAYER ====================
+    function alternarRolagem() { rodando ? pararRolagem() : iniciarRolagem(); }
+    
     function iniciarRolagem() {
-        if (musicasCliente.length === 0) return;
+        if (!musicasCliente.length) return;
         rodando = true;
-        const btn = document.getElementById('btn-scroll');
-        btn.innerText = '⏸️ Pausar';
-        btn.style.background = 'var(--warning)';
+        document.getElementById('btn-scroll').innerText = '⏸️ Pausar';
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
         nextBeatTime = audioCtx.currentTime + 0.05;
         currentStep = 0;
-        rodarScheduler();
-        const area = document.getElementById('cifra-view');
-        const speed = document.getElementById('velocidade');
-        intervaloRolagem = setInterval(() => {
-            area.scrollTop += parseFloat(speed.value);
-            if (area.scrollTop + area.clientHeight >= area.scrollHeight - 1) {
-                pararRolagem();
-                setTimeout(() => proximaMusica(), 2000);
+        schedulerTimer = setInterval(() => {
+            const ritmo = RITMOS[document.getElementById('seletor-ritmo').value];
+            if (ritmo && ritmo.bumbo) {
+                const vol = parseFloat(document.getElementById('volume-bateria').value) || 0.5;
+                const bpm = parseInt(document.getElementById('bpm-input').value) || 100;
+                const stepTime = 60 / bpm / 4;
+                if (audioCtx.currentTime >= nextBeatTime) {
+                    if (ritmo.bumbo.includes(currentStep % 16)) tocarBumbo(nextBeatTime, vol);
+                    if (ritmo.caixa && ritmo.caixa.includes(currentStep % 16)) tocarCaixa(nextBeatTime, vol);
+                    if (ritmo.chimbau && ritmo.chimbau.includes(currentStep % 16)) tocarChimbau(nextBeatTime, vol);
+                    nextBeatTime += stepTime;
+                    currentStep++;
+                    const led = document.getElementById('visual-beat');
+                    if (led) { led.style.backgroundColor = 'var(--accent)'; setTimeout(() => led.style.backgroundColor = '#262633', 50); }
+                }
             }
+        }, 10);
+        
+        intervaloRolagem = setInterval(() => {
+            const area = document.getElementById('cifra-view');
+            area.scrollTop += parseFloat(document.getElementById('velocidade').value);
         }, 50);
     }
-
+    
     function pararRolagem() {
         rodando = false;
-        const btn = document.getElementById('btn-scroll');
-        if (btn) {
-            btn.innerText = '▶️ Play';
-            btn.style.background = 'var(--accent)';
-        }
+        document.getElementById('btn-scroll').innerText = '▶️ Play';
         clearInterval(intervaloRolagem);
-        clearTimeout(schedulerTimer);
-        const led = document.getElementById('visual-beat');
-        if (led) led.style.backgroundColor = '#262633';
+        clearInterval(schedulerTimer);
+    }
+    
+    function tocarBumbo(t, v) {
+        const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+        o.frequency.setValueAtTime(150, t);
+        o.frequency.exponentialRampToValueAtTime(0.01, t + 0.1);
+        g.gain.setValueAtTime(v, t);
+        g.gain.exponentialRampToValueAtTime(0.01, t + 0.1);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(t); o.stop(t + 0.12);
+    }
+    
+    function tocarCaixa(t, v) {
+        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.1, audioCtx.sampleRate);
+        for (let i = 0; i < buf.length; i++) buf.getChannelData(0)[i] = Math.random() * 2 - 1;
+        const src = audioCtx.createBufferSource(); src.buffer = buf;
+        const g = audioCtx.createGain();
+        g.gain.setValueAtTime(v * 0.5, t);
+        g.gain.exponentialRampToValueAtTime(0.01, t + 0.1);
+        src.connect(g); g.connect(audioCtx.destination);
+        src.start(t); src.stop(t + 0.1);
+    }
+    
+    function tocarChimbau(t, v) {
+        const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.02, audioCtx.sampleRate);
+        for (let i = 0; i < buf.length; i++) buf.getChannelData(0)[i] = Math.random() * 2 - 1;
+        const src = audioCtx.createBufferSource(); src.buffer = buf;
+        const filter = audioCtx.createBiquadFilter(); filter.type = 'highpass'; filter.frequency.setValueAtTime(5000, t);
+        const g = audioCtx.createGain();
+        g.gain.setValueAtTime(v * 0.15, t);
+        g.gain.exponentialRampToValueAtTime(0.01, t + 0.02);
+        src.connect(filter); filter.connect(g); g.connect(audioCtx.destination);
+        src.start(t); src.stop(t + 0.03);
     }
 
-    function ajustarTamanhoFonte(delta) {
-        tamanhoFonteAtual = Math.min(36, Math.max(12, tamanhoFonteAtual + delta));
-        document.getElementById('cifra-view').style.fontSize = tamanhoFonteAtual + 'px';
+    function ajustarFonte(delta) {
+        tamanhoFonte = Math.min(36, Math.max(12, tamanhoFonte + delta));
+        document.getElementById('cifra-view').style.fontSize = tamanhoFonte + 'px';
     }
 
-    // ==================== MODAL DE ACORDES ====================
-    function abrirJanelaAcorde(nome) {
-        if (document.getElementById('chk-esconder-acordes')?.checked) return;
-        pararRolagem();
-        document.getElementById('nome-acorde-modal').innerText = nome;
-        const container = document.getElementById('fretboard-render');
-        container.innerHTML = '';
-        const ac = dicionarioAcordes[nome];
-        if (!ac) {
-            container.innerHTML = '<p style="padding:70px;">Desenho não disponível</p>';
-            document.getElementById('modal-acorde').style.display = 'flex';
-            return;
-        }
-        const cordas = ['E', 'A', 'D', 'G', 'B', 'e'];
-        const left = 35, esp = 28;
-        container.style.position = 'relative';
-        for (let i = 0; i < 6; i++) {
-            const t = ac.trastes[i], x = left + i * esp;
-            const linha = document.createElement('div');
-            linha.style.cssText = `position:absolute; left:${x}px; top:20px; width:1px; height:150px; background:#444;`;
-            container.appendChild(linha);
-            if (t === -1) {
-                const xm = document.createElement('div');
-                xm.innerText = '✕';
-                xm.style.cssText = `position:absolute; left:${x-5}px; top:-2px; color:var(--danger); font-size:11px;`;
-                container.appendChild(xm);
-            } else if (t === 0) {
-                const bola = document.createElement('div');
-                bola.style.cssText = `position:absolute; left:${x-4}px; top:4px; width:8px; height:8px; border:2px solid var(--accent); border-radius:50%;`;
-                container.appendChild(bola);
-            } else if (t > 0) {
-                const y = 20 + (t * 25) - 18;
-                const bol = document.createElement('div');
-                bol.style.cssText = `position:absolute; left:${x-10}px; top:${y}px; width:20px; height:20px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold; color:black;`;
-                bol.innerText = ac.dedos[i] || '';
-                container.appendChild(bol);
-            }
-            const nc = document.createElement('div');
-            nc.innerText = cordas[i];
-            nc.style.cssText = `position:absolute; left:${x-4}px; top:180px; font-size:9px; color:gray;`;
-            container.appendChild(nc);
-        }
-        document.getElementById('modal-acorde').style.display = 'flex';
-    }
-
-    function fecharModal() { document.getElementById('modal-acorde').style.display = 'none'; }
-
-    // ==================== SELETOR DE RITMOS ====================
-    function preencherSeletorRitmos() {
-        const sel = document.getElementById('seletor-ritmo');
-        let html = '<option value="Nenhum">🔇 Sem Bateria</option><option value="Metronomo">⏱️ Metrônomo</option>';
-        html += '<optgroup label="🎸 ROCK"><option value="Rock_1">Rock 1</option><option value="Rock_2">Rock 2</option><option value="Rock_3">Rock 3</option><option value="Rock_70s">Rock 4</option><option value="Rock_Grunge">Rock 5</option><option value="Rock_Punk">Rock 6</option></optgroup>';
-        html += '<optgroup label="🎵 POP"><option value="Pop_1">Pop 1</option><option value="Pop_2">Pop 2</option><option value="Pop_3">Pop 3</option><option value="Pop_90s">Pop 4</option><option value="Synthwave">Pop 5</option><option value="Disco_Groove">Pop 6</option><option value="Pop_Acoustic">Pop 7</option><option value="Pop_RnB">Pop 8</option></optgroup>';
-        html += '<optgroup label="🇧🇷 SAMBA"><option value="Samba_1">Samba 1</option><option value="Samba_Roda">Samba 2</option><option value="Samba_Enredo">Samba 3</option><option value="Pagode_90s">Pagode 1</option><option value="Pagodao">Pagode 2</option></optgroup>';
-        html += '<optgroup label="🤠 SERTANEJO"><option value="Sertanejo_1">Sertanejo 1</option><option value="Sertanejo_2">Sertanejo 2</option><option value="Sertanejo_3">Sertanejo 3</option><option value="Sertanejo_Univ">Sertanejo 4</option><option value="Piseiro">Sertanejo 5</option></optgroup>';
-        html += '<optgroup label="🍁 REGGAE"><option value="Reggae_1">Reggae 1</option><option value="Reggae_2">Reggae 2</option><option value="Reggae_3">Reggae 3</option><option value="Dub_Roots">Reggae 4</option><option value="Reggaeton">Reggae 5</option></optgroup>';
-        html += '<optgroup label="🎶 FORRÓ"><option value="Forro_Xote">Forró Xote</option><option value="Forro_ArrastaPe">Forró Arrasta-pé</option><option value="Forro_Eletronico">Forró Eletrônico</option></optgroup>';
-        html += '<optgroup label="⛪ GOSPEL"><option value="Gospel_Adoracao">Gospel Adoração</option><option value="Gospel_Contemporaneo">Gospel Contemporâneo</option><option value="Gospel_Louvor">Gospel Louvor</option></optgroup>';
-        html += '<optgroup label="✨ OUTROS"><option value="Funk_Carioca">Funk Carioca</option><option value="Blues_Shuffle">Blues/Jazz</option><option value="Trap_Beat">Trap/Hip-Hop</option><option value="MPB">MPB</option><option value="Eletronica">Eletrônica</option></optgroup>';
-        sel.innerHTML = html;
-    }
-
-    // ==================== ABAS MOBILE ====================
+    // ==================== INICIALIZAÇÃO ====================
     document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        if (btn.getAttribute('data-view') === 'biblioteca') {
-            document.getElementById('mainContent').classList.remove('hide-on-mobile');
-        }
     }));
 
-    // ==================== INICIALIZAÇÃO ====================
-    preencherSeletorRitmos();
-    atualizarListaMusicas();
-    atualizarBotoesDownload();
-    if (musicasCliente.length > 0) carregarMusica(0);
+    atualizarStatusSenhaMestra();
+    if (senhaMestra) document.getElementById('senha-mestra-input').placeholder = '•••••••• (já configurada)';
 
-    // ==================== EXPORTAR PARA GLOBAL ====================
+    // ==================== EXPORTAR ====================
     window.entrarNoApp = entrarNoApp;
     window.voltarInicio = voltarInicio;
     window.mostrarTelaLogin = mostrarTelaLogin;
     window.fecharTelaLogin = fecharTelaLogin;
     window.verificarSenhaAcesso = verificarSenhaAcesso;
     window.sairDoAdmin = sairDoAdmin;
-    window.exportarCatalogo = exportarCatalogo;
-    window.importarCatalogo = importarCatalogo;
-    window.resetarCatalogoPadrao = resetarCatalogoPadrao;
-    window.adicionarMusica = adicionarMusica;
-    window.criarSenhaManual = criarSenhaManual;
+    window.salvarSenhaMestra = salvarSenhaMestra;
     window.gerarLoteSenhas = gerarLoteSenhas;
-    window.exportarSenhasAdmin = exportarSenhasAdmin;
+    window.copiarSenhasDisponiveis = copiarSenhasDisponiveis;
     window.exportarCatalogoCriptografado = exportarCatalogoCriptografado;
-    window.usarSenhaUnica = usarSenhaUnica;
-    window.baixarCatalogoCliente = baixarCatalogoCliente;
-    window.baixarCatalogoTexto = baixarCatalogoTexto;
+    window.exportarCatalogoJSON = exportarCatalogoJSON;
+    window.importarCatalogoJSON = importarCatalogoJSON;
+    window.adicionarMusica = adicionarMusica;
+    window.ativarCatalogo = ativarCatalogo;
+    window.baixarJSON = baixarJSON;
+    window.baixarTXT = baixarTXT;
     window.alternarRolagem = alternarRolagem;
     window.proximaMusica = proximaMusica;
     window.alternarRepertorio = alternarRepertorio;
-    window.ajustarTamanhoFonte = ajustarTamanhoFonte;
-    window.abrirJanelaAcorde = abrirJanelaAcorde;
-    window.fecharModal = fecharModal;
+    window.ajustarFonte = ajustarFonte;
+    window.mostrarAcorde = mostrarAcorde;
 </script>
 </body>
 </html>

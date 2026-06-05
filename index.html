@@ -169,8 +169,90 @@
         .tag { font-size: 10px; font-weight: 600; padding: 4px 12px; border-radius: 30px; background: var(--bg-card); }
         .tag-repertorio { background: var(--warning); color: #000; }
         
-        #cifra-view { background: var(--bg-card); padding: 32px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; white-space: pre-wrap; border-radius: 28px; border: 1px solid var(--border); max-height: 50vh; overflow-y: auto; }
-        #cifra-view.fullscreen { position: fixed; inset: 0; z-index: 1000; max-height: 100vh; border-radius: 0; background: var(--bg-dark); padding: 40px; font-size: 22px; }
+        #cifra-view { background: var(--bg-card); padding: 32px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; white-space: pre-wrap; border-radius: 28px; border: 1px solid var(--border); max-height: 50vh; overflow-y: auto; transition: all 0.3s ease; }
+        
+        /* Tela cheia */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            flex-direction: column;
+        }
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+        .fullscreen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(10,10,15,0.95);
+            border-bottom: 1px solid var(--border);
+        }
+        .fullscreen-header h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+        .btn-fechar-fullscreen {
+            background: rgba(255,74,90,0.2);
+            color: var(--danger);
+            border: 1px solid rgba(255,74,90,0.4);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-fechar-fullscreen:hover {
+            background: var(--danger);
+            color: white;
+        }
+        .fullscreen-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #cifra-view-fullscreen {
+            flex: 1;
+            padding: 32px;
+            font-family: 'Courier New', monospace;
+            font-size: 22px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            background: transparent;
+            color: var(--text-primary);
+        }
+        .fullscreen-controls {
+            display: flex;
+            gap: 16px;
+            padding: 16px 24px;
+            background: rgba(10,10,15,0.95);
+            border-top: 1px solid var(--border);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .fullscreen-controls .control-group {
+            flex: 1;
+            min-width: 120px;
+        }
+        .fullscreen-controls label {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .fullscreen-controls input[type="range"] {
+            width: 100%;
+        }
+        
         .nota-clicavel { color: var(--accent); font-weight: 700; cursor: pointer; border-bottom: 2px dashed var(--accent); display: inline-block; }
         .row-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
         .control-group { flex: 1; min-width: 120px; }
@@ -195,6 +277,7 @@
             .sidebar { width: 100%; }
             .tab-bar { display: flex; }
             .main-content.hide-on-mobile { display: none; }
+            .fullscreen-controls { flex-direction: column; }
         }
         @media (min-width: 901px) { .mobile-only-nav { display: none; } }
         
@@ -442,6 +525,31 @@
     </div>
 </div>
 
+<!-- TELA CHEIA -->
+<div class="fullscreen-overlay" id="fullscreen-overlay">
+    <div class="fullscreen-header">
+        <h3>🎤 Player - Tela Cheia</h3>
+        <button class="btn-fechar-fullscreen" onclick="toggleFullscreen()">✕ Voltar</button>
+    </div>
+    <div class="fullscreen-content">
+        <div id="cifra-view-fullscreen">Selecione uma música</div>
+        <div class="fullscreen-controls">
+            <div class="control-group">
+                <label>Velocidade Scroll</label>
+                <input type="range" id="velocidade-fs" min="0.1" max="4" step="0.1" value="1" oninput="document.getElementById('velocidade').value = this.value">
+            </div>
+            <div class="control-group">
+                <label>BPM: <span id="txt-bpm-fs">100</span></label>
+                <input type="range" id="bpm-input-fs" min="40" max="200" value="100" oninput="document.getElementById('bpm-input').value = this.value; document.getElementById('txt-bpm').innerText = this.value; document.getElementById('txt-bpm-fs').innerText = this.value">
+            </div>
+            <div class="control-group">
+                <label>Volume</label>
+                <input type="range" id="volume-fs" min="0" max="1" step="0.1" value="0.5" oninput="document.getElementById('volume-bateria').value = this.value">
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="modal-acorde" class="modal-moderno" onclick="fecharModal()">
     <div class="modal-conteudo" onclick="event.stopPropagation()">
         <h2 id="nome-acorde-modal" style="color: var(--accent); font-size: 32px;">C</h2>
@@ -565,22 +673,45 @@
     verificarExpiracaoSenhas();
 
     function toggleFullscreen() {
-        const cifraView = document.getElementById('cifra-view');
-        const btn = document.getElementById('btn-fullscreen');
-        const playerCard = document.getElementById('player-card');
-        
         isFullscreen = !isFullscreen;
+        const overlay = document.getElementById('fullscreen-overlay');
+        const btn = document.getElementById('btn-fullscreen');
         
         if (isFullscreen) {
-            cifraView.classList.add('fullscreen');
+            // Copia conteúdo e controles para tela cheia
+            const cifraView = document.getElementById('cifra-view');
+            const cifraFs = document.getElementById('cifra-view-fullscreen');
+            cifraFs.innerHTML = cifraView.innerHTML;
+            cifraFs.scrollTop = cifraView.scrollTop;
+            
+            document.getElementById('velocidade-fs').value = document.getElementById('velocidade').value;
+            document.getElementById('bpm-input-fs').value = document.getElementById('bpm-input').value;
+            document.getElementById('txt-bpm-fs').innerText = document.getElementById('bpm-input').value;
+            document.getElementById('volume-fs').value = document.getElementById('volume-bateria').value;
+            
+            overlay.classList.add('active');
             btn.classList.add('active');
             btn.innerHTML = '⛶';
             document.body.style.overflow = 'hidden';
         } else {
-            cifraView.classList.remove('fullscreen');
+            overlay.classList.remove('active');
             btn.classList.remove('active');
             btn.innerHTML = '⛶';
             document.body.style.overflow = '';
+        }
+    }
+
+    // Atualiza tela cheia quando música muda
+    function atualizarFullscreen() {
+        if (isFullscreen) {
+            const cifraView = document.getElementById('cifra-view');
+            const cifraFs = document.getElementById('cifra-view-fullscreen');
+            cifraFs.innerHTML = cifraView.innerHTML;
+            cifraFs.scrollTop = 0;
+            document.getElementById('velocidade-fs').value = document.getElementById('velocidade').value;
+            document.getElementById('bpm-input-fs').value = document.getElementById('bpm-input').value;
+            document.getElementById('txt-bpm-fs').innerText = document.getElementById('bpm-input').value;
+            document.getElementById('volume-fs').value = document.getElementById('volume-bateria').value;
         }
     }
 
@@ -732,13 +863,10 @@
         
         let filtradas = 0;
         musicasCliente.forEach((m,idx)=>{
-            // Filtro por estilo
             if(filtro!=='Todos' && filtro!=='Repertorio' && !['3 acordes','4 acordes','5 acordes'].includes(filtro)){
                 if(!m.pastas || !m.pastas.includes(filtro)) return;
             }
-            // Filtro por repertório
             if(filtro==='Repertorio' && !m.noRepertorio) return;
-            // Filtro por número de acordes
             if(['3 acordes','4 acordes','5 acordes'].includes(filtro)){
                 if(!m.pastas || !m.pastas.includes(filtro)) return;
             }
@@ -787,6 +915,7 @@
         if(m.noRepertorio){ btn.innerText='⭐ No Repertório'; btn.style.background='var(--warning)'; btn.style.color='black'; }
         else{ btn.innerText='☆ Add Repertório'; btn.style.background='#2a2a3a'; btn.style.color='white'; }
         atualizarListaMusicas();
+        atualizarFullscreen();
     }
 
     function proximaMusica(){ 
@@ -833,7 +962,19 @@
         if(audioCtx.state==='suspended') audioCtx.resume();
         nextBeatTime=audioCtx.currentTime+0.05; currentStep=0; rodarScheduler();
         let area=document.getElementById('cifra-view'), speed=document.getElementById('velocidade');
-        intervaloRolagem=setInterval(()=>{ area.scrollTop+=parseFloat(speed.value); if(area.scrollTop+area.clientHeight>=area.scrollHeight-1){ pararRolagem(); setTimeout(()=>proximaMusica(),2000); } },50);
+        intervaloRolagem=setInterval(()=>{ 
+            let scrollAtual = area.scrollTop;
+            let velocidadeScroll = parseFloat(document.getElementById('velocidade').value);
+            area.scrollTop += velocidadeScroll;
+            // Atualiza tela cheia se estiver ativa
+            if (isFullscreen) {
+                document.getElementById('cifra-view-fullscreen').scrollTop += velocidadeScroll;
+            }
+            if(area.scrollTop+area.clientHeight>=area.scrollHeight-1){ 
+                pararRolagem(); 
+                setTimeout(()=>proximaMusica(),2000); 
+            }
+        },50);
     }
     function pararRolagem(){
         rodando=false; let btn=document.getElementById('btn-scroll');
@@ -841,7 +982,13 @@
         clearInterval(intervaloRolagem); clearTimeout(schedulerTimer);
         let led=document.getElementById('visual-beat'); if(led) led.style.backgroundColor='#262633';
     }
-    function ajustarTamanhoFonte(delta){ tamanhoFonteAtual=Math.min(36,Math.max(12,tamanhoFonteAtual+delta)); document.getElementById('cifra-view').style.fontSize=tamanhoFonteAtual+'px'; }
+    function ajustarTamanhoFonte(delta){ 
+        tamanhoFonteAtual=Math.min(36,Math.max(12,tamanhoFonteAtual+delta)); 
+        document.getElementById('cifra-view').style.fontSize=tamanhoFonteAtual+'px'; 
+        if (isFullscreen) {
+            document.getElementById('cifra-view-fullscreen').style.fontSize = (tamanhoFonteAtual + 4) + 'px';
+        }
+    }
 
     function tocarClique(t,f,v){if(!audioCtx)return;let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.connect(g);g.connect(audioCtx.destination);o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v*0.7,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.04);o.start(t);o.stop(t+0.05);}
     function tocarBumbo(t,v){if(!audioCtx)return;let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.setValueAtTime(130,t);o.frequency.exponentialRampToValueAtTime(0.01,t+0.11);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.01,t+0.11);o.start(t);o.stop(t+0.12);}
@@ -874,12 +1021,32 @@
         if(btn.getAttribute('data-view')==='biblioteca') document.getElementById('mainContent').classList.remove('hide-on-mobile');
     }));
 
-    // Fechar fullscreen com ESC
+    // Fechar fullscreen com ESC e com botão voltar do celular
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isFullscreen) {
             toggleFullscreen();
         }
     });
+    
+    // Suporte ao botão voltar do celular
+    window.addEventListener('popstate', (e) => {
+        if (isFullscreen) {
+            toggleFullscreen();
+            e.preventDefault();
+        }
+    });
+    
+    // Quando entrar em fullscreen, adiciona um estado no histórico
+    const originalToggleFullscreen = toggleFullscreen;
+    toggleFullscreen = function() {
+        if (!isFullscreen) {
+            history.pushState({fullscreen: true}, '', '');
+        } else {
+            history.back();
+            return;
+        }
+        originalToggleFullscreen();
+    };
 
     preencherSeletorRitmos(); atualizarListaMusicas();
     if(musicasCliente.length>0) carregarMusica(0);

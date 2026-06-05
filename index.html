@@ -27,7 +27,7 @@
         .btn-sm:hover{background:var(--card)}
         
         .dashboard{display:flex;flex:1;gap:24px;padding:24px}
-        .sidebar{width:380px;flex-shrink:0;display:none;flex-direction:column;gap:20px}
+        .sidebar{width:400px;flex-shrink:0;display:none;flex-direction:column;gap:20px}
         .sidebar.on{display:flex}
         .main{flex:1;min-width:0;display:flex;flex-direction:column;gap:20px}
         .card{background:var(--card);border-radius:24px;border:1px solid var(--border);padding:24px}
@@ -35,20 +35,24 @@
         .card p{color:var(--txt2);font-size:13px;margin-bottom:12px}
         
         input,textarea,select{width:100%;padding:12px 16px;border-radius:16px;border:1px solid var(--border);background:var(--input);color:var(--txt);font-size:14px;margin-bottom:8px;font-family:inherit}
+        textarea{resize:vertical;min-height:80px}
         button{background:var(--acc);color:#000;font-weight:700;padding:12px 20px;border-radius:40px;border:none;cursor:pointer;font-size:14px;transition:all .2s}
         button:hover{opacity:.9;transform:translateY(-1px)}
         button:disabled{opacity:.5;cursor:not-allowed;transform:none}
         .btn-outline{background:transparent;border:1px solid var(--border);color:var(--txt)}
         .btn-danger{background:rgba(255,74,90,.15);color:var(--danger);border:1px solid rgba(255,74,90,.3)}
         
-        .musica-grid{display:flex;flex-direction:column;gap:10px;max-height:350px;overflow-y:auto}
+        .musica-grid{display:flex;flex-direction:column;gap:10px;max-height:400px;overflow-y:auto}
         .musica-item{background:var(--input);border-radius:16px;padding:14px 18px;cursor:pointer;border:1px solid var(--border);transition:all .2s}
         .musica-item:hover{border-color:var(--acc);transform:translateX(4px)}
         .musica-item.active{border-color:var(--acc);background:rgba(29,185,84,.1)}
         .musica-item .titulo{font-weight:700;font-size:.95rem}
+        .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+        .tag{font-size:10px;padding:3px 10px;border-radius:20px;background:var(--card);color:var(--txt2)}
+        .tag-rep{background:var(--warn);color:#000}
         
-        #cifra-view{background:var(--card);padding:28px;font-family:monospace;font-size:18px;line-height:1.8;white-space:pre-wrap;border-radius:24px;border:1px solid var(--border);max-height:45vh;overflow-y:auto}
-        .acorde{color:var(--acc);font-weight:700;cursor:pointer;border-bottom:2px dashed var(--acc)}
+        #cifra-view{background:var(--card);padding:28px;font-family:monospace;font-size:18px;line-height:1.8;white-space:pre-wrap;border-radius:24px;border:1px solid var(--border);max-height:50vh;overflow-y:auto}
+        .acorde{color:var(--acc);font-weight:700;cursor:pointer;border-bottom:2px dashed var(--acc);display:inline-block}
         
         .cliente-area{border:2px solid var(--acc);background:linear-gradient(135deg,rgba(29,185,84,.1),rgba(0,0,0,.2))}
         .msg{padding:12px;border-radius:16px;font-size:14px;text-align:center;margin-top:12px}
@@ -62,21 +66,31 @@
         
         .row{display:flex;gap:12px;flex-wrap:wrap}
         .row>*{flex:1}
+        .checkbox-group{display:flex;gap:12px;flex-wrap:wrap;background:var(--input);padding:12px;border-radius:16px;margin-bottom:8px}
+        .checkbox-group label{font-size:13px;color:var(--txt2);display:flex;align-items:center;gap:4px}
+        .checkbox-group input[type=checkbox]{width:auto;margin:0}
+        
+        .painel-bateria{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);align-items:center}
+        .control-group{flex:1;min-width:100px}
+        .control-group label{font-size:10px;text-transform:uppercase;color:var(--txt2);letter-spacing:1px;display:block;margin-bottom:4px}
+        .led{width:16px;height:16px;background:#262633;border-radius:50%;display:inline-block;transition:all .05s}
         
         @media(max-width:768px){.dashboard{flex-direction:column;padding:12px}.sidebar{width:100%}#cifra-view{max-height:35vh}}
+        
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--input);border-radius:10px}
+        ::-webkit-scrollbar-thumb{background:var(--acc);border-radius:10px}
     </style>
 </head>
 <body>
 
-<!-- TELA INICIAL -->
 <div id="tela-inicial">
     <div class="logo">🎸 CifraVibe Pro</div>
-    <p class="sub">App de cifras com player integrado.<br>Toque suas músicas favoritas!</p>
+    <p class="sub">App de cifras com bateria eletrônica.<br>Toque suas músicas favoritas!</p>
     <button class="btn btn-play" onclick="entrar()">🎵 TOCAR AGORA!</button>
     <button class="btn btn-admin" onclick="mostrarLogin()">👑 ACESSO ADMIN</button>
 </div>
 
-<!-- LOGIN ADMIN -->
 <div id="tela-login" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:10001;align-items:center;justify-content:center">
     <div style="background:var(--card);border-radius:32px;padding:40px;width:90%;max-width:340px;text-align:center;border:1px solid var(--warn)">
         <h2 style="color:var(--warn);margin-bottom:16px">👑 Admin</h2>
@@ -87,11 +101,10 @@
     </div>
 </div>
 
-<!-- APP -->
 <div id="app">
     <div class="header">
         <h1>🎸 CifraVibe Pro</h1>
-        <div style="display:flex;gap:8px;align-items:center">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
             <span id="badge" class="badge">🎵 Músico</span>
             <button class="btn-sm" onclick="voltar()">🏠 Início</button>
             <button id="btn-admin" class="btn-sm" onclick="mostrarLogin()">👑 Admin</button>
@@ -100,15 +113,14 @@
     </div>
     
     <div class="dashboard">
-        <!-- SIDEBAR ADMIN -->
         <div class="sidebar" id="sidebar">
             <div class="card">
-                <h3>🎫 Gerar Senhas Únicas</h3>
-                <p>Cada senha funciona apenas <strong style="color:var(--danger)">1 vez</strong>. Gere e distribua para seus clientes.</p>
+                <h3>🎫 Gerar Senhas</h3>
+                <p>Cada senha funciona <strong style="color:var(--danger)">1 vez</strong>.</p>
                 <button onclick="gerarSenhas()" style="width:100%;margin-bottom:8px">🎲 Gerar 5 senhas</button>
-                <div style="display:flex;gap:8px">
-                    <input type="text" id="senha-manual" placeholder="Ou crie uma senha personalizada">
-                    <button onclick="criarSenhaManual()">+</button>
+                <div class="row">
+                    <input type="text" id="senha-manual" placeholder="Senha personalizada">
+                    <button onclick="criarSenhaManual()" style="flex:0 0 auto">+</button>
                 </div>
                 <div id="lista-senhas" style="max-height:200px;overflow-y:auto;margin-top:12px"></div>
                 <button onclick="copiarSenhas()" class="btn-outline" style="width:100%;margin-top:8px">📋 Copiar disponíveis</button>
@@ -123,35 +135,104 @@
             
             <div class="card">
                 <h3>🎵 Adicionar Música</h3>
-                <input type="text" id="titulo" placeholder="Título da música">
-                <textarea id="cifra" placeholder="Cifra..." rows="3"></textarea>
+                <input type="text" id="titulo" placeholder="Título">
+                <textarea id="cifra" placeholder="Cifra..." rows="4"></textarea>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="pasta" value="Sertanejo"> Sertanejo</label>
+                    <label><input type="checkbox" name="pasta" value="Pagode"> Pagode</label>
+                    <label><input type="checkbox" name="pasta" value="Forró"> Forró</label>
+                    <label><input type="checkbox" name="pasta" value="Rock BR"> Rock BR</label>
+                    <label><input type="checkbox" name="pasta" value="Rock"> Rock</label>
+                    <label><input type="checkbox" name="pasta" value="Pop"> Pop</label>
+                    <label><input type="checkbox" name="pasta" value="Reggae"> Reggae</label>
+                    <label><input type="checkbox" name="pasta" value="Gospel"> Gospel</label>
+                    <label><input type="checkbox" name="pasta" value="MPB"> MPB</label>
+                    <label><input type="checkbox" name="pasta" value="Samba"> Samba</label>
+                    <label><input type="checkbox" name="pasta" value="Outros"> Outros</label>
+                </div>
                 <div class="row">
                     <input type="number" id="bpm" placeholder="BPM" value="100">
                     <select id="ritmo">
-                        <option value="Nenhum">Sem Bateria</option>
-                        <option value="Rock_1">Rock</option>
-                        <option value="Sertanejo_1">Sertanejo</option>
-                        <option value="Sertanejo_3">Sertanejo Modão</option>
-                        <option value="Sertanejo_Univ">Sertanejo Univ</option>
-                        <option value="Pagode_90s">Pagode</option>
-                        <option value="Samba_1">Samba</option>
-                        <option value="Forro_Xote">Forró</option>
-                        <option value="Pop_1">Pop</option>
-                        <option value="Pop_2">Pop Balada</option>
-                        <option value="Pop_3">Pop Groove</option>
-                        <option value="MPB">MPB</option>
+                        <option value="Nenhum">🔇 Sem Bateria</option>
+                        <option value="Metronomo">⏱️ Metrônomo</option>
+                        <optgroup label="🎸 ROCK">
+                            <option value="Rock_1">Rock 1 - Clássico Reto</option>
+                            <option value="Rock_2">Rock 2 - Heavy/Duplo</option>
+                            <option value="Rock_3">Rock 3 - Sincopado Groove</option>
+                            <option value="Rock_70s">Rock 4 - Classic 70s ⚡</option>
+                            <option value="Rock_Grunge">Rock 5 - Grunge/Alt 🎸</option>
+                            <option value="Rock_Punk">Rock 6 - Pop Punk/Hard 🧨</option>
+                        </optgroup>
+                        <optgroup label="🎵 POP">
+                            <option value="Pop_1">Pop 1 - Dance Pista</option>
+                            <option value="Pop_2">Pop 2 - Balada Lenta</option>
+                            <option value="Pop_3">Pop 3 - Funk Pop Groove</option>
+                            <option value="Pop_90s">Pop 4 - Rock Anos 90 📻</option>
+                            <option value="Synthwave">Pop 5 - Synthwave Drive 🌌</option>
+                            <option value="Disco_Groove">Pop 6 - Disco Dance Party 🕺</option>
+                            <option value="Pop_Acoustic">Pop 7 - Acústico/Leve ☕</option>
+                            <option value="Pop_RnB">Pop 8 - R&B Pop Groove 💎</option>
+                        </optgroup>
+                        <optgroup label="🇧🇷 SAMBA & PAGODE">
+                            <option value="Samba_1">Samba 1 - Groove Geral 🥁</option>
+                            <option value="Samba_Roda">Samba 2 - Samba de Roda 👏</option>
+                            <option value="Samba_Enredo">Samba 3 - Enredo/Carnaval 🎊</option>
+                            <option value="Pagode_90s">Pagode 1 - Romântico 90s 🎤</option>
+                            <option value="Pagodao">Pagode 2 - Baiano/Axé 💥</option>
+                        </optgroup>
+                        <optgroup label="🤠 SERTANEJO">
+                            <option value="Sertanejo_1">Sertanejo 1 - Arrocha</option>
+                            <option value="Sertanejo_2">Sertanejo 2 - Vanerão</option>
+                            <option value="Sertanejo_3">Sertanejo 3 - Modão Balada</option>
+                            <option value="Sertanejo_Univ">Sertanejo 4 - Universitário 🤠</option>
+                            <option value="Piseiro">Sertanejo 5 - Piseiro/Pisadinha 🔥</option>
+                        </optgroup>
+                        <optgroup label="🍁 REGGAE">
+                            <option value="Reggae_1">Reggae 1 - One Drop</option>
+                            <option value="Reggae_2">Reggae 2 - Steppers (4x4)</option>
+                            <option value="Reggae_3">Reggae 3 - Jamaican Vibe</option>
+                            <option value="Dub_Roots">Reggae 4 - Dub Vibe Roots 🌬️</option>
+                            <option value="Reggaeton">Reggae 5 - Reggaeton Pop 🌴</option>
+                        </optgroup>
+                        <optgroup label="🎶 FORRÓ">
+                            <option value="Forro_Xote">Forró - Xote Tradicional</option>
+                            <option value="Forro_ArrastaPe">Forró - Arrasta-pé</option>
+                            <option value="Forro_Eletronico">Forró - Eletrônico</option>
+                        </optgroup>
+                        <optgroup label="⛪ GOSPEL">
+                            <option value="Gospel_Adoracao">Gospel - Adoração Lenta</option>
+                            <option value="Gospel_Contemporaneo">Gospel - Contemporâneo</option>
+                            <option value="Gospel_Louvor">Gospel - Louvor</option>
+                        </optgroup>
+                        <optgroup label="✨ OUTROS">
+                            <option value="Funk_Carioca">Funk Carioca (Tamborzão) 🔥</option>
+                            <option value="Blues_Shuffle">Blues/Jazz Shuffle 🎶</option>
+                            <option value="Trap_Beat">Trap/Hip-Hop Beat ⛓️</option>
+                            <option value="MPB">MPB - Música Popular Brasileira</option>
+                            <option value="Eletronica">Eletrônica - Dance</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="row">
+                    <select id="compasso">
+                        <option value="4/4">4/4</option>
+                        <option value="3/4">3/4</option>
+                        <option value="2/4">2/4</option>
+                    </select>
+                    <select id="subdivisao">
+                        <option value="1">1x (Semínima)</option>
+                        <option value="2">2x (Colcheia)</option>
+                        <option value="4">4x (Semicolcheia)</option>
                     </select>
                 </div>
                 <button onclick="adicionar()" style="width:100%">➕ Adicionar</button>
             </div>
         </div>
         
-        <!-- CONTEÚDO PRINCIPAL -->
         <div class="main">
-            <!-- ATIVAÇÃO -->
             <div class="card cliente-area">
                 <h3>🔑 Ativar Catálogo com Senha</h3>
-                <p>Digite a senha que você recebeu para carregar as músicas.<br><strong style="color:var(--danger)">⚠️ Cada senha funciona apenas 1 vez!</strong></p>
+                <p>Digite a senha que você recebeu.<br><strong style="color:var(--danger)">⚠️ Cada senha funciona apenas 1 vez!</strong></p>
                 <div class="row">
                     <input type="text" id="senha-cliente" placeholder="Sua senha única" style="text-align:center;font-size:20px;letter-spacing:4px;text-transform:uppercase">
                     <button onclick="ativar()" id="btn-ativar">📥 Ativar</button>
@@ -163,423 +244,317 @@
                 </div>
             </div>
             
-            <!-- LISTA DE MÚSICAS -->
             <div class="card">
-                <h3>📚 Músicas <span id="contador" style="font-size:14px;color:var(--txt2)"></span></h3>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+                    <h3>📚 Músicas <span id="contador" style="font-size:14px;color:var(--txt2)"></span></h3>
+                    <select id="filtro" onchange="listarMusicas()" style="width:auto;padding:8px 12px">
+                        <option value="Todos">Todas</option>
+                        <option value="Repertorio">⭐ Repertório</option>
+                        <option value="Sertanejo">Sertanejo</option>
+                        <option value="Pagode">Pagode</option>
+                        <option value="Forró">Forró</option>
+                        <option value="Rock BR">Rock BR</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Reggae">Reggae</option>
+                        <option value="Gospel">Gospel</option>
+                        <option value="MPB">MPB</option>
+                        <option value="Samba">Samba</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
                 <div id="lista-musicas" class="musica-grid"></div>
                 <p id="sem-musicas" style="text-align:center;color:var(--txt2);padding:20px">Ative seu catálogo com a senha acima!</p>
             </div>
             
-            <!-- PLAYER -->
             <div class="card">
                 <h3>🎤 Player</h3>
-                <div style="display:flex;gap:8px;margin-bottom:12px">
+                <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
                     <button id="btn-play" onclick="togglePlay()">▶️ Play</button>
                     <button onclick="proxima()" class="btn-outline">⏭️ Próxima</button>
                     <button id="btn-fav" onclick="favoritar()" class="btn-outline">☆</button>
                 </div>
-                <div id="cifra-view">Selecione uma música para ver a cifra</div>
+                <div id="cifra-view">Selecione uma música</div>
                 <div class="row" style="margin-top:12px">
-                    <div><label style="font-size:10px;color:var(--txt2)">VELOCIDADE</label><input type="range" id="vel" min="0.1" max="3" step="0.1" value="1"></div>
-                    <div><label style="font-size:10px;color:var(--txt2)">ZOOM</label>
-                        <button class="btn-outline" onclick="zoom(-2)" style="padding:6px 10px">A-</button>
-                        <button class="btn-outline" onclick="zoom(2)" style="padding:6px 10px">A+</button>
+                    <div class="control-group">
+                        <label>Velocidade Scroll</label>
+                        <input type="range" id="vel" min="0.1" max="4" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Zoom Texto</label>
+                        <div style="display:flex;gap:8px">
+                            <button class="btn-outline" onclick="zoom(-2)" style="padding:6px 12px">A-</button>
+                            <button class="btn-outline" onclick="zoom(2)" style="padding:6px 12px">A+</button>
+                        </div>
                     </div>
                 </div>
-                <div class="row" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);align-items:center">
-                    <div><label style="font-size:10px;color:var(--txt2)">BPM <span id="txt-bpm">100</span></label><input type="range" id="bpm-input" min="40" max="200" value="100" oninput="document.getElementById('txt-bpm').innerText=this.value"></div>
-                    <div><label style="font-size:10px;color:var(--txt2)">VOL</label><input type="range" id="vol" min="0" max="1" step="0.1" value="0.5"></div>
-                    <div id="led" style="width:14px;height:14px;background:#262633;border-radius:50%"></div>
+                <div class="painel-bateria">
+                    <div class="control-group">
+                        <label>Bateria</label>
+                        <select id="seletor-ritmo"></select>
+                    </div>
+                    <div class="control-group">
+                        <label>Compasso</label>
+                        <select id="seletor-compasso">
+                            <option>4/4</option><option>3/4</option><option>2/4</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Subdivisão</label>
+                        <select id="seletor-sub">
+                            <option value="1">1x</option><option value="2">2x</option><option value="4">4x</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>BPM <span id="txt-bpm">100</span></label>
+                        <input type="range" id="bpm-input" min="40" max="200" value="100" oninput="document.getElementById('txt-bpm').innerText=this.value">
+                    </div>
+                    <div class="control-group">
+                        <label>Volume</label>
+                        <input type="range" id="vol" min="0" max="1" step="0.1" value="0.5">
+                    </div>
+                    <div class="led" id="led"></div>
                 </div>
+                <label style="display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer">
+                    <input type="checkbox" id="modo-letra" onchange="carregarMusica(atual)" style="width:auto;margin:0"> 🎤 Modo Letra Pura
+                </label>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// ==================== CONSTANTES ====================
 const SENHA_ADMIN = "ADMINPRO2026";
-// URL do catálogo público (JSON normal, sem criptografia)
 const CATALOGO_URL = "catalogo.json";
 
-// ==================== ESTADO ====================
+// Todos os ritmos
+const RITMOS = {
+    "Nenhum": {},
+    "Metronomo": {},
+    "Rock_1": { bumbo:[0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Rock_2": { bumbo:[0,2,8,10], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Rock_3": { bumbo:[0,6,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Rock_70s": { bumbo:[0,8,11], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Rock_Grunge": { bumbo:[0,3,8,11], caixa:[4,12], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+    "Rock_Punk": { bumbo:[0,4,8,12], caixa:[2,6,10,14], chimbau:[0,2,4,6,8,10,12,14] },
+    "Pop_1": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14] },
+    "Pop_2": { bumbo:[0,7,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Pop_3": { bumbo:[0,4,6,10], caixa:[4,12,15], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
+    "Pop_90s": { bumbo:[0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[12] },
+    "Synthwave": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+    "Disco_Groove": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14], palma:[2,6,10,14] },
+    "Pop_Acoustic": { bumbo:[0,8], caixa:[4,12], chimbau:[0,4,8,12] },
+    "Pop_RnB": { bumbo:[0,6,8], caixa:[4,12], chimbau:[2,4,6,10,12,14] },
+    "Samba_1": { bumbo:[0,4,8,12], caixa:[2,6,10,14], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+    "Samba_Roda": { bumbo:[0,4,8,12], caixa:[2,5,6,10,13,14], chimbau:[0,2,4,6,8,10,12,14], palma:[3,7,11,15] },
+    "Samba_Enredo": { bumbo:[0,2,4,6,8,10,12,14], caixa:[1,3,5,7,9,11,13,15], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+    "Pagode_90s": { bumbo:[0,8], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
+    "Pagodao": { bumbo:[0,8], caixa:[4,7,12,15], chimbau:[0,2,4,6,8,10,12,14], palma:[2,6,10,14] },
+    "Sertanejo_1": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[6,14] },
+    "Sertanejo_2": { bumbo:[0,6,8,14], caixa:[2,4,10,12], chimbau:[0,4,8,12] },
+    "Sertanejo_3": { bumbo:[0,6,12], caixa:[4,10], chimbau:[0,2,4,6,8,10,12,14] },
+    "Sertanejo_Univ": { bumbo:[0,4,8,12], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Piseiro": { bumbo:[0,4,8,12], caixa:[3,4,11,12], chimbau:[0,2,4,6,8,10,12,14], palma:[7,15] },
+    "Reggae_1": { bumbo:[4,12], caixa:[4,12], chimbau:[2,6,10,14] },
+    "Reggae_2": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[2,6,10,14] },
+    "Reggae_3": { bumbo:[0,3,8,11], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Dub_Roots": { bumbo:[0,8,12], caixa:[4,12], chimbau:[0,4,8,12] },
+    "Reggaeton": { bumbo:[0,4,8,12], caixa:[3,7,11,15], chimbau:[0,2,4,6,8,10,12,14] },
+    "Forro_Xote": { bumbo:[0,4,8,12], caixa:[3,7,11,15], chimbau:[0,2,4,6,8,10,12,14] },
+    "Forro_ArrastaPe": { bumbo:[0,6,12], caixa:[2,8,14], chimbau:[0,4,8,12] },
+    "Forro_Eletronico": { bumbo:[0,4,8,12], caixa:[4,8,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Gospel_Adoracao": { bumbo:[0,4,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Gospel_Contemporaneo": { bumbo:[0,4,8,12], caixa:[4,10,12], chimbau:[0,2,4,6,8,10,12,14] },
+    "Gospel_Louvor": { bumbo:[0,8], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14], palma:[4,12] },
+    "Funk_Carioca": { bumbo:[0,6,8,14], caixa:[4,10,12], chimbau:[2,6,10,14], palma:[4,12] },
+    "Blues_Shuffle": { bumbo:[0,6,8,14], caixa:[4,12], chimbau:[0,3,4,7,8,11,12,15] },
+    "Trap_Beat": { bumbo:[0,11], caixa:[4,12], chimbau:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15] },
+    "MPB": { bumbo:[0,4,8,12], caixa:[2,6,10,14], chimbau:[0,2,4,6,8,10,12,14] },
+    "Eletronica": { bumbo:[0,4,8,12], caixa:[4,12], chimbau:[0,2,4,6,8,10,12,14] }
+};
+
 let musicasAdmin = JSON.parse(localStorage.getItem('musicasAdmin') || '[]');
 let musicasCliente = JSON.parse(localStorage.getItem('musicasCliente') || '[]');
 let senhas = JSON.parse(localStorage.getItem('senhas') || '{}');
 let admin = false;
 let atual = 0, tocando = false, timer = null, timer2 = null, ctx = null, beatTime = 0, step = 0, fontSize = 18;
 
-// ==================== TELAS ====================
-function entrar() {
-    document.getElementById('tela-inicial').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    listarMusicas();
-}
-
-function voltar() {
-    document.getElementById('app').style.display = 'none';
-    document.getElementById('tela-inicial').style.display = 'flex';
-    parar();
-}
-
-function mostrarLogin() { document.getElementById('tela-login').style.display = 'flex'; }
-
-function fecharLogin() {
-    document.getElementById('tela-login').style.display = 'none';
-    document.getElementById('erro-login').style.display = 'none';
-}
-
+// Telas
+function entrar() { document.getElementById('tela-inicial').style.display='none'; document.getElementById('app').style.display='block'; listarMusicas(); preencherRitmos() }
+function voltar() { document.getElementById('app').style.display='none'; document.getElementById('tela-inicial').style.display='flex'; parar() }
+function mostrarLogin() { document.getElementById('tela-login').style.display='flex' }
+function fecharLogin() { document.getElementById('tela-login').style.display='none'; document.getElementById('erro-login').style.display='none' }
 function login() {
     if (document.getElementById('senha-admin').value === SENHA_ADMIN) {
-        admin = true;
-        fecharLogin();
+        admin = true; fecharLogin();
         document.getElementById('sidebar').classList.add('on');
-        document.getElementById('btn-admin').style.display = 'none';
-        document.getElementById('btn-sair').style.display = 'flex';
-        document.getElementById('badge').innerText = 'Admin';
-        document.getElementById('badge').classList.add('badge-admin');
+        document.getElementById('btn-admin').style.display='none';
+        document.getElementById('btn-sair').style.display='flex';
+        document.getElementById('badge').innerText='Admin'; document.getElementById('badge').classList.add('badge-admin');
         if (document.getElementById('tela-inicial').style.display !== 'none') entrar();
         listarSenhas();
-    } else {
-        document.getElementById('erro-login').style.display = 'block';
-    }
+    } else { document.getElementById('erro-login').style.display='block' }
 }
-
 function sair() {
     admin = false;
     document.getElementById('sidebar').classList.remove('on');
-    document.getElementById('btn-admin').style.display = 'flex';
-    document.getElementById('btn-sair').style.display = 'none';
-    document.getElementById('badge').innerText = '🎵 Músico';
-    document.getElementById('badge').classList.remove('badge-admin');
+    document.getElementById('btn-admin').style.display='flex'; document.getElementById('btn-sair').style.display='none';
+    document.getElementById('badge').innerText='🎵 Músico'; document.getElementById('badge').classList.remove('badge-admin');
 }
 
-// ==================== SENHAS ====================
-function gerarSenhaAleatoria() {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    let s = '';
-    for (let i = 0; i < 8; i++) s += chars[Math.floor(Math.random() * chars.length)];
-    return s;
-}
-
-function criarSenha(senha) {
-    if (senhas[senha]) return false;
-    senhas[senha] = { criada: new Date().toISOString(), usada: false };
-    localStorage.setItem('senhas', JSON.stringify(senhas));
-    return true;
-}
-
+// Senhas
+function gerarSenhaAleatoria() { const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<8;i++) s+=c[Math.floor(Math.random()*c.length)]; return s }
+function criarSenha(s) { if(senhas[s]) return false; senhas[s]={criada:new Date().toISOString(),usada:false}; localStorage.setItem('senhas',JSON.stringify(senhas)); return true }
 function gerarSenhas() {
-    if (!admin) return;
-    const novas = [];
-    for (let i = 0; i < 5; i++) {
-        let s;
-        do { s = gerarSenhaAleatoria(); } while (senhas[s]);
-        criarSenha(s);
-        novas.push(s);
-    }
-    listarSenhas();
-    alert('✅ Senhas geradas:\n\n' + novas.join('\n') + '\n\nDistribua UMA para cada cliente!');
+    if(!admin)return; const n=[];
+    for(let i=0;i<5;i++){let s;do{s=gerarSenhaAleatoria()}while(senhas[s]);criarSenha(s);n.push(s)}
+    listarSenhas(); alert('✅ Senhas:\n\n'+n.join('\n'))
 }
-
 function criarSenhaManual() {
-    if (!admin) return;
-    const s = document.getElementById('senha-manual').value.trim().toUpperCase();
-    if (!s) return;
-    if (senhas[s]) { alert('Esta senha já existe!'); return; }
-    criarSenha(s);
-    document.getElementById('senha-manual').value = '';
-    listarSenhas();
-    alert('✅ Senha "' + s + '" criada!');
+    if(!admin)return; const s=document.getElementById('senha-manual').value.trim().toUpperCase();
+    if(!s)return; if(senhas[s]){alert('Já existe!');return}
+    criarSenha(s); document.getElementById('senha-manual').value=''; listarSenhas(); alert('✅ Senha "'+s+'" criada!')
 }
-
 function listarSenhas() {
-    const el = document.getElementById('lista-senhas');
-    const arr = Object.entries(senhas).sort((a, b) => new Date(b[1].criada) - new Date(a[1].criada));
-    el.innerHTML = arr.length ? arr.map(([s, d]) =>
-        `<div class="senha-item">
-            <span>🔑 ${s}</span>
-            <span class="${d.usada ? 'senha-usada' : 'senha-disp'}">${d.usada ? 'USADA' : 'DISPONÍVEL'}</span>
-        </div>`
-    ).join('') : '<p style="color:var(--txt2);text-align:center">Nenhuma senha gerada</p>';
+    const el=document.getElementById('lista-senhas');
+    const arr=Object.entries(senhas).sort((a,b)=>new Date(b[1].criada)-new Date(a[1].criada));
+    el.innerHTML=arr.length?arr.map(([s,d])=>`<div class="senha-item"><span>🔑 ${s}</span><span class="${d.usada?'senha-usada':'senha-disp'}">${d.usada?'USADA':'DISPONÍVEL'}</span></div>`).join(''):'<p style="color:var(--txt2);text-align:center">Nenhuma</p>'
 }
-
 function copiarSenhas() {
-    const disp = Object.entries(senhas).filter(([_, d]) => !d.usada).map(([s]) => s);
-    if (!disp.length) { alert('Nenhuma senha disponível!'); return; }
-    navigator.clipboard.writeText(disp.join('\n'));
-    alert(disp.length + ' senhas copiadas!');
+    const d=Object.entries(senhas).filter(([_,x])=>!x.usada).map(([s])=>s);
+    if(!d.length){alert('Nenhuma disponível');return}
+    navigator.clipboard.writeText(d.join('\n')); alert(d.length+' copiadas!')
 }
 
-// ==================== ATIVAÇÃO ====================
+// Ativação
 async function ativar() {
-    const senha = document.getElementById('senha-cliente').value.trim();
-    const msg = document.getElementById('msg-cliente');
-    const btn = document.getElementById('btn-ativar');
-    
-    msg.style.display = 'none';
-    
-    if (!senha) {
-        msg.className = 'msg msg-error'; msg.style.display = 'block';
-        msg.innerText = '❌ Digite a senha!'; return;
-    }
-    
-    if (!senhas[senha]) {
-        msg.className = 'msg msg-error'; msg.style.display = 'block';
-        msg.innerText = '❌ Senha inválida!'; return;
-    }
-    
-    if (senhas[senha].usada) {
-        msg.className = 'msg msg-error'; msg.style.display = 'block';
-        msg.innerText = '❌ Esta senha já foi utilizada!'; return;
-    }
-    
-    btn.disabled = true; btn.innerText = '⏳';
-    msg.className = 'msg msg-info'; msg.style.display = 'block';
-    msg.innerText = '⏳ Validando senha...';
-    
-    try {
-        const response = await fetch(CATALOGO_URL);
-        if (!response.ok) throw new Error('Catálogo não encontrado');
-        
-        const catalogo = await response.json();
-        
-        if (!Array.isArray(catalogo) || catalogo.length === 0) {
-            throw new Error('Catálogo vazio');
-        }
-        
-        // SUCESSO! Marca senha como usada
-        senhas[senha].usada = true;
-        localStorage.setItem('senhas', JSON.stringify(senhas));
-        
-        musicasCliente = catalogo;
-        localStorage.setItem('musicasCliente', JSON.stringify(musicasCliente));
-        
-        msg.className = 'msg msg-success'; msg.style.display = 'block';
-        msg.innerText = `✅ ${musicasCliente.length} músicas carregadas! Senha consumida.`;
-        document.getElementById('senha-cliente').value = '';
-        document.getElementById('downloads').style.display = 'flex';
-        
-        listarMusicas();
-        if (musicasCliente.length > 0) carregarMusica(0);
-        if (admin) listarSenhas();
-        
-    } catch (e) {
-        msg.className = 'msg msg-error'; msg.style.display = 'block';
-        msg.innerText = '❌ ' + e.message;
-    }
-    
-    btn.disabled = false; btn.innerText = '📥 Ativar';
+    const senha=document.getElementById('senha-cliente').value.trim();
+    const msg=document.getElementById('msg-cliente'); const btn=document.getElementById('btn-ativar');
+    msg.style.display='none';
+    if(!senha){msg.className='msg msg-error';msg.style.display='block';msg.innerText='❌ Digite a senha!';return}
+    if(!senhas[senha]){msg.className='msg msg-error';msg.style.display='block';msg.innerText='❌ Senha inválida!';return}
+    if(senhas[senha].usada){msg.className='msg msg-error';msg.style.display='block';msg.innerText='❌ Senha já utilizada!';return}
+    btn.disabled=true;btn.innerText='⏳';msg.className='msg msg-info';msg.style.display='block';msg.innerText='⏳ Validando...';
+    try{
+        const r=await fetch(CATALOGO_URL);if(!r.ok)throw new Error('Catálogo não encontrado');
+        const cat=await r.json();if(!Array.isArray(cat)||!cat.length)throw new Error('Catálogo vazio');
+        senhas[senha].usada=true;localStorage.setItem('senhas',JSON.stringify(senhas));
+        musicasCliente=cat;localStorage.setItem('musicasCliente',JSON.stringify(musicasCliente));
+        msg.className='msg msg-success';msg.style.display='block';msg.innerText=`✅ ${musicasCliente.length} músicas carregadas!`;
+        document.getElementById('senha-cliente').value='';document.getElementById('downloads').style.display='flex';
+        listarMusicas();if(musicasCliente.length)carregarMusica(0);if(admin)listarSenhas();
+    }catch(e){msg.className='msg msg-error';msg.style.display='block';msg.innerText='❌ '+e.message}
+    btn.disabled=false;btn.innerText='📥 Ativar';
 }
 
-// ==================== CATÁLOGO ====================
-function exportarJSON() {
-    if (!admin) return;
-    const blob = new Blob([JSON.stringify(musicasAdmin, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'catalogo.json';
-    a.click();
-    URL.revokeObjectURL(a.href);
-}
-
+// Catálogo
+function exportarJSON() { if(!admin)return; download(JSON.stringify(musicasAdmin,null,2),'catalogo.json','application/json') }
 function importarJSON() {
-    if (!admin) return;
-    const input = document.createElement('input');
-    input.type = 'file'; input.accept = '.json';
-    input.onchange = e => {
-        const reader = new FileReader();
-        reader.onload = ev => {
-            try {
-                const d = JSON.parse(ev.target.result);
-                if (Array.isArray(d)) {
-                    musicasAdmin = d;
-                    localStorage.setItem('musicasAdmin', JSON.stringify(musicasAdmin));
-                    alert('✅ ' + d.length + ' músicas importadas!');
-                }
-            } catch { alert('Arquivo inválido!'); }
-        };
-        reader.readAsText(e.target.files[0]);
-    };
-    input.click();
+    if(!admin)return; const i=document.createElement('input');i.type='file';i.accept='.json';
+    i.onchange=e=>{const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(Array.isArray(d)){musicasAdmin=d;localStorage.setItem('musicasAdmin',JSON.stringify(musicasAdmin));alert('✅ '+d.length+' músicas importadas!')}}catch{alert('Arquivo inválido')}};r.readAsText(e.target.files[0])};i.click()
 }
-
-function resetar() {
-    if (!admin || !confirm('Resetar catálogo?')) return;
-    musicasAdmin = [];
-    localStorage.setItem('musicasAdmin', '[]');
-    alert('Catálogo resetado!');
-}
-
+function resetar() { if(!admin||!confirm('Resetar?'))return; musicasAdmin=[];localStorage.setItem('musicasAdmin','[]');alert('Resetado!') }
 function adicionar() {
-    if (!admin) return;
-    const titulo = document.getElementById('titulo').value.trim();
-    const cifra = document.getElementById('cifra').value.trim();
-    if (!titulo || !cifra) { alert('Preencha título e cifra!'); return; }
-    
-    musicasAdmin.push({
-        titulo, cifra,
-        ritmoPadrao: document.getElementById('ritmo').value,
-        bpmPadrao: parseInt(document.getElementById('bpm').value) || 100,
-        noRepertorio: false
-    });
-    
-    localStorage.setItem('musicasAdmin', JSON.stringify(musicasAdmin));
-    document.getElementById('titulo').value = '';
-    document.getElementById('cifra').value = '';
-    alert('✅ Música adicionada!');
+    if(!admin)return; const t=document.getElementById('titulo').value.trim(), c=document.getElementById('cifra').value.trim();
+    if(!t||!c){alert('Preencha!');return}
+    const pastas=[];document.querySelectorAll('input[name="pasta"]:checked').forEach(cb=>pastas.push(cb.value));
+    musicasAdmin.push({titulo:t,cifra:c,pastas,ritmoPadrao:document.getElementById('ritmo').value,compassoPadrao:document.getElementById('compasso').value,subdivisaoPadrao:document.getElementById('subdivisao').value,bpmPadrao:parseInt(document.getElementById('bpm').value)||100,velocidadePadrao:1.0,noRepertorio:false});
+    localStorage.setItem('musicasAdmin',JSON.stringify(musicasAdmin));
+    document.getElementById('titulo').value='';document.getElementById('cifra').value='';alert('✅ Adicionada!')
 }
+function baixarJSON() { if(!musicasCliente.length)return; download(JSON.stringify(musicasCliente,null,2),'minhas_cifras.json','application/json') }
+function baixarTXT() { if(!musicasCliente.length)return; download(musicasCliente.map(m=>`🎵 ${m.titulo}\n${'='.repeat(30)}\n${m.cifra}\n\n`).join(''),'minhas_cifras.txt','text/plain') }
+function download(d,n,t){const b=new Blob([d],{type:t});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click();URL.revokeObjectURL(a.href)}
 
-function baixarJSON() {
-    if (!musicasCliente.length) return;
-    const blob = new Blob([JSON.stringify(musicasCliente, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'minhas_cifras.json';
-    a.click();
-}
-
-function baixarTXT() {
-    if (!musicasCliente.length) return;
-    const txt = musicasCliente.map(m => `🎵 ${m.titulo}\n${'='.repeat(30)}\n${m.cifra}\n\n`).join('');
-    const blob = new Blob([txt], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'minhas_cifras.txt';
-    a.click();
-}
-
-// ==================== LISTA DE MÚSICAS ====================
+// Lista
 function listarMusicas() {
-    const el = document.getElementById('lista-musicas');
-    const sem = document.getElementById('sem-musicas');
-    document.getElementById('contador').innerText = musicasCliente.length ? `(${musicasCliente.length})` : '';
-    
-    el.innerHTML = '';
-    if (!musicasCliente.length) {
-        sem.style.display = 'block';
-        document.getElementById('downloads').style.display = 'none';
-        return;
-    }
-    sem.style.display = 'none';
-    
-    musicasCliente.forEach((m, i) => {
-        const div = document.createElement('div');
-        div.className = 'musica-item' + (i === atual ? ' active' : '');
-        div.innerHTML = `<div class="titulo">${m.titulo}</div>`;
-        div.onclick = () => carregarMusica(i);
-        el.appendChild(div);
-    });
+    const el=document.getElementById('lista-musicas'), sem=document.getElementById('sem-musicas'), filtro=document.getElementById('filtro').value;
+    document.getElementById('contador').innerText=musicasCliente.length?`(${musicasCliente.length})`:'';
+    el.innerHTML='';
+    if(!musicasCliente.length){sem.style.display='block';document.getElementById('downloads').style.display='none';return}
+    sem.style.display='none';
+    musicasCliente.forEach((m,i)=>{
+        if(filtro!=='Todos'&&filtro!=='Repertorio'&&(!m.pastas||!m.pastas.includes(filtro)))return;
+        if(filtro==='Repertorio'&&!m.noRepertorio)return;
+        const div=document.createElement('div');div.className='musica-item'+(i===atual?' active':'');
+        let tags='';if(m.noRepertorio)tags+='<span class="tag tag-rep">⭐ Repertório</span>';
+        if(m.pastas)m.pastas.forEach(p=>tags+=`<span class="tag">${p}</span>`);
+        div.innerHTML=`<div class="titulo">${m.titulo}</div><div class="tags">${tags}</div>`;
+        div.onclick=()=>carregarMusica(i);el.appendChild(div)
+    })
 }
-
-function favoritar() {
-    if (!musicasCliente[atual]) return;
-    musicasCliente[atual].noRepertorio = !musicasCliente[atual].noRepertorio;
-    localStorage.setItem('musicasCliente', JSON.stringify(musicasCliente));
-    carregarMusica(atual);
-}
-
+function favoritar() { if(!musicasCliente[atual])return; musicasCliente[atual].noRepertorio=!musicasCliente[atual].noRepertorio; localStorage.setItem('musicasCliente',JSON.stringify(musicasCliente));carregarMusica(atual) }
 function carregarMusica(i) {
-    if (!musicasCliente[i]) return;
-    parar();
-    atual = i;
-    const m = musicasCliente[i];
-    
-    let texto = m.cifra.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    texto = texto.replace(/\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g, '<span class="acorde">$1</span>');
-    
-    document.getElementById('cifra-view').innerHTML = texto;
-    document.getElementById('cifra-view').scrollTop = 0;
-    document.getElementById('bpm-input').value = m.bpmPadrao || 100;
-    document.getElementById('txt-bpm').innerText = m.bpmPadrao || 100;
-    
-    const btn = document.getElementById('btn-fav');
-    btn.innerText = m.noRepertorio ? '⭐' : '☆';
-    btn.style.background = m.noRepertorio ? 'var(--warn)' : 'transparent';
-    btn.style.color = m.noRepertorio ? '#000' : 'var(--txt)';
-    
-    listarMusicas();
+    if(!musicasCliente[i])return;parar();atual=i;const m=musicasCliente[i];
+    let t=m.cifra.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    if(document.getElementById('modo-letra')?.checked) t=t.split('\n').filter(l=>!l.match(/\b[A-G][#b]?/)).join('\n');
+    t=t.replace(/\b([A-G][#b]?(?:m|M|maj|dim|aug|sus)?\d*(?:\/[A-G][#b]?)?)\b/g,'<span class="acorde">$1</span>');
+    document.getElementById('cifra-view').innerHTML=t;document.getElementById('cifra-view').scrollTop=0;
+    document.getElementById('seletor-ritmo').value=m.ritmoPadrao||'Nenhum';
+    document.getElementById('seletor-compasso').value=m.compassoPadrao||'4/4';
+    document.getElementById('seletor-sub').value=m.subdivisaoPadrao||'1';
+    document.getElementById('bpm-input').value=m.bpmPadrao||100;document.getElementById('txt-bpm').innerText=m.bpmPadrao||100;
+    const btn=document.getElementById('btn-fav');btn.innerText=m.noRepertorio?'⭐':'☆';btn.style.background=m.noRepertorio?'var(--warn)':'transparent';btn.style.color=m.noRepertorio?'#000':'var(--txt)';
+    listarMusicas()
+}
+function proxima() { if(musicasCliente.length) carregarMusica((atual+1)%musicasCliente.length) }
+
+// Player com todos os ritmos
+function preencherRitmos() {
+    const sel=document.getElementById('seletor-ritmo');
+    sel.innerHTML='<option value="Nenhum">🔇 Sem Bateria</option><option value="Metronomo">⏱️ Metrônomo</option>'+
+    '<optgroup label="🎸 ROCK"><option value="Rock_1">Rock 1</option><option value="Rock_2">Rock 2</option><option value="Rock_3">Rock 3</option><option value="Rock_70s">Rock 4</option><option value="Rock_Grunge">Rock 5</option><option value="Rock_Punk">Rock 6</option></optgroup>'+
+    '<optgroup label="🎵 POP"><option value="Pop_1">Pop 1</option><option value="Pop_2">Pop 2</option><option value="Pop_3">Pop 3</option><option value="Pop_90s">Pop 4</option><option value="Synthwave">Pop 5</option><option value="Disco_Groove">Pop 6</option><option value="Pop_Acoustic">Pop 7</option><option value="Pop_RnB">Pop 8</option></optgroup>'+
+    '<optgroup label="🇧🇷 SAMBA"><option value="Samba_1">Samba 1</option><option value="Samba_Roda">Samba 2</option><option value="Samba_Enredo">Samba 3</option><option value="Pagode_90s">Pagode 1</option><option value="Pagodao">Pagode 2</option></optgroup>'+
+    '<optgroup label="🤠 SERTANEJO"><option value="Sertanejo_1">Sertanejo 1</option><option value="Sertanejo_2">Sertanejo 2</option><option value="Sertanejo_3">Sertanejo 3</option><option value="Sertanejo_Univ">Sertanejo 4</option><option value="Piseiro">Sertanejo 5</option></optgroup>'+
+    '<optgroup label="🍁 REGGAE"><option value="Reggae_1">Reggae 1</option><option value="Reggae_2">Reggae 2</option><option value="Reggae_3">Reggae 3</option><option value="Dub_Roots">Reggae 4</option><option value="Reggaeton">Reggae 5</option></optgroup>'+
+    '<optgroup label="🎶 FORRÓ"><option value="Forro_Xote">Forró Xote</option><option value="Forro_ArrastaPe">Forró Arrasta-pé</option><option value="Forro_Eletronico">Forró Eletrônico</option></optgroup>'+
+    '<optgroup label="⛪ GOSPEL"><option value="Gospel_Adoracao">Gospel Adoração</option><option value="Gospel_Contemporaneo">Gospel Contemporâneo</option><option value="Gospel_Louvor">Gospel Louvor</option></optgroup>'+
+    '<optgroup label="✨ OUTROS"><option value="Funk_Carioca">Funk Carioca</option><option value="Blues_Shuffle">Blues/Jazz</option><option value="Trap_Beat">Trap/Hip-Hop</option><option value="MPB">MPB</option><option value="Eletronica">Eletrônica</option></optgroup>';
 }
 
-function proxima() {
-    if (musicasCliente.length) carregarMusica((atual + 1) % musicasCliente.length);
-}
-
-// ==================== PLAYER ====================
-function togglePlay() { tocando ? parar() : tocar(); }
-
+function togglePlay() { tocando?parar():tocar() }
 function tocar() {
-    if (!musicasCliente.length) return;
-    tocando = true;
-    document.getElementById('btn-play').innerText = '⏸️ Pausar';
-    
-    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
-    if (ctx.state === 'suspended') ctx.resume();
-    
-    beatTime = ctx.currentTime + 0.05;
-    step = 0;
-    
-    timer = setInterval(() => {
-        const bpm = parseInt(document.getElementById('bpm-input').value) || 100;
-        const st = 60 / bpm / 4;
-        
-        if (ctx.currentTime >= beatTime) {
-            const vol = parseFloat(document.getElementById('vol').value) || 0.5;
-            if (step % 4 === 0) bumbo(beatTime, vol);
-            if (step % 8 === 4) caixa(beatTime, vol);
-            if (step % 2 === 0) chim(beatTime, vol * 0.5);
-            
-            const led = document.getElementById('led');
-            led.style.background = 'var(--acc)';
-            setTimeout(() => led.style.background = '#262633', 50);
-            
-            beatTime += st;
-            step++;
-        }
-    }, 10);
-    
-    timer2 = setInterval(() => {
-        document.getElementById('cifra-view').scrollTop += parseFloat(document.getElementById('vel').value);
-    }, 50);
+    if(!musicasCliente.length)return;tocando=true;
+    document.getElementById('btn-play').innerText='⏸️ Pausar';
+    if(!ctx)ctx=new(window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume();
+    beatTime=ctx.currentTime+0.05;step=0;
+    timer=setInterval(()=>{
+        const r=document.getElementById('seletor-ritmo').value;
+        const c=document.getElementById('seletor-compasso').value;
+        const steps=(r==='Metronomo'&&c==='3/4')?12:((r==='Metronomo'&&c==='2/4')?8:16);
+        processarPasso(step,beatTime,steps);
+        const bpm=parseInt(document.getElementById('bpm-input').value)||100;
+        beatTime+=15/bpm;step=(step+1)%steps;
+    },25);
+    timer2=setInterval(()=>document.getElementById('cifra-view').scrollTop+=parseFloat(document.getElementById('vel').value),50)
 }
-
-function parar() {
-    tocando = false;
-    document.getElementById('btn-play').innerText = '▶️ Play';
-    clearInterval(timer);
-    clearInterval(timer2);
+function processarPasso(step,time,steps) {
+    if(step%4===0){const led=document.getElementById('led');led.style.background=(step===0)?'var(--warn)':'var(--acc)';led.style.transform='scale(1.3)';setTimeout(()=>{led.style.background='#262633';led.style.transform='scale(1)'},70)}
+    const r=document.getElementById('seletor-ritmo').value;if(r==='Nenhum')return;
+    const vol=parseFloat(document.getElementById('vol').value)||0.5;
+    if(r==='Metronomo'){
+        const sub=document.getElementById('seletor-sub').value;
+        if(step%4===0)clique(time,step===0?1300:850,vol);
+        else if(sub==='2'&&step%2===0)clique(time,550,vol*0.45);
+        else if(sub==='4')clique(time,550,vol*0.3);
+        return
+    }
+    const rit=RITMOS[r];if(!rit)return;
+    if(rit.bumbo&&rit.bumbo.includes(step))bumbo(time,vol);
+    if(rit.caixa&&rit.caixa.includes(step))caixa(time,vol);
+    if(rit.chimbau&&rit.chimbau.includes(step))chim(time,vol);
+    if(rit.palma&&rit.palma.includes(step))palma(time,vol)
 }
-
-function bumbo(t, v) { osc(t, 150, v, 0.12); }
-function caixa(t, v) { noise(t, v * 0.5, 0.1); }
-function chim(t, v) { noise(t, v * 0.15, 0.03, 7500); }
-
-function osc(t, f, v, d) {
-    const o = ctx.createOscillator(), g = ctx.createGain();
-    o.frequency.setValueAtTime(f, t);
-    o.frequency.exponentialRampToValueAtTime(0.01, t + d);
-    g.gain.setValueAtTime(v, t);
-    g.gain.exponentialRampToValueAtTime(0.01, t + d);
-    o.connect(g); g.connect(ctx.destination);
-    o.start(t); o.stop(t + d);
-}
-
-function noise(t, v, d, hf = 1100) {
-    const b = ctx.createBuffer(1, ctx.sampleRate * d, ctx.sampleRate);
-    for (let i = 0; i < b.length; i++) b.getChannelData(0)[i] = Math.random() * 2 - 1;
-    const s = ctx.createBufferSource(); s.buffer = b;
-    const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.setValueAtTime(hf, t);
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(v, t);
-    g.gain.exponentialRampToValueAtTime(0.01, t + d);
-    s.connect(f); f.connect(g); g.connect(ctx.destination);
-    s.start(t); s.stop(t + d);
-}
-
-function zoom(d) {
-    fontSize = Math.min(36, Math.max(12, fontSize + d));
-    document.getElementById('cifra-view').style.fontSize = fontSize + 'px';
-}
+function parar() { tocando=false;document.getElementById('btn-play').innerText='▶️ Play';clearInterval(timer);clearInterval(timer2) }
+function bumbo(t,v){osc(t,130,v,0.12)}
+function caixa(t,v){noise(t,v*0.65,0.12,1100)}
+function chim(t,v){noise(t,v*0.22,0.03,7500)}
+function palma(t,v){noise(t,v*0.4,0.08,1200)}
+function clique(t,f,v){osc(t,f,v*0.7,0.04)}
+function osc(t,f,v,d){const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(0.01,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.01,t+d);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+d)}
+function noise(t,v,d,hf=1100){const b=ctx.createBuffer(1,ctx.sampleRate*d,ctx.sampleRate);for(let i=0;i<b.length;i++)b.getChannelData(0)[i]=Math.random()*2-1;const s=ctx.createBufferSource();s.buffer=b;const f=ctx.createBiquadFilter();f.type='highpass';f.frequency.setValueAtTime(hf,t);const g=ctx.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(0.01,t+d);s.connect(f);f.connect(g);g.connect(ctx.destination);s.start(t);s.stop(t+d)}
+function zoom(d){fontSize=Math.min(36,Math.max(12,fontSize+d));document.getElementById('cifra-view').style.fontSize=fontSize+'px'}
 </script>
 </body>
 </html>

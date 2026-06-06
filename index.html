@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>CifraVibe Pro - Sistema de Cifras</title>
     
+    <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -212,7 +213,6 @@
             background: transparent;
             color: var(--text-primary);
         }
-        /* Controles da tela cheia menores */
         .fullscreen-controls {
             display: flex;
             gap: 8px;
@@ -479,7 +479,7 @@
                             <button id="btn-scroll" onclick="alternarRolagem()" style="padding: 8px 16px;">▶️ Play</button>
                             <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️ Próxima</button>
                             <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px;">☆ Favoritar</button>
-                            <button id="btn-editar" onclick="toggleEdicao()" style="padding: 8px 16px;">✏️ Editar</button>
+                            <button id="btn-editar" onclick="abrirEdicao()" style="padding: 8px 16px;">✏️ Editar</button>
                         </div>
                         <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Tela Cheia" id="btn-fullscreen">⛶</button>
                     </div>
@@ -672,7 +672,6 @@
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
     let tamanhoFonteAtual = 18;
     let isFullscreen = false;
-    let modoEdicao = false;
 
     SENHAS_PREDEFINIDAS.forEach(senha => {
         if (!senhasUnicas[senha]) {
@@ -771,48 +770,40 @@
         }
     });
 
-    // Edição da música pelo cliente
-    function toggleEdicao() {
+    // EDIÇÃO PELO CLIENTE
+    function abrirEdicao() {
         if (!musicasCliente.length) {
             alert('Nenhuma música selecionada.');
             return;
         }
+        const m = musicasCliente[indiceAtual];
+        document.getElementById('editar-cifra').value = m.cifra || '';
+        document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
+        document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
+        document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
+        document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
+        document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
+
         const painel = document.getElementById('edicao-painel');
-        const btnEditar = document.getElementById('btn-editar');
-        if (!modoEdicao) {
-            // Entrar no modo edição
-            const m = musicasCliente[indiceAtual];
-            document.getElementById('editar-cifra').value = m.cifra;
-            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
-            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
-            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
-            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
-            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
-            painel.classList.add('visivel');
-            btnEditar.innerHTML = '💾 Salvar';
-            modoEdicao = true;
-        } else {
-            // Sair do modo edição sem salvar
-            painel.classList.remove('visivel');
-            btnEditar.innerHTML = '✏️ Editar';
-            modoEdicao = false;
-        }
+        painel.classList.add('visivel');
+        painel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function salvarEdicao() {
         if (!musicasCliente.length) return;
         const m = musicasCliente[indiceAtual];
+
         m.cifra = document.getElementById('editar-cifra').value;
         m.ritmoPadrao = document.getElementById('editar-ritmo').value;
         m.bpmPadrao = parseInt(document.getElementById('editar-bpm').value) || 100;
         m.velocidadePadrao = parseFloat(document.getElementById('editar-velocidade').value) || 1.0;
         m.compassoPadrao = document.getElementById('editar-compasso').value;
         m.subdivisaoPadrao = document.getElementById('editar-subdivisao').value;
-        
+
         localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
-        carregarMusica(indiceAtual); // recarrega a visualização com os novos valores
-        toggleEdicao(); // sai do modo edição
-        alert('✅ Música editada com sucesso!');
+        carregarMusica(indiceAtual);
+        document.getElementById('edicao-painel').classList.remove('visivel');
+        alert('✅ Música editada e salva com sucesso!');
     }
 
     function mostrarTelaLogin(){ document.getElementById('tela-login').style.display = 'flex'; }
@@ -1016,14 +1007,6 @@
         else{ btn.innerText='☆ Add Repertório'; btn.style.background='#2a2a3a'; btn.style.color='white'; }
         atualizarListaMusicas();
         atualizarFullscreen();
-        if (modoEdicao) {
-            document.getElementById('editar-cifra').value = m.cifra;
-            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
-            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
-            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
-            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
-            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
-        }
     }
 
     function proximaMusica(){ 
@@ -1141,7 +1124,7 @@
     window.proximaMusica=proximaMusica; window.alternarRepertorio=alternarRepertorio;
     window.ajustarTamanhoFonte=ajustarTamanhoFonte; window.abrirJanelaAcorde=abrirJanelaAcorde;
     window.fecharModal=fecharModal; window.toggleFullscreen=toggleFullscreen;
-    window.toggleEdicao=toggleEdicao; window.salvarEdicao=salvarEdicao;
+    window.abrirEdicao=abrirEdicao; window.salvarEdicao=salvarEdicao;
 </script>
 
 <script>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>CifraVibe Pro - Sistema de Cifras</title>
     
-    <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -171,7 +170,6 @@
         
         #cifra-view { background: var(--bg-card); padding: 32px; font-family: 'Courier New', monospace; font-size: 18px; line-height: 1.8; white-space: pre-wrap; border-radius: 28px; border: 1px solid var(--border); max-height: 50vh; overflow-y: auto; transition: all 0.3s ease; }
         
-        /* Tela cheia */
         .fullscreen-overlay {
             display: none;
             position: fixed;
@@ -180,57 +178,45 @@
             z-index: 2000;
             flex-direction: column;
         }
-        .fullscreen-overlay.active {
-            display: flex;
-        }
+        .fullscreen-overlay.active { display: flex; }
         .fullscreen-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 24px;
+            padding: 12px 20px;
             background: rgba(10,10,15,0.95);
             border-bottom: 1px solid var(--border);
         }
-        .fullscreen-header h3 {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-        }
+        .fullscreen-header h3 { font-size: 1rem; color: var(--text-primary); }
         .btn-fechar-fullscreen {
             background: rgba(255,74,90,0.2);
             color: var(--danger);
             border: 1px solid rgba(255,74,90,0.4);
-            padding: 10px 20px;
-            border-radius: 30px;
+            padding: 6px 14px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             transition: all 0.2s;
         }
-        .btn-fechar-fullscreen:hover {
-            background: var(--danger);
-            color: white;
-        }
-        .fullscreen-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
+        .btn-fechar-fullscreen:hover { background: var(--danger); color: white; }
+        .fullscreen-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
         #cifra-view-fullscreen {
             flex: 1;
-            padding: 32px;
+            padding: 24px;
             font-family: 'Courier New', monospace;
-            font-size: 22px;
-            line-height: 1.8;
+            font-size: 20px;
+            line-height: 1.6;
             white-space: pre-wrap;
             overflow-y: auto;
             background: transparent;
             color: var(--text-primary);
         }
+        /* Controles da tela cheia menores */
         .fullscreen-controls {
             display: flex;
-            gap: 16px;
-            padding: 16px 24px;
+            gap: 8px;
+            padding: 8px 16px;
             background: rgba(10,10,15,0.95);
             border-top: 1px solid var(--border);
             align-items: center;
@@ -238,20 +224,20 @@
         }
         .fullscreen-controls .control-group {
             flex: 1;
-            min-width: 120px;
+            min-width: 80px;
+            transform: scale(0.85);
+            transform-origin: center left;
         }
         .fullscreen-controls label {
-            font-size: 10px;
+            font-size: 8px;
             text-transform: uppercase;
             font-weight: 600;
             color: var(--text-secondary);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
-        .fullscreen-controls input[type="range"] {
-            width: 100%;
-        }
+        .fullscreen-controls input[type="range"] { height: 4px; }
         
         .nota-clicavel { color: var(--accent); font-weight: 700; cursor: pointer; border-bottom: 2px dashed var(--accent); display: inline-block; }
         .row-botoes { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
@@ -277,7 +263,7 @@
             .sidebar { width: 100%; }
             .tab-bar { display: flex; }
             .main-content.hide-on-mobile { display: none; }
-            .fullscreen-controls { flex-direction: column; }
+            .fullscreen-controls .control-group { transform: scale(0.75); }
         }
         @media (min-width: 901px) { .mobile-only-nav { display: none; } }
         
@@ -300,6 +286,15 @@
         }
         .btn-fullscreen:hover { background: var(--bg-card-hover); color: var(--text-primary); }
         .btn-fullscreen.active { background: var(--accent); color: #000; border-color: var(--accent); }
+        
+        /* Painel de edição */
+        .edicao-painel {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            display: none;
+        }
+        .edicao-painel.visivel { display: block; }
     </style>
 </head>
 <body>
@@ -484,6 +479,7 @@
                             <button id="btn-scroll" onclick="alternarRolagem()" style="padding: 8px 16px;">▶️ Play</button>
                             <button onclick="proximaMusica()" style="padding: 8px 16px;">⏭️ Próxima</button>
                             <button id="btn-repertorio" onclick="alternarRepertorio()" style="padding: 8px 16px;">☆ Favoritar</button>
+                            <button id="btn-editar" onclick="toggleEdicao()" style="padding: 8px 16px;">✏️ Editar</button>
                         </div>
                         <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Tela Cheia" id="btn-fullscreen">⛶</button>
                     </div>
@@ -501,9 +497,56 @@
                     <div class="control-group"><label>Volume</label><input type="range" id="volume-bateria" min="0" max="1" step="0.1" value="0.5"></div>
                 </div>
                 <label style="display: flex; align-items: center; gap: 12px; margin-top: 16px;"><input type="checkbox" id="chk-esconder-acordes"> 🎤 Modo Letra Pura</label>
+                
+                <!-- Painel de edição -->
+                <div class="edicao-painel" id="edicao-painel">
+                    <h4 style="margin-bottom: 12px;">✏️ Editar Música</h4>
+                    <textarea id="editar-cifra" placeholder="Cifra..." rows="5" style="margin-bottom:8px;"></textarea>
+                    <div class="form-row">
+                        <select id="editar-ritmo">
+                            <option value="Nenhum">🔇 Sem Bateria</option>
+                            <option value="Metronomo">⏱️ Metrônomo</option>
+                            <optgroup label="🎸 ROCK">
+                                <option value="Rock_1">Rock 1</option><option value="Rock_2">Rock 2</option><option value="Rock_3">Rock 3</option><option value="Rock_70s">Rock 4</option><option value="Rock_Grunge">Rock 5</option><option value="Rock_Punk">Rock 6</option>
+                            </optgroup>
+                            <optgroup label="🎵 POP">
+                                <option value="Pop_1">Pop 1</option><option value="Pop_2">Pop 2</option><option value="Pop_3">Pop 3</option><option value="Pop_90s">Pop 4</option><option value="Synthwave">Pop 5</option><option value="Disco_Groove">Pop 6</option><option value="Pop_Acoustic">Pop 7</option><option value="Pop_RnB">Pop 8</option>
+                            </optgroup>
+                            <optgroup label="🇧🇷 SAMBA & PAGODE">
+                                <option value="Samba_1">Samba 1</option><option value="Samba_Roda">Samba 2</option><option value="Samba_Enredo">Samba 3</option><option value="Pagode_90s">Pagode 1</option><option value="Pagodao">Pagode 2</option>
+                            </optgroup>
+                            <optgroup label="🤠 SERTANEJO">
+                                <option value="Sertanejo_1">Sertanejo 1</option><option value="Sertanejo_2">Sertanejo 2</option><option value="Sertanejo_3">Sertanejo 3</option><option value="Sertanejo_Univ">Sertanejo 4</option><option value="Piseiro">Sertanejo 5</option>
+                            </optgroup>
+                            <optgroup label="🍁 REGGAE">
+                                <option value="Reggae_1">Reggae 1</option><option value="Reggae_2">Reggae 2</option><option value="Reggae_3">Reggae 3</option><option value="Dub_Roots">Reggae 4</option><option value="Reggaeton">Reggae 5</option>
+                            </optgroup>
+                            <optgroup label="🎶 FORRÓ">
+                                <option value="Forro_Xote">Forró Xote</option><option value="Forro_ArrastaPe">Arrasta-pé</option><option value="Forro_Eletronico">Eletrônico</option>
+                            </optgroup>
+                            <optgroup label="⛪ GOSPEL">
+                                <option value="Gospel_Adoracao">Adoração</option><option value="Gospel_Contemporaneo">Contemporâneo</option><option value="Gospel_Louvor">Louvor</option>
+                            </optgroup>
+                            <optgroup label="✨ OUTROS">
+                                <option value="Funk_Carioca">Funk</option><option value="Blues_Shuffle">Blues</option><option value="Trap_Beat">Trap</option><option value="MPB">MPB</option><option value="Eletronica">Eletrônica</option>
+                            </optgroup>
+                        </select>
+                        <input type="number" id="editar-bpm" placeholder="BPM" value="100" step="5">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" id="editar-velocidade" placeholder="Vel. Scroll" step="0.1" value="1.0">
+                        <select id="editar-compasso">
+                            <option value="4/4">4/4</option><option value="3/4">3/4</option><option value="2/4">2/4</option>
+                        </select>
+                        <select id="editar-subdivisao">
+                            <option value="1">1x</option><option value="2">2x</option><option value="4">4x</option>
+                        </select>
+                    </div>
+                    <button onclick="salvarEdicao()" style="width:100%;">💾 Salvar Edição</button>
+                </div>
             </div>
 
-            <!-- 3º ATIVAR REPERTÓRIO (ÚLTIMO) -->
+            <!-- 3º ATIVAR REPERTÓRIO -->
             <div class="card cliente-area" id="clienteArea">
                 <div class="card-header"><h3>🔑 Ativar Meu Repertório</h3></div>
                 <p style="color: var(--text-secondary); margin-bottom: 20px;">
@@ -629,6 +672,7 @@
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
     let tamanhoFonteAtual = 18;
     let isFullscreen = false;
+    let modoEdicao = false;
 
     SENHAS_PREDEFINIDAS.forEach(senha => {
         if (!senhasUnicas[senha]) {
@@ -672,13 +716,11 @@
 
     verificarExpiracaoSenhas();
 
-    // Função toggleFullscreen CORRIGIDA
     function toggleFullscreen() {
         const overlay = document.getElementById('fullscreen-overlay');
         const btn = document.getElementById('btn-fullscreen');
         
         if (!isFullscreen) {
-            // Entrar em tela cheia
             const cifraView = document.getElementById('cifra-view');
             const cifraFs = document.getElementById('cifra-view-fullscreen');
             cifraFs.innerHTML = cifraView.innerHTML;
@@ -694,22 +736,16 @@
             btn.innerHTML = '⛶';
             document.body.style.overflow = 'hidden';
             isFullscreen = true;
-            
-            // Adiciona entrada no histórico para capturar botão "voltar"
             history.pushState({ fullscreen: true }, '', '');
         } else {
-            // Sair da tela cheia
             overlay.classList.remove('active');
             btn.classList.remove('active');
             btn.innerHTML = '⛶';
             document.body.style.overflow = '';
             isFullscreen = false;
-            
-            // Se foi acionado pelo botão voltar, não precisa de history.back extra
         }
     }
 
-    // Atualiza tela cheia quando música muda
     function atualizarFullscreen() {
         if (isFullscreen) {
             const cifraView = document.getElementById('cifra-view');
@@ -723,10 +759,8 @@
         }
     }
 
-    // Escuta o evento popstate (botão voltar do navegador/celular)
     window.addEventListener('popstate', function(e) {
         if (isFullscreen) {
-            // Sai da tela cheia sem empurrar novo estado
             const overlay = document.getElementById('fullscreen-overlay');
             const btn = document.getElementById('btn-fullscreen');
             overlay.classList.remove('active');
@@ -736,6 +770,50 @@
             isFullscreen = false;
         }
     });
+
+    // Edição da música pelo cliente
+    function toggleEdicao() {
+        if (!musicasCliente.length) {
+            alert('Nenhuma música selecionada.');
+            return;
+        }
+        const painel = document.getElementById('edicao-painel');
+        const btnEditar = document.getElementById('btn-editar');
+        if (!modoEdicao) {
+            // Entrar no modo edição
+            const m = musicasCliente[indiceAtual];
+            document.getElementById('editar-cifra').value = m.cifra;
+            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
+            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
+            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
+            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
+            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
+            painel.classList.add('visivel');
+            btnEditar.innerHTML = '💾 Salvar';
+            modoEdicao = true;
+        } else {
+            // Sair do modo edição sem salvar
+            painel.classList.remove('visivel');
+            btnEditar.innerHTML = '✏️ Editar';
+            modoEdicao = false;
+        }
+    }
+
+    function salvarEdicao() {
+        if (!musicasCliente.length) return;
+        const m = musicasCliente[indiceAtual];
+        m.cifra = document.getElementById('editar-cifra').value;
+        m.ritmoPadrao = document.getElementById('editar-ritmo').value;
+        m.bpmPadrao = parseInt(document.getElementById('editar-bpm').value) || 100;
+        m.velocidadePadrao = parseFloat(document.getElementById('editar-velocidade').value) || 1.0;
+        m.compassoPadrao = document.getElementById('editar-compasso').value;
+        m.subdivisaoPadrao = document.getElementById('editar-subdivisao').value;
+        
+        localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
+        carregarMusica(indiceAtual); // recarrega a visualização com os novos valores
+        toggleEdicao(); // sai do modo edição
+        alert('✅ Música editada com sucesso!');
+    }
 
     function mostrarTelaLogin(){ document.getElementById('tela-login').style.display = 'flex'; }
     function fecharTelaLogin(){ document.getElementById('tela-login').style.display = 'none'; document.getElementById('erro-senha').style.display = 'none'; document.getElementById('campo-senha').value = ''; }
@@ -938,6 +1016,14 @@
         else{ btn.innerText='☆ Add Repertório'; btn.style.background='#2a2a3a'; btn.style.color='white'; }
         atualizarListaMusicas();
         atualizarFullscreen();
+        if (modoEdicao) {
+            document.getElementById('editar-cifra').value = m.cifra;
+            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
+            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
+            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
+            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
+            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
+        }
     }
 
     function proximaMusica(){ 
@@ -1055,6 +1141,7 @@
     window.proximaMusica=proximaMusica; window.alternarRepertorio=alternarRepertorio;
     window.ajustarTamanhoFonte=ajustarTamanhoFonte; window.abrirJanelaAcorde=abrirJanelaAcorde;
     window.fecharModal=fecharModal; window.toggleFullscreen=toggleFullscreen;
+    window.toggleEdicao=toggleEdicao; window.salvarEdicao=salvarEdicao;
 </script>
 
 <script>

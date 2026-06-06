@@ -498,7 +498,7 @@
                 </div>
                 <label style="display: flex; align-items: center; gap: 12px; margin-top: 16px;"><input type="checkbox" id="chk-esconder-acordes"> 🎤 Modo Letra Pura</label>
                 
-                <!-- Painel de edição -->
+                <!-- Painel de edição (agora com opções completas) -->
                 <div class="edicao-painel" id="edicao-painel">
                     <h4 style="margin-bottom: 12px;">✏️ Editar Música</h4>
                     <textarea id="editar-cifra" placeholder="Cifra..." rows="5" style="margin-bottom:8px;"></textarea>
@@ -507,28 +507,65 @@
                             <option value="Nenhum">🔇 Sem Bateria</option>
                             <option value="Metronomo">⏱️ Metrônomo</option>
                             <optgroup label="🎸 ROCK">
-                                <option value="Rock_1">Rock 1</option><option value="Rock_2">Rock 2</option><option value="Rock_3">Rock 3</option><option value="Rock_70s">Rock 4</option><option value="Rock_Grunge">Rock 5</option><option value="Rock_Punk">Rock 6</option>
+                                <option value="Rock_1">Rock 1 - Clássico Reto</option>
+                                <option value="Rock_2">Rock 2 - Heavy/Duplo</option>
+                                <option value="Rock_3">Rock 3 - Sincopado Groove</option>
+                                <option value="Rock_70s">Rock 4 - Classic 70s ⚡</option>
+                                <option value="Rock_Grunge">Rock 5 - Grunge/Alt 🎸</option>
+                                <option value="Rock_Punk">Rock 6 - Pop Punk/Hard 🧨</option>
                             </optgroup>
                             <optgroup label="🎵 POP">
-                                <option value="Pop_1">Pop 1</option><option value="Pop_2">Pop 2</option><option value="Pop_3">Pop 3</option><option value="Pop_90s">Pop 4</option><option value="Synthwave">Pop 5</option><option value="Disco_Groove">Pop 6</option><option value="Pop_Acoustic">Pop 7</option><option value="Pop_RnB">Pop 8</option>
+                                <option value="Pop_1">Pop 1 - Dance Pista</option>
+                                <option value="Pop_2">Pop 2 - Balada Lenta</option>
+                                <option value="Pop_3">Pop 3 - Funk Pop Groove</option>
+                                <option value="Pop_90s">Pop 4 - Rock Anos 90 📻</option>
+                                <option value="Synthwave">Pop 5 - Synthwave Drive 🌌</option>
+                                <option value="Disco_Groove">Pop 6 - Disco Dance Party 🕺</option>
+                                <option value="Pop_Acoustic">Pop 7 - Acústico/Leve ☕</option>
+                                <option value="Pop_RnB">Pop 8 - R&B Pop Groove 💎</option>
                             </optgroup>
                             <optgroup label="🇧🇷 SAMBA & PAGODE">
-                                <option value="Samba_1">Samba 1</option><option value="Samba_Roda">Samba 2</option><option value="Samba_Enredo">Samba 3</option><option value="Pagode_90s">Pagode 1</option><option value="Pagodao">Pagode 2</option>
+                                <option value="Samba_1">Samba 1 - Groove Geral 🥁</option>
+                                <option value="Samba_Roda">Samba 2 - Samba de Roda 👏</option>
+                                <option value="Samba_Enredo">Samba 3 - Enredo/Carnaval 🎊</option>
+                                <option value="Pagode_90s">Pagode 1 - Romântico 90s 🎤</option>
+                                <option value="Pagodao">Pagode 2 - Baiano/Axé 💥</option>
                             </optgroup>
                             <optgroup label="🤠 SERTANEJO">
-                                <option value="Sertanejo_1">Sertanejo 1</option><option value="Sertanejo_2">Sertanejo 2</option><option value="Sertanejo_3">Sertanejo 3</option><option value="Sertanejo_Univ">Sertanejo 4</option><option value="Piseiro">Sertanejo 5</option>
+                                <option value="Sertanejo_1">Sertanejo 1 - Arrocha</option>
+                                <option value="Sertanejo_2">Sertanejo 2 - Vanerão</option>
+                                <option value="Sertanejo_3">Sertanejo 3 - Modão Balada</option>
+                                <option value="Sertanejo_Univ">Sertanejo 4 - Universitário 🤠</option>
+                                <option value="Piseiro">Sertanejo 5 - Piseiro/Pisadinha 🔥</option>
                             </optgroup>
                             <optgroup label="🍁 REGGAE">
-                                <option value="Reggae_1">Reggae 1</option><option value="Reggae_2">Reggae 2</option><option value="Reggae_3">Reggae 3</option><option value="Dub_Roots">Reggae 4</option><option value="Reggaeton">Reggae 5</option>
+                                <option value="Reggae_1">Reggae 1 - One Drop</option>
+                                <option value="Reggae_2">Reggae 2 - Steppers (4x4)</option>
+                                <option value="Reggae_3">Reggae 3 - Jamaican Vibe</option>
+                                <option value="Dub_Roots">Reggae 4 - Dub Vibe Roots 🌬️</option>
+                                <option value="Reggaeton">Reggae 5 - Reggaeton Pop 🌴</option>
                             </optgroup>
                             <optgroup label="🎶 FORRÓ">
-                                <option value="Forro_Xote">Forró Xote</option><option value="Forro_ArrastaPe">Arrasta-pé</option><option value="Forro_Eletronico">Eletrônico</option>
+                                <option value="Forro_Xote">Forró - Xote Tradicional</option>
+                                <option value="Forro_ArrastaPe">Forró - Arrasta-pé</option>
+                                <option value="Forro_Eletronico">Forró - Eletrônico</option>
                             </optgroup>
                             <optgroup label="⛪ GOSPEL">
-                                <option value="Gospel_Adoracao">Adoração</option><option value="Gospel_Contemporaneo">Contemporâneo</option><option value="Gospel_Louvor">Louvor</option>
+                                <option value="Gospel_Adoracao">Gospel - Adoração Lenta</option>
+                                <option value="Gospel_Contemporaneo">Gospel - Contemporâneo</option>
+                                <option value="Gospel_Louvor">Gospel - Louvor</option>
+                            </optgroup>
+                            <optgroup label="🌎 INTERNACIONAIS">
+                                <option value="Internacional_Balada">Internacional - Pop Balada</option>
+                                <option value="Internacional_Rock">Internacional - Rock</option>
+                                <option value="Internacional_Latin">Internacional - Latin</option>
                             </optgroup>
                             <optgroup label="✨ OUTROS">
-                                <option value="Funk_Carioca">Funk</option><option value="Blues_Shuffle">Blues</option><option value="Trap_Beat">Trap</option><option value="MPB">MPB</option><option value="Eletronica">Eletrônica</option>
+                                <option value="Funk_Carioca">Funk Carioca (Tamborzão) 🔥</option>
+                                <option value="Blues_Shuffle">Blues/Jazz Shuffle 🎶</option>
+                                <option value="Trap_Beat">Trap/Hip-Hop Beat ⛓️</option>
+                                <option value="MPB">MPB - Música Popular Brasileira</option>
+                                <option value="Eletronica">Eletrônica - Dance</option>
                             </optgroup>
                         </select>
                         <input type="number" id="editar-bpm" placeholder="BPM" value="100" step="5">
@@ -672,6 +709,7 @@
     let audioCtx = null, nextBeatTime = 0, currentStep = 0, schedulerTimer = null;
     let tamanhoFonteAtual = 18;
     let isFullscreen = false;
+    let modoEdicao = false; // controla se o painel de edição está visível
 
     SENHAS_PREDEFINIDAS.forEach(senha => {
         if (!senhasUnicas[senha]) {
@@ -758,7 +796,16 @@
         }
     }
 
+    // Listener unificado para o botão voltar (fullscreen e edição)
     window.addEventListener('popstate', function(e) {
+        // Se o painel de edição estiver aberto, fecha e impede navegação
+        if (modoEdicao) {
+            fecharEdicao(false); // false = não navegar
+            e.preventDefault();
+            history.pushState({ edicaoAberta: false }, ''); // repõe estado para não quebrar histórico
+            return;
+        }
+        // Se tela cheia estiver ativa, fecha
         if (isFullscreen) {
             const overlay = document.getElementById('fullscreen-overlay');
             const btn = document.getElementById('btn-fullscreen');
@@ -767,26 +814,44 @@
             btn.innerHTML = '⛶';
             document.body.style.overflow = '';
             isFullscreen = false;
+            e.preventDefault();
         }
     });
 
-    // EDIÇÃO PELO CLIENTE
+    // EDIÇÃO PELO CLIENTE (com toggle e suporte a voltar)
     function abrirEdicao() {
         if (!musicasCliente.length) {
             alert('Nenhuma música selecionada.');
             return;
         }
-        const m = musicasCliente[indiceAtual];
-        document.getElementById('editar-cifra').value = m.cifra || '';
-        document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
-        document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
-        document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
-        document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
-        document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
-
         const painel = document.getElementById('edicao-painel');
-        painel.classList.add('visivel');
-        painel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        if (modoEdicao) {
+            // Fechar painel se já estiver aberto
+            fecharEdicao(true);
+        } else {
+            // Abrir painel e carregar dados
+            const m = musicasCliente[indiceAtual];
+            document.getElementById('editar-cifra').value = m.cifra || '';
+            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
+            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
+            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
+            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
+            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
+
+            painel.classList.add('visivel');
+            painel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            modoEdicao = true;
+            history.pushState({ edicaoAberta: true }, ''); // para capturar botão voltar
+        }
+    }
+
+    function fecharEdicao(navegar) {
+        document.getElementById('edicao-painel').classList.remove('visivel');
+        modoEdicao = false;
+        if (navegar) {
+            // Se foi fechado pelo botão, remove o estado do histórico
+            history.back();
+        }
     }
 
     function salvarEdicao() {
@@ -802,7 +867,7 @@
 
         localStorage.setItem('minhasCifras', JSON.stringify(musicasCliente));
         carregarMusica(indiceAtual);
-        document.getElementById('edicao-painel').classList.remove('visivel');
+        fecharEdicao(true); // fecha e remove estado do histórico
         alert('✅ Música editada e salva com sucesso!');
     }
 
@@ -1007,6 +1072,15 @@
         else{ btn.innerText='☆ Add Repertório'; btn.style.background='#2a2a3a'; btn.style.color='white'; }
         atualizarListaMusicas();
         atualizarFullscreen();
+        // Se o painel de edição estiver aberto, atualiza os campos
+        if (modoEdicao) {
+            document.getElementById('editar-cifra').value = m.cifra || '';
+            document.getElementById('editar-ritmo').value = m.ritmoPadrao || 'Nenhum';
+            document.getElementById('editar-bpm').value = m.bpmPadrao || 100;
+            document.getElementById('editar-velocidade').value = m.velocidadePadrao || 1.0;
+            document.getElementById('editar-compasso').value = m.compassoPadrao || '4/4';
+            document.getElementById('editar-subdivisao').value = m.subdivisaoPadrao || '1';
+        }
     }
 
     function proximaMusica(){ 
